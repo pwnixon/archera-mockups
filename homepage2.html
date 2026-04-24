@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Archera — Homepage 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+:root {
+  --ink:#0C0A30; --ink-2:#1F202C;
+  --violet:#7101FF; --violet-2:#8B01E8; --violet-soft:#F6F0FF;
+  --sky:#6DD8FC; --peach:#F89090; --mint:#38D9BF; --mint-2:#20A795;
+  --amber:#FFD080; --periwinkle:#A2B1FB; --crimson:#AD284B;
+  --slate-1:#090A1D; --slate-2:#1F202C; --slate-3:#444444;
+  --slate-4:#686870; --slate-5:#9D9DA2;
+  --line:#E2E2E5; --line-2:#F1F5F9;
+  --paper:#F6F5F4; --paper-warm:#FDFCFB;
+  --aws:#FF9900; --azure:#007FFF; --gcp:#34A853;
+  --ff-d:"Manrope",system-ui,sans-serif;
+  --ff-b:"Lexend",system-ui,sans-serif;
+  --ff-display:"Manrope",system-ui,sans-serif;
+  --ff-body:"Lexend",system-ui,sans-serif;
+  --radius-xs:6px; --radius-sm:10px; --radius:16px; --radius-lg:24px; --radius-xl:32px;
+  --shadow-sm:0 4px 14px -6px rgba(12,10,48,0.08);
+  --shadow-md:0 12px 32px -12px rgba(12,10,48,0.18);
+  --shadow-lg:0 32px 80px -24px rgba(12,10,48,0.28);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--ff-b);font-size:16px;line-height:1.6;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}
+h1,h2,h3,h4{font-family:var(--ff-d);font-weight:700;letter-spacing:-0.02em;margin:0;line-height:1.1;}
+p{margin:0;}
+
+/* ── Site nav ── */
+#site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;transition:background .3s ease;}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:72px;padding:0 40px;}
+.nav-logo img{height:28px;filter:brightness(0) invert(1);display:block;}
+.nav-links{display:flex;gap:26px;font-size:14px;font-family:var(--ff-d);font-weight:500;}
+.nav-links a{color:rgba(255,255,255,0.8);transition:color .15s;}
+.nav-links a:hover{color:#fff;}
+.nav-ctas{display:flex;gap:10px;}
+.nav-btn-login{display:inline-flex;align-items:center;padding:10px 18px;border-radius:999px;font-family:var(--ff-d);font-weight:600;font-size:14px;color:#fff;border:1px solid rgba(255,255,255,0.25);background:transparent;cursor:pointer;transition:all .2s;}
+.nav-btn-login:hover{border-color:#fff;background:rgba(255,255,255,0.07);}
+.nav-btn-start{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;font-family:var(--ff-d);font-weight:600;font-size:14px;color:#fff;background:var(--violet);border:none;cursor:pointer;transition:all .2s;}
+.nav-btn-start:hover{background:var(--violet-2);box-shadow:0 8px 24px -6px rgba(113,1,255,0.5);}
+.nav-hamburger{display:none;background:transparent;border:none;cursor:pointer;padding:8px;color:#fff;}
+.mobile-drawer{display:none;background:#161259;padding:20px 32px 28px;border-top:1px solid rgba(255,255,255,0.08);}
+.mobile-drawer.open{display:block;}
+.mobile-links{display:flex;flex-direction:column;gap:16px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:20px;margin-bottom:20px;}
+.mobile-links a{color:rgba(255,255,255,0.85);font-family:var(--ff-d);font-size:16px;font-weight:500;}
+.mobile-ctas{display:flex;gap:12px;flex-wrap:wrap;}
+@media(max-width:768px){.nav-links,.nav-ctas{display:none;}.nav-hamburger{display:block;}}
+
+/* ── Hero buttons ── */
+.hero-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border-radius:999px;font-family:var(--ff-d);font-weight:600;font-size:16px;border:1px solid transparent;cursor:pointer;transition:all .2s;white-space:nowrap;text-decoration:none;}
+.hero-btn-p{background:var(--violet);color:#fff;}
+.hero-btn-p:hover{background:var(--violet-2);box-shadow:0 12px 32px -8px rgba(113,1,255,0.6);}
+.hero-btn-o{background:transparent;color:#fff;border-color:rgba(255,255,255,0.25);}
+.hero-btn-o:hover{border-color:#fff;background:rgba(255,255,255,0.05);}
+.btn-arrow{width:18px;height:18px;border-radius:50%;background:currentColor;display:inline-grid;place-items:center;position:relative;}
+.btn-arrow::after{content:"";width:6px;height:6px;border-right:2px solid var(--ink);border-top:2px solid var(--ink);transform:rotate(45deg);margin-left:-2px;}
+.hero-btn-p .btn-arrow{background:#fff;}
+.hero-btn-p .btn-arrow::after{border-color:var(--violet);}
+@keyframes countUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── Shared buttons ── */
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--ff-d);font-weight:700;font-size:16px;padding:16px 30px;border-radius:999px;border:2px solid transparent;cursor:pointer;white-space:nowrap;transition:background .2s,border-color .2s,box-shadow .2s,transform .15s;text-decoration:none;}
+.btn:hover{transform:translateY(-1px);}
+.btn-violet{background:var(--violet);color:#fff;border-color:var(--violet);}
+.btn-violet:hover{background:var(--violet-2);border-color:var(--violet-2);box-shadow:0 10px 28px -8px rgba(113,1,255,0.55);}
+.btn-outline-ink{background:transparent;color:var(--ink);border-color:rgba(12,10,48,0.28);}
+.btn-outline-ink:hover{border-color:var(--ink);background:rgba(12,10,48,0.04);}
+
+/* ── DeRisk section shared ── */
+.providers-section{padding:120px 0;position:relative;}
+.providers-section .container{max-width:1240px;margin:0 auto;padding:0 32px;}
+.compare-kicker{font-family:var(--ff-display);font-weight:700;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--violet);display:inline-block;margin-bottom:20px;}
+.pill{font-family:var(--ff-display);font-size:12px;font-weight:600;padding:6px 10px;border-radius:999px;background:var(--paper);color:var(--slate-3);white-space:nowrap;}
+.pill-beta{background:var(--amber);color:var(--ink);}
+.link-arrow{font-family:var(--ff-display);font-weight:600;font-size:14px;display:inline-flex;gap:6px;align-items:center;color:var(--slate-3);}
+
+/* ── DeRisk Variant D (light tabbed) ── */
+.providers-section.vD{background:var(--paper);}
+.vD .provider-head{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:56px;}
+.vD .provider-head p{color:var(--slate-3);font-size:17px;max-width:480px;}
+.vD h2{font-size:clamp(32px,3.6vw,48px);letter-spacing:-0.025em;}
+.vD .shell{display:grid;grid-template-columns:320px 1fr;gap:32px;}
+.vD .tabs{display:flex;flex-direction:column;gap:8px;}
+.vD .tab{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:var(--radius-sm);background:transparent;border:1px solid transparent;cursor:pointer;text-align:left;font-family:var(--ff-b);width:100%;transition:background .15s,border-color .15s;}
+.vD .tab[aria-selected="true"]{background:#fff;border-color:var(--line);box-shadow:0 2px 8px rgba(12,10,48,0.07);}
+.vD .tab .logo{width:40px;height:40px;border-radius:var(--radius-xs);display:grid;place-items:center;background:var(--line);flex-shrink:0;transition:background .15s;overflow:hidden;}
+.vD .tab[aria-selected="true"] .logo{background:var(--paper);}
+.vD .tab .logo img{max-width:28px;max-height:26px;width:auto;height:auto;object-fit:contain;}
+.vD .tab[data-cloud="aws"] .logo img{max-height:22px;}
+.vD .tab[data-cloud="azure"] .logo img{max-width:32px;max-height:28px;}
+.vD .tab[data-cloud="gcp"] .logo img{max-width:36px;max-height:24px;}
+.vD .tab .title{font-family:var(--ff-display);font-weight:700;font-size:16px;letter-spacing:-0.01em;}
+.vD .tab .sub{font-size:12px;color:var(--slate-4);margin-top:2px;}
+.vD .tab .pill{font-size:10px;padding:4px 8px;}
+.vD .tab[aria-selected="true"][data-cloud="gcp"] .pill.beta{background:var(--gcp);color:#fff;}
+.vD .panel{background:#fff;color:var(--ink);border-radius:18px;padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:32px;min-height:380px;border:1px solid var(--line);}
+.vD .panel-info h3{font-size:26px;letter-spacing:-0.02em;margin-bottom:14px;}
+.vD .panel-info p.lede{color:var(--slate-3);font-size:15px;line-height:1.55;margin-bottom:24px;}
+.vD .panel-info .commit-block{border-top:1px solid var(--line);padding-top:20px;}
+.vD .panel-info .commit-block .label{font-family:var(--ff-display);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--slate-5);margin-bottom:12px;}
+.vD .panel-info ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;margin-bottom:24px;}
+.vD .panel-info li{display:grid;grid-template-columns:14px 1fr;gap:10px;font-size:14px;color:var(--slate-3);line-height:1.45;}
+.vD .panel-info li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--violet);margin-top:8px;margin-left:4px;}
+.vD .panel-info li b{color:var(--ink);font-weight:600;}
+.vD .viz-stack{display:flex;flex-direction:column;gap:8px;justify-content:center;}
+.vD .viz-card{background:var(--ink);border-radius:14px;padding:18px 20px;color:#fff;position:relative;}
+.vD .viz-card .tag{position:absolute;top:-10px;left:18px;padding:6px 10px;border-radius:6px;font-family:var(--ff-display);font-weight:700;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink);}
+.vD .viz-card.before .tag{background:var(--peach);}
+.vD .viz-card.after .tag{background:var(--mint);}
+.vD .viz-card .val{font-family:var(--ff-display);font-weight:700;font-size:22px;letter-spacing:-0.01em;margin:6px 0 12px;}
+.vD .viz-card .sub{font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:4px;}
+.vD .viz-bars{display:flex;align-items:flex-end;gap:6px;height:52px;}
+.vD .viz-bars .b{flex:1;border-radius:4px;}
+.vD .viz-card.before .b{background:var(--peach);opacity:0.9;}
+.vD .viz-card.before .b:nth-child(even){background:var(--amber);}
+#vD-panel[data-cloud="aws"] .viz-card.after .b{background:var(--aws);}
+#vD-panel[data-cloud="azure"] .viz-card.after .b{background:var(--azure);}
+#vD-panel[data-cloud="gcp"] .viz-card.after .b{background:var(--gcp);}
+.vD .viz-card.after .b{background:var(--aws);}
+.vD .viz-card.after .b:nth-child(even){opacity:0.8;}
+.vD .savings-bridge{display:flex;justify-content:center;align-items:center;position:relative;z-index:2;margin:-2px 0;}
+.vD .savings-pct{background:var(--violet);color:#fff;font-family:var(--ff-display);font-size:12px;font-weight:800;padding:5px 14px;border-radius:999px;box-shadow:0 4px 14px rgba(12,10,48,0.12);letter-spacing:0.02em;}
+.vD .arrow-link{color:var(--violet);font-family:var(--ff-display);font-weight:600;font-size:14px;display:inline-flex;gap:6px;align-items:center;}
+@media(max-width:960px){.vD .shell{grid-template-columns:1fr;}.vD .panel{grid-template-columns:1fr;}.vD .provider-head{grid-template-columns:1fr;gap:16px;}}
+
+/* ── Practitioner Variant D (prefixed .cp-d) ── */
+.cp-d{background:radial-gradient(ellipse 900px 640px at 8% 130%,rgba(248,144,144,0.20) 0%,transparent 62%),radial-gradient(ellipse 680px 500px at 96% -10%,rgba(162,177,251,0.11) 0%,transparent 58%),linear-gradient(148deg,#100d28 0%,#1d0e3a 45%,#1a0c2e 100%);padding:80px 100px;position:relative;overflow:hidden;}
+.cp-d-head{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end;margin-bottom:64px;}
+.cp-d-kicker{font-family:var(--ff-d);font-weight:700;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:var(--peach);margin-bottom:16px;}
+.cp-d h2{font-size:clamp(32px,3.2vw,46px);color:#fff;max-width:640px;}
+.cp-d-head-sub{font-size:16px;line-height:1.55;color:rgba(255,255,255,0.55);max-width:320px;text-align:right;padding-bottom:4px;}
+.cp-d-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,0.85);border-radius:20px;overflow:hidden;}
+.cp-d-pillar{background:var(--paper-warm);padding:40px 36px 44px;display:flex;flex-direction:column;gap:0;transition:background .2s;}
+.cp-d-pillar:hover{background:#fff;}
+.cp-d-pillar-num{font-family:var(--ff-d);font-weight:800;font-size:13px;color:var(--slate-5);letter-spacing:0.08em;margin-bottom:20px;}
+.cp-d-pillar-label{font-family:var(--ff-d);font-weight:700;font-size:20px;color:var(--ink);margin-bottom:10px;}
+.cp-d-pillar-desc{font-size:14px;line-height:1.6;color:var(--slate-4);margin-bottom:36px;flex:1;}
+.cp-d-pillar-badges{display:flex;align-items:center;flex-wrap:wrap;gap:14px;}
+.cp-d-pillar-badges img{height:64px;width:auto;object-fit:contain;opacity:0.9;transition:opacity .2s,transform .2s;}
+.cp-d-pillar-badges img:hover{opacity:1;transform:scale(1.04);}
+.cp-d-pillar::before{content:"";display:block;height:3px;border-radius:999px;margin-bottom:28px;}
+.cp-d-pillar:nth-child(1)::before{background:#FF492C;}
+.cp-d-pillar:nth-child(2)::before{background:var(--violet);}
+.cp-d-pillar:nth-child(3)::before{background:var(--mint-2);}
+img[alt="Microsoft Partner"]{max-height:40px!important;}
+img[alt="FinOps FOCUS"],img[alt="FinOps Focus"]{height:80px!important;}
+
+/* ── Schedule Demo Variant C (prefixed .sd-c) ── */
+.sd-c{display:grid;grid-template-columns:56% 44%;height:640px;overflow:hidden;}
+.sd-c-left{position:relative;overflow:hidden;background:linear-gradient(148deg,#6B4CFF 0%,#A542DD 35%,#C258C6 60%,#D766B5 82%,#E89A9A 100%);display:flex;flex-direction:column;justify-content:center;padding:72px 80px;}
+.sd-c-left::before{content:"";position:absolute;top:-30%;right:-25%;width:800px;height:800px;border-radius:50%;background:rgba(12,10,48,0.22);pointer-events:none;}
+.sd-c-left::after{content:"";position:absolute;bottom:-60%;left:-20%;width:600px;height:600px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;}
+.sd-c-left-content{position:relative;z-index:2;}
+.sd-c-kicker{font-family:var(--ff-d);font-weight:700;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:18px;}
+.sd-c h2{font-size:clamp(38px,3.8vw,56px);color:#fff;max-width:480px;text-wrap:balance;}
+.sd-c .body{margin-top:18px;font-size:17px;line-height:1.58;color:rgba(255,255,255,0.72);max-width:400px;text-wrap:pretty;}
+.sd-c-right{background:#fff;display:flex;flex-direction:column;justify-content:center;padding:72px 68px 72px 60px;}
+.sd-c-right-eyebrow{font-family:var(--ff-d);font-size:22px;font-weight:700;letter-spacing:-0.015em;color:var(--ink);margin-bottom:28px;line-height:1.2;}
+.sd-c-cta-stack{display:flex;flex-direction:column;gap:12px;}
+.sd-c-cta-stack .btn{justify-content:center;}
+.sd-c-divider{display:flex;align-items:center;gap:12px;margin:22px 0;font-family:var(--ff-d);font-size:12px;color:var(--slate-5);font-weight:500;}
+.sd-c-divider::before,.sd-c-divider::after{content:"";flex:1;height:1px;background:var(--line);}
+.sd-c-checklist{display:flex;flex-direction:column;gap:16px;margin-top:4px;}
+.sd-c-check-item{display:flex;align-items:flex-start;gap:14px;font-family:var(--ff-d);font-size:16px;color:var(--slate-3);line-height:1.4;}
+.sd-c-check-icon{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--violet-soft);color:var(--violet);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;margin-top:1px;}
+
+/* ── Footer ── */
+.site-footer{background:var(--slate-1);color:rgba(255,255,255,0.75);padding:72px 0 36px;font-size:14px;font-family:var(--ff-body);}
+.site-footer .container{max-width:1200px;margin:0 auto;padding:0 40px;}
+.foot-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:64px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.foot-brand .foot-logo{display:block;margin-bottom:20px;}
+.foot-brand .foot-logo img{height:28px;width:auto;display:block;filter:brightness(0) invert(1);}
+.foot-brand p{max-width:300px;color:rgba(255,255,255,0.50);line-height:1.7;}
+.foot-soc{margin-top:28px;display:flex;gap:10px;}
+.foot-soc a{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.07);display:grid;place-items:center;transition:background .15s;}
+.foot-soc a:hover{background:rgba(255,255,255,0.14);}
+.foot-soc img{width:22px;height:22px;filter:brightness(0) invert(1);opacity:0.7;}
+.foot-soc a:hover img{opacity:1;}
+.foot-col h4{font-family:var(--ff-display);font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.40);margin-bottom:20px;}
+.foot-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:13px;}
+.foot-col a{color:rgba(255,255,255,0.65);font-size:14px;}
+.foot-col a:hover{color:#fff;}
+.foot-cert{padding:36px 0 32px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:32px;flex-wrap:wrap;}
+.foot-cert-label{font-family:var(--ff-display);font-weight:700;font-size:10px;letter-spacing:0.20em;text-transform:uppercase;color:rgba(255,255,255,0.30);padding-top:4px;flex-shrink:0;min-width:88px;}
+.foot-aws-group{display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;}
+.foot-aws-group img,.foot-compliance img{height:64px;width:auto;display:block;}
+.foot-cert-divider{width:1px;align-self:stretch;background:rgba(255,255,255,0.08);flex-shrink:0;}
+.foot-compliance{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.foot-legal{padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;color:rgba(255,255,255,0.35);font-size:12px;}
+.foot-legal-links{display:flex;gap:0;}
+.foot-legal a{color:rgba(255,255,255,0.45);margin-left:24px;transition:color .15s;}
+.foot-legal a:hover{color:#fff;}
+@media(max-width:900px){.foot-top{grid-template-columns:1fr 1fr;gap:40px;}.foot-brand{grid-column:1/-1;}.foot-cert-divider{display:none;}}
+@media(max-width:600px){.foot-top{grid-template-columns:1fr;}.foot-cert{flex-direction:column;gap:24px;}.foot-legal{flex-direction:column;align-items:flex-start;}.foot-legal-links a:first-child{margin-left:0;}}
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+<div id="root"></div>
+
+<script type="text/babel">
+
+/* ═══════════════════════════════════════════
+   SITE NAV
+═══════════════════════════════════════════ */
+function SiteNav(){
+  const [scrolled, setScrolled] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+  React.useEffect(()=>{
+    const h = ()=> setScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', h, {passive:true});
+    h();
+    return ()=> window.removeEventListener('scroll', h);
+  },[]);
+  const bg = scrolled ? '#161259' : 'transparent';
+  const links = ['Products','Solutions','Pricing','Partners','Company'];
+  return (
+    <div style={{background: bg, transition:'background .3s ease', position:'fixed', top:0, left:0, right:0, zIndex:1000}}>
+      <div className="nav-inner">
+        <a href="#" className="nav-logo" aria-label="Archera">
+          <img src="assets/brand/archera-horizontal.svg" alt="Archera"/>
+        </a>
+        <nav className="nav-links">
+          {links.map(l=><a href="#" key={l}>{l}</a>)}
+        </nav>
+        <div className="nav-ctas">
+          <a href="#" className="nav-btn-login">Login</a>
+          <a href="#" className="nav-btn-start">Start free</a>
+        </div>
+        <button className="nav-hamburger" aria-label="Toggle menu" onClick={()=>setOpen(o=>!o)}>
+          {open ? (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          ) : (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+              <path d="M3 7h18M3 12h18M3 17h18"/>
+            </svg>
+          )}
+        </button>
+      </div>
+      {open && (
+        <div className="mobile-drawer open">
+          <div className="mobile-links">
+            {links.map(l=><a href="#" key={l}>{l}</a>)}
+          </div>
+          <div className="mobile-ctas">
+            <a href="#" className="nav-btn-login">Login</a>
+            <a href="#" className="nav-btn-start">Start free</a>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════
+   HERO — Variant B
+═══════════════════════════════════════════ */
+function HeroStatsRow(){
+  const stats = [
+    {n:'$4B',   sub:'/yr',  eyebrow:'UNDER MANAGEMENT', l:'in cloud commitments across AWS, Azure & Google Cloud'},
+    {n:'$0',    sub:'',     eyebrow:'PLATFORM FEE',      l:'flat pricing, forever — we never take a cut of your savings'},
+    {n:'SOC 2', sub:'II',   eyebrow:'CERTIFIED',         l:'& ISO 27001:2022 — independently audited'},
+    {n:'30',    sub:'-day', eyebrow:'MINIMUM TERM',      l:'minimum commitment — no multi-year lock-in required'},
+    {n:'20–30', sub:'%',    eyebrow:'COST REDUCTION',    l:'typical cloud cost reduction for Archera customers'},
+  ];
+  return (
+    <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:0,borderTop:'1px solid rgba(255,255,255,0.14)',paddingTop:32}}>
+      {stats.map((s,i)=>(
+        <div key={i} style={{paddingRight:22,borderRight:i<4?'1px solid rgba(255,255,255,0.1)':'none',paddingLeft:i>0?22:0,minWidth:0,animation:`countUp 0.8s ease-out ${0.12*i+0.4}s both`}}>
+          <div style={{fontFamily:'var(--ff-d)',fontSize:9.5,fontWeight:700,letterSpacing:'0.16em',color:'var(--amber)',marginBottom:12}}>{s.eyebrow}</div>
+          <div style={{display:'flex',alignItems:'baseline',gap:3,whiteSpace:'nowrap'}}>
+            <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:44,letterSpacing:'-0.03em',color:'#fff',lineHeight:0.95}}>{s.n}</span>
+            {s.sub && <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:18,color:'var(--sky)',letterSpacing:'-0.015em'}}>{s.sub}</span>}
+          </div>
+          <div style={{fontSize:12.5,color:'rgba(255,255,255,0.6)',marginTop:12,fontFamily:'var(--ff-b)',lineHeight:1.45,maxWidth:200}}>{s.l}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function HeroSectionB(){
+  return (
+    <div style={{position:'relative',height:'100vh',overflow:'hidden',color:'#fff',
+      background:'linear-gradient(105deg,#5032AC 0%,#7148D8 18%,#8E6FE6 35%,#9B8AEB 52%,#B5A8EF 68%,#D8A8D0 85%,#E89FB4 100%)'}}>
+      <div style={{position:'absolute',left:'50%',top:100,width:4200,height:4200,borderRadius:'50%',background:'#1A1E4D',transform:'translate(-50%,0)',zIndex:1}}/>
+      <div style={{position:'absolute',top:220,left:0,right:0,zIndex:5,textAlign:'center',padding:'0 40px'}}>
+        <h1 style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:96,letterSpacing:'-0.045em',lineHeight:0.98,margin:0,color:'#fff'}}>
+          Stop <span style={{color:'var(--peach)',textDecoration:'line-through',textDecorationThickness:'4px',textDecorationColor:'var(--peach)'}}>overspending.</span><br/>
+          Start <span style={{color:'var(--mint-2)'}}>saving.</span>
+        </h1>
+        <p style={{fontSize:20,color:'rgba(255,255,255,0.72)',marginTop:28,maxWidth:600,lineHeight:1.55,margin:'28px auto 0',textWrap:'pretty'}}>
+          Cloud commitments can save you up to 72% — if you use them. Archera insures the downside so you can{' '}
+          <b style={{color:'#fff',fontWeight:600}}>commit aggressively, without the risk</b>.
+        </p>
+        <div style={{display:'flex',gap:12,marginTop:36,flexWrap:'wrap',justifyContent:'center'}}>
+          <a href="#" className="hero-btn hero-btn-p">Schedule your demo <span className="btn-arrow"/></a>
+          <a href="#" className="hero-btn hero-btn-o">Start now — it's free</a>
+        </div>
+      </div>
+      <div style={{position:'absolute',bottom:56,left:80,right:80,zIndex:5}}>
+        <HeroStatsRow/>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════
+   PROBLEM-FIX — Variant C (scrollytelling)
+═══════════════════════════════════════════ */
+function SectionHead({kicker='The commitment trap',kickerTone='violet',title,body,align='left',titleSize=52,dark=false,maxWidth=860}){
+  const ta=align==='center'?'center':'left';
+  const mx=align==='center'?'auto':'0';
+  const kickColor=kickerTone==='sky'?'var(--sky)':kickerTone==='amber'?'var(--amber)':kickerTone==='crimson'?'var(--crimson)':dark?'var(--sky)':'var(--violet)';
+  return(
+    <div style={{textAlign:ta,maxWidth,marginLeft:mx,marginRight:mx}}>
+      <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:13,letterSpacing:'0.16em',textTransform:'uppercase',color:kickColor,display:'inline-block'}}>{kicker}</span>
+      <h2 style={{fontSize:titleSize,letterSpacing:'-0.025em',lineHeight:1.05,marginTop:20,color:dark?'#fff':'var(--ink)',textWrap:'balance'}}>{title}</h2>
+      <p style={{marginTop:22,fontSize:18,lineHeight:1.55,maxWidth:640,marginLeft:align==='center'?'auto':0,marginRight:align==='center'?'auto':0,color:dark?'rgba(255,255,255,0.72)':'var(--slate-3)',textWrap:'pretty'}}>{body}</p>
+    </div>
+  );
+}
+
+const WORKLOADS=[{name:'EC2',bg:'#FF8A3D'},{name:'RDS',bg:'#24A148'},{name:'OpenSearch',bg:'#7101FF'}];
+const PAL={year3:'#FFC83D',year1:'#6DD8FC',ondemand:'#E8EAEE',insured:'#7101FF'};
+const WITHOUT_STACKS=[[18,34,48],[12,28,60],[10,15,75]];
+const WITH_STACKS=[[10,15,72,3],[13,12,70,5],[10,13,71,6]];
+const WITHOUT_COVERED=['52%','40%','25%'];
+const WITH_COVERED=['97%','95%','94%'];
+const TRAP_STACKS=[[5,13,10,24,48],[3,9,7,21,60],[2,8,4,11,75]];
+const TRAP_COVERED=['15%','10%','6%'];
+
+function WorkloadIcon({name,size=28}){
+  const common={width:size,height:size,borderRadius:8,display:'inline-grid',placeItems:'center',color:'#fff'};
+  if(name==='EC2') return <span style={{...common,background:'#FF8A3D'}}><svg width={size*0.55} height={size*0.55} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg></span>;
+  if(name==='RDS') return <span style={{...common,background:'#24A148'}}><svg width={size*0.55} height={size*0.55} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg></span>;
+  return <span style={{...common,background:'#7101FF'}}><svg width={size*0.55} height={size*0.55} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="10" cy="10" r="6"/><path d="M15 15l5 5"/></svg></span>;
+}
+
+function Seg({height,color,hatched,glow,wasted}){
+  return(
+    <div style={{height:`${height}%`,width:'100%',background:hatched?`repeating-linear-gradient(45deg,${color} 0px,${color} 4px,rgba(255,255,255,0.55) 4px,rgba(255,255,255,0.55) 8px)`:color,transition:'height .7s cubic-bezier(.4,0,.2,1)',position:'relative',boxShadow:glow&&height>5?'0 0 20px rgba(113,1,255,0.45),inset 0 0 0 1px rgba(255,255,255,0.12)':'none'}}>
+      {wasted&&height>10&&<div style={{position:'absolute',inset:0,display:'grid',placeItems:'center',fontFamily:'var(--ff-d)',fontSize:9,fontWeight:800,letterSpacing:'0.14em',color:'#fff',textTransform:'uppercase',pointerEvents:'none',textShadow:'0 1px 2px rgba(0,0,0,0.3)'}}>UNUSED</div>}
+    </div>
+  );
+}
+
+function ChartHeader({variant,onDark=false}){
+  const isWith=variant==='with';
+  return(
+    <div style={{padding:'18px 22px',background:isWith?'var(--violet)':(onDark?'rgba(255,255,255,0.06)':'var(--paper)'),borderBottom:isWith?'none':(onDark?'1px solid rgba(255,255,255,0.08)':'1px solid var(--line)'),borderRadius:isWith?'var(--radius) var(--radius) 0 0':0}}>
+      <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:18,letterSpacing:'-0.015em',color:isWith?'#fff':(onDark?'#fff':'var(--ink)')}}>{isWith?'With Archera':'Without Archera'}</div>
+    </div>
+  );
+}
+
+function ChartLegend({variant,onDark,trap}){
+  const items=variant==='with'
+    ?[{c:PAL.year3,l:'3-year: 57% off'},{c:PAL.year1,l:'1-year: 27% off'},{c:PAL.insured,l:'30-day commit: 30% off'}]
+    :trap
+      ?[{c:PAL.year3,l:'3-year (utilized)'},{c:PAL.year1,l:'1-year (utilized)'},{c:'#AD284B',l:'Committed but unused',hatched:true},{c:onDark?'rgba(255,255,255,0.2)':PAL.ondemand,l:'On-demand (new drift)'}]
+      :[{c:PAL.year3,l:'3-year: 57% off'},{c:PAL.year1,l:'1-year: 27% off'},{c:onDark?'rgba(255,255,255,0.2)':PAL.ondemand,l:'On-demand: 0% off'}];
+  return(
+    <div style={{display:'flex',gap:20,flexWrap:'wrap',padding:'14px 22px 0',fontFamily:'var(--ff-b)',fontSize:12,color:onDark?'rgba(255,255,255,0.7)':'var(--slate-4)'}}>
+      {items.map((x,i)=>(
+        <div key={i} style={{display:'inline-flex',alignItems:'center',gap:8}}>
+          <span style={{width:12,height:12,borderRadius:'50%',background:x.hatched?`repeating-linear-gradient(45deg,${x.c} 0,${x.c} 2px,rgba(255,255,255,0.6) 2px,rgba(255,255,255,0.6) 4px)`:x.c,display:'inline-block'}}/>
+          {x.l}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function CoverageChart({variant='without',onDark=false,compact=false,embedded=false,trap=false}){
+  const useTrap=trap&&variant!=='with';
+  const stacks=variant==='with'?WITH_STACKS:(useTrap?TRAP_STACKS:WITHOUT_STACKS);
+  const covered=variant==='with'?WITH_COVERED:(useTrap?TRAP_COVERED:WITHOUT_COVERED);
+  const chartH=compact?200:260;
+  const accent=variant==='with'?'var(--violet)':(useTrap?'var(--crimson)':(onDark?'#fff':'var(--ink)'));
+  const gridColor=onDark?'rgba(255,255,255,0.08)':'rgba(12,10,48,0.08)';
+  const axisColor=onDark?'rgba(255,255,255,0.4)':'var(--slate-5)';
+  const content=(
+    <>
+      {!embedded&&<ChartHeader variant={variant} onDark={onDark}/>}
+      <ChartLegend variant={variant} onDark={onDark} trap={useTrap}/>
+      <div style={{padding:'18px 22px 22px'}}>
+        <div style={{position:'relative',height:chartH,display:'grid',gridTemplateColumns:'38px 1fr 1fr 1fr',gap:14,alignItems:'end'}}>
+          <div style={{position:'relative',height:'100%'}}>
+            {[0,25,50,75,100].map(v=><div key={v} style={{position:'absolute',right:2,bottom:`${v}%`,transform:'translateY(50%)',fontSize:11,color:axisColor,fontFamily:'var(--ff-d)',fontWeight:500}}>{v}%</div>)}
+          </div>
+          {WORKLOADS.map((w,wi)=>{
+            const stack=stacks[wi];
+            return(
+              <div key={w.name} style={{position:'relative',height:'100%'}}>
+                {[0,25,50,75,100].map(v=><div key={v} style={{position:'absolute',left:-14,right:0,bottom:`${v}%`,height:1,borderTop:`1px dashed ${gridColor}`}}/>)}
+                <div style={{position:'absolute',bottom:0,left:'50%',transform:'translateX(-50%)',width:'65%',height:'100%',display:'flex',flexDirection:'column-reverse',borderRadius:'6px 6px 0 0',overflow:'hidden'}}>
+                  {variant==='with'?(<><Seg height={stack[0]} color={PAL.year3}/><Seg height={stack[1]} color={PAL.year1}/><Seg height={stack[2]} color={PAL.insured} glow/><Seg height={stack[3]} color={onDark?'rgba(255,255,255,0.14)':PAL.ondemand}/></>)
+                  :useTrap?(<><Seg height={stack[0]} color={PAL.year3}/><Seg height={stack[1]} color="#AD284B" hatched wasted={wi===0&&stack[1]>=13}/><Seg height={stack[2]} color={PAL.year1}/><Seg height={stack[3]} color="#AD284B" hatched wasted={wi===1&&stack[3]>=18}/><Seg height={stack[4]} color={onDark?'rgba(255,255,255,0.14)':PAL.ondemand}/></>)
+                  :(<><Seg height={stack[0]} color={PAL.year3}/><Seg height={stack[1]} color={PAL.year1}/><Seg height={stack[2]} color={onDark?'rgba(255,255,255,0.14)':PAL.ondemand}/></>)}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div style={{display:'grid',gridTemplateColumns:'38px 1fr 1fr 1fr',gap:14,marginTop:18}}>
+          <div/>
+          {WORKLOADS.map((w,wi)=>(
+            <div key={w.name} style={{textAlign:'center'}}>
+              <div style={{display:'inline-flex',alignItems:'center',gap:8,fontFamily:'var(--ff-d)',fontWeight:600,fontSize:14,color:onDark?'#fff':'var(--ink)',letterSpacing:'-0.01em'}}>
+                <WorkloadIcon name={w.name}/>{w.name}
+              </div>
+              <div style={{marginTop:6,fontFamily:'var(--ff-d)',fontWeight:700,fontSize:15,color:accent,letterSpacing:'-0.01em'}}>{covered[wi]} Covered</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+  if(embedded) return content;
+  return(
+    <div style={{background:onDark?'rgba(255,255,255,0.04)':'#fff',border:onDark?'1px solid rgba(255,255,255,0.1)':'1px solid var(--line)',borderRadius:'var(--radius)',overflow:'hidden',boxShadow:onDark?'none':'0 2px 6px rgba(12,10,48,0.04)'}}>
+      {content}
+    </div>
+  );
+}
+
+function ScrollytellingChart({step,variant,trap}){
+  const accents=['var(--amber)','var(--crimson)','var(--violet)'];
+  const headers=['Coverage today','What happens when usage drifts','With Archera — insured commitments'];
+  const notes=[
+    <>Across the average fleet, <b style={{color:'var(--ink)'}}>only ~39% of spend is under commitment.</b> The rest pays on-demand rates.</>,
+    <>When utilization slips, <b style={{color:'var(--crimson)'}}>the locked portion still bills.</b> Native RIs don't refund you for what you didn't use.</>,
+    <>Insured 30-day commits cover <b style={{color:'var(--ink)'}}>~95% of spend</b> on average — with Archera underwriting the downside.</>,
+  ];
+  return(
+    <div style={{background:'#fff',border:'1px solid var(--line)',borderRadius:'var(--radius-lg)',padding:0,boxShadow:'0 24px 60px -28px rgba(12,10,48,0.2)',overflow:'hidden'}}>
+      <div style={{padding:'22px 24px',borderBottom:'1px solid var(--line-2)',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+        <div>
+          <div style={{fontFamily:'var(--ff-d)',fontSize:11,fontWeight:700,letterSpacing:'0.18em',color:'var(--slate-5)'}}>SCENE {String(step+1).padStart(2,'0')} / 03</div>
+          <div style={{fontFamily:'var(--ff-d)',fontSize:20,fontWeight:700,letterSpacing:'-0.015em',marginTop:4,color:accents[step],transition:'color .4s'}}>{headers[step]}</div>
+        </div>
+        <div style={{display:'flex',gap:6}}>
+          {[0,1,2].map(i=>(
+            <div key={i} style={{width:step===i?22:8,height:8,borderRadius:999,background:step===i?accents[i]:'var(--line)',transition:'all .3s'}}/>
+          ))}
+        </div>
+      </div>
+      <CoverageChart variant={variant} trap={trap} embedded/>
+      <div style={{padding:'16px 24px 22px',display:'flex',gap:12,alignItems:'flex-start',borderTop:'1px solid var(--line-2)',background:'var(--paper)'}}>
+        <div style={{width:4,alignSelf:'stretch',borderRadius:2,background:accents[step],transition:'background .4s',minHeight:32}}/>
+        <div style={{fontSize:13.5,color:'var(--slate-3)',lineHeight:1.5,fontFamily:'var(--ff-b)'}}>{notes[step]}</div>
+      </div>
+    </div>
+  );
+}
+
+function PFVariantC(){
+  const [step,setStep]=React.useState(0);
+  const [chartTop,setChartTop]=React.useState(0);
+  const stepRefs=React.useRef([]);
+  const narrativeRef=React.useRef(null);
+  const chartColRef=React.useRef(null);
+
+  React.useEffect(()=>{
+    let raf=0;
+    const update=()=>{
+      raf=0;
+      const nc=narrativeRef.current;
+      const ch=chartColRef.current;
+      if(!nc||!ch) return;
+      const viewportMid=window.innerHeight*0.42;
+      let bestIdx=0,bestDist=Infinity;
+      stepRefs.current.forEach((el,i)=>{
+        if(!el) return;
+        const r=el.getBoundingClientRect();
+        const center=r.top+r.height/2;
+        const dist=Math.abs(center-viewportMid);
+        if(dist<bestDist){bestDist=dist;bestIdx=i;}
+      });
+      setStep(bestIdx);
+      const stepEl=stepRefs.current[bestIdx];
+      if(stepEl){
+        const ncr=nc.getBoundingClientRect();
+        const sr=stepEl.getBoundingClientRect();
+        const centerInContainer=(sr.top-ncr.top)+sr.height/2;
+        const chartH=ch.offsetHeight;
+        let y=centerInContainer-chartH/2;
+        y=Math.max(0,Math.min(nc.offsetHeight-chartH,y));
+        setChartTop(y);
+      }
+    };
+    const onScroll=()=>{if(!raf) raf=requestAnimationFrame(update);};
+    update();
+    window.addEventListener('scroll',onScroll,{passive:true});
+    window.addEventListener('resize',onScroll);
+    const rObs=new ResizeObserver(onScroll);
+    rObs.observe(document.body);
+    return()=>{
+      window.removeEventListener('scroll',onScroll);
+      window.removeEventListener('resize',onScroll);
+      rObs.disconnect();
+    };
+  },[]);
+
+  const steps=[
+    {kicker:'01 · THE STATUS QUO',title:<>Most spend isn't under commitment.</>,body:`Teams under-commit because they're afraid of the lock-in. Result: a majority of spend sits at on-demand rates, earning zero discount.`,tone:'amber'},
+    {kicker:'02 · THE TRAP',title:<>Commit long-term, and usage drifts away.</>,body:`The moment you take a 1- or 3-year commitment, you own the risk. Under-use it and the savings disappear — the bill shows up anyway.`,tone:'crimson'},
+    {kicker:'03 · THE FIX',title:<>We cover the downside. You commit aggressively.</>,body:`Archera sits between your workload and your commitments. Over-commit by design; if utilization slips, we pay the difference or release the term.`,tone:'violet'},
+  ];
+
+  const chartForStep=(i)=>i===2?'with':'without';
+  const trapForStep=(i)=>i===1;
+
+  return(
+    <div style={{width:'100%',background:'var(--paper-warm)',padding:'64px 80px 100px'}}>
+      <div style={{maxWidth:1280,margin:'0 auto'}}>
+        <SectionHead
+          kicker="The commitment trap — in three scenes"
+          title={<span style={{whiteSpace:'nowrap'}}>Cloud commitments save money.<br/>Until they don't.</span>}
+          body="Scroll through three scenes that show where the savings disappear — and how Archera puts them back on the table."
+          align="center"
+          maxWidth={820}
+          titleSize={46}
+        />
+        <div ref={narrativeRef} style={{position:'relative',display:'grid',gridTemplateColumns:'1fr 1.05fr',gap:72,marginTop:56,alignItems:'start'}}>
+          <div>
+            {steps.map((s,i)=>{
+              const toneColor=s.tone==='amber'?'var(--amber)':s.tone==='crimson'?'var(--crimson)':'var(--violet)';
+              const toneGlow=s.tone==='amber'?'rgba(255,208,128,0.28)':s.tone==='crimson'?'rgba(173,40,75,0.18)':'rgba(113,1,255,0.20)';
+              const toneTextOnFill=s.tone==='amber'?'var(--ink)':'#fff';
+              const active=step===i;
+              return(
+                <div key={i} ref={el=>stepRefs.current[i]=el} style={{padding:'72px 0 72px 56px',borderLeft:'1px solid var(--line)',position:'relative',transition:'opacity .3s',opacity:active?1:0.45,minHeight:320}}>
+                  <div style={{position:'absolute',left:-22,top:80,width:44,height:44,borderRadius:'50%',background:active?toneColor:'#fff',border:`1.5px solid ${active?toneColor:'var(--line)'}`,display:'grid',placeItems:'center',boxShadow:active?`0 0 0 6px ${toneGlow}, 0 8px 20px ${toneColor}44`:'0 1px 4px rgba(12,10,48,0.06)',transition:'all .4s ease'}}>
+                    <span style={{fontFamily:'var(--ff-d)',fontWeight:800,fontSize:15,letterSpacing:'-0.01em',color:active?toneTextOnFill:'var(--slate-4)',transition:'color .4s'}}>{String(i+1)}</span>
+                  </div>
+                  <div style={{fontFamily:'var(--ff-d)',fontSize:11,fontWeight:700,letterSpacing:'0.22em',color:active?toneColor:'var(--slate-5)',transition:'color .4s'}}>{s.kicker}</div>
+                  <h3 style={{fontSize:38,letterSpacing:'-0.025em',lineHeight:1.08,marginTop:14,color:'var(--ink)',textWrap:'balance'}}>{s.title}</h3>
+                  <p style={{marginTop:18,color:'var(--slate-3)',fontSize:17,lineHeight:1.55,maxWidth:440,textWrap:'pretty'}}>{s.body}</p>
+                </div>
+              );
+            })}
+          </div>
+          <div style={{position:'relative'}}>
+            <div ref={chartColRef} style={{position:'absolute',top:chartTop,left:0,right:0,transition:'top .5s cubic-bezier(.4,0,.2,1)'}}>
+              <ScrollytellingChart step={step} variant={chartForStep(step)} trap={trapForStep(step)}/>
+            </div>
+            <div style={{visibility:'hidden',pointerEvents:'none'}}>
+              <ScrollytellingChart step={0} variant="without"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════
+   HOW IT WORKS — Shared + Variant A
+═══════════════════════════════════════════ */
+const STEPS=[
+  {n:'01',title:'Find on-demand spend you could commit to',body:"Archera analyzes your cloud usage and surfaces the on-demand infrastructure that would save money under a commitment — workloads you're running at full rate today.",accent:'sky',kicker:'ANALYZE'},
+  {n:'02',title:'30-day and 1-year insured commitments',body:'Pick a Guaranteed Reserved Instance or Savings Plan on a 30-day or 1-year term. Each plan includes insurance — Archera covers any unused capacity so you always realize the savings.',accent:'violet',kicker:'PROTECT'},
+  {n:'03',title:'Commitments purchased inside your account',body:"Archera purchases the commitment directly in your cloud account. Your billing relationship stays with the cloud provider — you keep full control, we handle the optimization.",accent:'amber',kicker:'EXECUTE'},
+  {n:'04',title:'If savings go negative, Archera covers it',body:"When usage drops and a commitment's savings would turn negative, Archera's coverage picks up the difference. You only ever see positive savings on your bill.",accent:'mint',kicker:'ABSORB'},
+];
+const ACCENT_HEX={sky:'#6DD8FC',violet:'#7101FF',amber:'#FFD080',mint:'#38D9BF',crimson:'#AD284B'};
+
+function HowHead(){
+  return(
+    <div style={{maxWidth:800,position:'relative'}}>
+      <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:13,letterSpacing:'0.16em',textTransform:'uppercase',color:'var(--sky)'}}>How insured commitments work</span>
+      <h2 style={{fontSize:56,letterSpacing:'-0.025em',lineHeight:1.05,marginTop:18,color:'#fff',textWrap:'balance'}}>
+        Short-term commitments.<br/>Guaranteed savings.
+      </h2>
+      <p style={{marginTop:22,fontSize:18,lineHeight:1.55,maxWidth:600,color:'rgba(255,255,255,0.65)',textWrap:'pretty'}}>
+        Archera sits between your cloud usage and your commitments — insuring the downside, so the flexibility of 30-day and 1-year terms actually pays off.
+      </p>
+    </div>
+  );
+}
+
+function DarkStage({children,padTop=120,padBottom=120}){
+  return(
+    <div style={{width:'100%',background:'linear-gradient(180deg,#0C0A30 0%,#1A1352 100%)',color:'#fff',padding:`${padTop}px 96px ${padBottom}px`,position:'relative',overflow:'hidden'}}>
+      <div style={{position:'absolute',inset:0,pointerEvents:'none',background:`radial-gradient(40% 40% at 90% 0%, rgba(113,1,255,0.32), transparent 70%), radial-gradient(40% 40% at 0% 100%, rgba(109,216,252,0.18), transparent 70%)`}}/>
+      <div style={{position:'relative',maxWidth:1280,margin:'0 auto'}}>{children}</div>
+    </div>
+  );
+}
+
+function IllusAnalyze(){
+  const cols=7,rows=4,tileW=64,tileH=44,gapX=10,gapY=12,startX=40,startY=80;
+  const candidates=new Set(['1-2','2-4','0-5','2-1','3-3','1-6','3-0']);
+  const glyphs=['EC2','RDS','EKS','EC2','S3','EC2','RDS','EKS','EC2','EC2','RDS','EC2','EC2','EKS','LAM','EC2','EC2','EKS','RDS','EC2','EC2','S3','EC2','EKS','EC2','RDS','EC2','EC2'];
+  const tiles=[];let g=0;
+  for(let r=0;r<rows;r++){for(let c=0;c<cols;c++){const key=`${r}-${c}`;const isCand=candidates.has(key);tiles.push({key,x:startX+c*(tileW+gapX),y:startY+r*(tileH+gapY),isCand,label:glyphs[g++%glyphs.length]});}}
+  return(
+    <svg viewBox="0 0 560 360" style={{width:'100%',display:'block'}}>
+      <defs><linearGradient id="a-cand" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stopColor="#6DD8FC" stopOpacity="0.9"/><stop offset="100%" stopColor="#A2B1FB" stopOpacity="0.7"/></linearGradient></defs>
+      <g fontFamily="Manrope" fontWeight="700" letterSpacing="2" fontSize="10">
+        <rect x="40" y="36" width="112" height="22" rx="11" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)"/>
+        <circle cx="52" cy="47" r="3.5" fill="#F89090"/><text x="62" y="51" fill="#fff" opacity="0.75">ON-DEMAND</text>
+        <rect x="160" y="36" width="128" height="22" rx="11" fill="rgba(109,216,252,0.1)" stroke="#6DD8FC" strokeOpacity="0.5"/>
+        <circle cx="172" cy="47" r="3.5" fill="#6DD8FC"/><text x="182" y="51" fill="#6DD8FC">CANDIDATES</text>
+      </g>
+      <g fontFamily="Manrope" textAnchor="end">
+        <text x="520" y="45" fontSize="11" letterSpacing="2" fontWeight="700" fill="#6DD8FC" opacity="0.8">IDENTIFIED</text>
+        <text x="520" y="68" fontSize="22" fontWeight="800" fill="#fff" letterSpacing="-1">7 resources</text>
+      </g>
+      {tiles.map(t=>(
+        <g key={t.key}>
+          <rect x={t.x} y={t.y} width={tileW} height={tileH} rx="6" fill={t.isCand?'url(#a-cand)':'rgba(255,255,255,0.04)'} stroke={t.isCand?'#6DD8FC':'rgba(255,255,255,0.1)'} strokeWidth={t.isCand?1.5:1}/>
+          <text x={t.x+tileW/2} y={t.y+tileH/2+4} textAnchor="middle" fontFamily="Manrope" fontWeight="700" fontSize="11" fill={t.isCand?'#0C0A30':'rgba(255,255,255,0.45)'} letterSpacing="1">{t.label}</text>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+function IllusProtect(){
+  return(
+    <svg viewBox="0 0 560 360" style={{width:'100%',display:'block'}}>
+      <defs>
+        <linearGradient id="p-dome" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stopColor="#7101FF" stopOpacity="0.55"/><stop offset="60%" stopColor="#7101FF" stopOpacity="0.1"/><stop offset="100%" stopColor="#7101FF" stopOpacity="0"/></linearGradient>
+        <linearGradient id="p-card1" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stopColor="#A2B1FB" stopOpacity="0.95"/><stop offset="100%" stopColor="#7101FF" stopOpacity="0.7"/></linearGradient>
+      </defs>
+      <ellipse cx="280" cy="340" rx="260" ry="30" fill="#7101FF" opacity="0.15"/>
+      <path d="M 50 280 A 230 220 0 0 1 510 280" fill="url(#p-dome)" stroke="#7101FF" strokeWidth="1.5" opacity="0.9"/>
+      <g transform="translate(230,78)"><rect width="100" height="28" rx="14" fill="#fff"/><text x="58" y="18" textAnchor="middle" fontFamily="Manrope" fontWeight="800" fontSize="11" fill="#0C0A30" letterSpacing="1.5">INSURED</text></g>
+      <g transform="translate(65,175)"><rect width="130" height="120" rx="10" fill="url(#p-card1)"/><text x="14" y="24" fill="#fff" opacity="0.75" fontFamily="Manrope" fontWeight="700" fontSize="10" letterSpacing="1.5">1-YEAR</text><text x="14" y="70" fill="#fff" fontFamily="Manrope" fontWeight="800" fontSize="26" letterSpacing="-0.5">GRI</text></g>
+      <g transform="translate(215,155)"><rect width="130" height="140" rx="10" fill="#7101FF"/><text x="14" y="24" fill="#FFD080" fontFamily="Manrope" fontWeight="700" fontSize="10" letterSpacing="1.5">30-DAY</text><text x="14" y="74" fill="#fff" fontFamily="Manrope" fontWeight="800" fontSize="28" letterSpacing="-0.5">GRI</text><circle cx="112" cy="22" r="5" fill="#38D9BF"/></g>
+      <g transform="translate(365,175)"><rect width="130" height="120" rx="10" fill="#15123F" stroke="#A2B1FB" strokeOpacity="0.45" strokeWidth="1.5"/><text x="14" y="24" fill="#6DD8FC" fontFamily="Manrope" fontWeight="700" fontSize="10" letterSpacing="1.5">1-YEAR</text><text x="14" y="70" fill="#fff" fontFamily="Manrope" fontWeight="800" fontSize="26" letterSpacing="-0.5">GSP</text></g>
+    </svg>
+  );
+}
+
+function IllusExecute(){
+  return(
+    <svg viewBox="0 0 560 360" style={{width:'100%',display:'block'}}>
+      <defs>
+        <linearGradient id="e-bar" x1="0" x2="1" y1="0" y2="0"><stop offset="0%" stopColor="#FFD080"/><stop offset="100%" stopColor="#F89090"/></linearGradient>
+        <linearGradient id="e-panel" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stopColor="#1A1352" stopOpacity="0.95"/><stop offset="100%" stopColor="#0C0A30" stopOpacity="1"/></linearGradient>
+      </defs>
+      <g><rect x="110" y="38" width="120" height="22" rx="11" fill="url(#e-bar)" opacity="0.95"/><rect x="260" y="14" width="96" height="22" rx="11" fill="url(#e-bar)" opacity="0.75"/><rect x="380" y="52" width="110" height="22" rx="11" fill="url(#e-bar)" opacity="0.88"/><text x="170" y="53" textAnchor="middle" fontFamily="Manrope" fontSize="11" fontWeight="800" fill="#0C0A30" letterSpacing="1">COMMITMENT</text><text x="308" y="29" textAnchor="middle" fontFamily="Manrope" fontSize="11" fontWeight="800" fill="#0C0A30" letterSpacing="1">COMMITMENT</text><text x="435" y="67" textAnchor="middle" fontFamily="Manrope" fontSize="11" fontWeight="800" fill="#0C0A30" letterSpacing="1">COMMITMENT</text></g>
+      <g transform="translate(50,140)">
+        <rect width="460" height="200" rx="14" fill="url(#e-panel)" stroke="#6DD8FC" strokeOpacity="0.35" strokeWidth="1.5"/>
+        <rect width="460" height="42" rx="14" fill="rgba(109,216,252,0.08)"/>
+        <rect y="28" width="460" height="14" fill="rgba(109,216,252,0.08)"/>
+        <circle cx="18" cy="21" r="4" fill="#F89090" opacity="0.7"/><circle cx="32" cy="21" r="4" fill="#FFD080" opacity="0.7"/><circle cx="46" cy="21" r="4" fill="#38D9BF" opacity="0.7"/>
+        <text x="72" y="26" fontFamily="Manrope" fontWeight="800" fontSize="13" fill="#fff" letterSpacing="0.5">Your Cloud Account</text>
+        <g transform="translate(28,68)">
+          <g transform="translate(0,14)"><rect width="404" height="26" rx="6" fill="#7101FF" opacity="0.85"/></g>
+          <g transform="translate(0,50)"><rect width="404" height="26" rx="6" fill="#A2B1FB" opacity="0.55"/></g>
+          <g transform="translate(0,86)"><rect width="404" height="26" rx="6" fill="#6DD8FC" opacity="0.4"/></g>
+        </g>
+      </g>
+    </svg>
+  );
+}
+
+function IllusAbsorb(){
+  const zeroY=200;
+  const curve=[[40,130],[100,120],[160,135],[220,160],[280,185],[340,210],[365,220],[400,240],[450,260],[510,255]];
+  const findCross=()=>{for(let i=0;i<curve.length-1;i++){const[xa,ya]=curve[i],[xb,yb]=curve[i+1];if((ya-zeroY)*(yb-zeroY)<0){const t=(zeroY-ya)/(yb-ya);return[xa+(xb-xa)*t,zeroY];}}return null;};
+  const cross=findCross();
+  const posPts=curve.filter(([x,y])=>y<=zeroY).concat([cross]);
+  const negPts=[cross].concat(curve.filter(([x,y])=>y>zeroY));
+  const toPath=pts=>pts.map((p,i)=>(i===0?'M':'L')+p[0]+' '+p[1]).join(' ');
+  const posFill=`M ${posPts[0][0]} ${zeroY} ${posPts.map(p=>`L ${p[0]} ${p[1]}`).join(' ')} L ${posPts[posPts.length-1][0]} ${zeroY} Z`;
+  const negFill=`M ${negPts[0][0]} ${zeroY} ${negPts.map(p=>`L ${p[0]} ${p[1]}`).join(' ')} L ${negPts[negPts.length-1][0]} ${zeroY} Z`;
+  return(
+    <svg viewBox="0 0 560 360" style={{width:'100%',display:'block'}}>
+      <defs>
+        <linearGradient id="ab-pos" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stopColor="#38D9BF" stopOpacity="0.5"/><stop offset="100%" stopColor="#38D9BF" stopOpacity="0.1"/></linearGradient>
+        <linearGradient id="ab-cov" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stopColor="#38D9BF" stopOpacity="0.15"/><stop offset="100%" stopColor="#38D9BF" stopOpacity="0.55"/></linearGradient>
+      </defs>
+      <line x1="40" y1={zeroY} x2="520" y2={zeroY} stroke="#fff" strokeOpacity="0.35" strokeWidth="1.2" strokeDasharray="6 4"/>
+      <path d={posFill} fill="url(#ab-pos)"/>
+      <path d={negFill} fill="url(#ab-cov)"/>
+      <path d={toPath(curve)} fill="none" stroke="#38D9BF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+      {cross&&(
+        <g>
+          <circle cx={cross[0]} cy={cross[1]} r="8" fill="#0C0A30" stroke="#F89090" strokeWidth="2"/>
+          <circle cx={cross[0]} cy={cross[1]} r="3" fill="#F89090"/>
+          <rect x={cross[0]-72} y={cross[1]-68} width="144" height="26" rx="13" fill="#F89090" opacity="0.95"/>
+          <text x={cross[0]} y={cross[1]-50} textAnchor="middle" fontFamily="Manrope" fontWeight="800" fontSize="11" fill="#0C0A30" letterSpacing="1">SAVINGS GO NEGATIVE</text>
+        </g>
+      )}
+      <g transform="translate(395,258)"><rect x="-10" y="-15" width="160" height="28" rx="14" fill="#38D9BF"/><text x="72" y="5" textAnchor="middle" fontFamily="Manrope" fontWeight="800" fontSize="12" fill="#0C0A30" letterSpacing="0.5">ARCHERA COVERAGE</text></g>
+    </svg>
+  );
+}
+
+const ILLUS=[IllusAnalyze,IllusProtect,IllusExecute,IllusAbsorb];
+
+function HowVariantA(){
+  const [active,setActive]=React.useState(0);
+  const rowRefs=React.useRef([]);
+
+  React.useEffect(()=>{
+    let raf=0;
+    const update=()=>{
+      raf=0;
+      const viewportMid=window.innerHeight*0.42;
+      let best=0,bestDist=Infinity;
+      rowRefs.current.forEach((el,i)=>{
+        if(!el) return;
+        const r=el.getBoundingClientRect();
+        const mid=r.top+r.height/2;
+        const d=Math.abs(mid-viewportMid);
+        if(d<bestDist){bestDist=d;best=i;}
+      });
+      setActive(best);
+    };
+    const onScroll=()=>{if(!raf) raf=requestAnimationFrame(update);};
+    update();
+    window.addEventListener('scroll',onScroll,{passive:true});
+    window.addEventListener('resize',onScroll);
+    const rObs=new ResizeObserver(onScroll);
+    rObs.observe(document.body);
+    return()=>{
+      if(raf) cancelAnimationFrame(raf);
+      window.removeEventListener('scroll',onScroll);
+      window.removeEventListener('resize',onScroll);
+      rObs.disconnect();
+    };
+  },[]);
+
+  return(
+    <div style={{width:'100%',background:'var(--ink)'}}>
+      <DarkStage padTop={120} padBottom={140}>
+        <HowHead/>
+        <div style={{marginTop:80,position:'relative'}}>
+          {STEPS.map((s,i)=>{
+            const Illus=ILLUS[i];
+            const accent=ACCENT_HEX[s.accent];
+            const isActive=i===active;
+            const accentGlow=s.accent==='amber'?'rgba(255,208,128,0.18)':s.accent==='sky'?'rgba(109,216,252,0.20)':s.accent==='mint'?'rgba(56,217,191,0.22)':'rgba(113,1,255,0.22)';
+            return(
+              <div key={s.n} ref={el=>rowRefs.current[i]=el} style={{display:'grid',gridTemplateColumns:'1fr 1.1fr',gap:72,padding:'64px 0 64px 40px',borderLeft:'1px solid rgba(255,255,255,0.12)',position:'relative',opacity:isActive?1:0.42,transition:'opacity .5s ease'}}>
+                <div style={{position:'absolute',left:-22,top:78,width:44,height:44,borderRadius:'50%',background:isActive?accent:'#0C0A30',border:`1.5px solid ${isActive?accent:'rgba(255,255,255,0.22)'}`,display:'grid',placeItems:'center',boxShadow:isActive?`0 0 0 6px ${accentGlow}, 0 0 24px ${accent}66`:'none',transition:'all .4s ease'}}>
+                  <span style={{fontFamily:'var(--ff-d)',fontWeight:800,fontSize:15,letterSpacing:'-0.01em',color:isActive?'#0C0A30':'rgba(255,255,255,0.72)',transition:'color .4s'}}>{s.n}</span>
+                </div>
+                <div>
+                  <div style={{fontFamily:'var(--ff-d)',fontSize:11,letterSpacing:'0.22em',fontWeight:700,color:isActive?accent:'rgba(255,255,255,0.4)',marginBottom:16,transition:'color .4s'}}>{s.kicker}</div>
+                  <h3 style={{fontSize:32,lineHeight:1.15,color:'#fff',marginBottom:18,textWrap:'balance'}}>{s.title}</h3>
+                  <p style={{fontSize:16.5,lineHeight:1.6,color:'rgba(255,255,255,0.68)',maxWidth:460,textWrap:'pretty'}}>{s.body}</p>
+                </div>
+                <div style={{position:'relative',overflow:'hidden',borderRadius:20}}>
+                  <div style={{filter:isActive?'none':'brightness(0.72) saturate(0.8)',transition:'filter .6s ease'}}>
+                    <Illus/>
+                  </div>
+                  {isActive&&(
+                    <div key={`sh-${i}-${active}`} style={{position:'absolute',inset:0,pointerEvents:'none',background:`linear-gradient(105deg, transparent 45%, ${accent}14 50%, transparent 58%)`,animation:'shimmerSweep 1.8s ease-out'}}/>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <style>{`@keyframes shimmerSweep{0%{transform:translateX(-100%);opacity:0}30%{opacity:1}100%{transform:translateX(100%);opacity:0}}`}</style>
+      </DarkStage>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════
+   DE-RISK — Variant D (light tabbed)
+═══════════════════════════════════════════ */
+function DeRiskD(){
+  const containerRef=React.useRef(null);
+  React.useEffect(()=>{
+    const container=containerRef.current;
+    if(!container) return;
+    const cloudData={
+      aws:{title:"Amazon Web Services",lede:"Automate Savings Plans and Reserved Instances, maximize your PPA, and prevent shortfall — all without lock-in.",beforeVal:'$30k<span style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500">/mo</span>',afterVal:'$12.7k<span style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500">/mo</span>',savings:"↓ 58% savings",linkText:"Learn about AWS →",commits:[["GRIs","EC2, RDS, ElastiCache, DynamoDB"],["GSPs","EC2, Lambda, Fargate, ECS/EKS"],["PPA insurance","shortfall protection"]]},
+      azure:{title:"Microsoft Azure",lede:"Increase reservation and savings plan coverage and accelerate your Microsoft MACC commitments.",beforeVal:'$42k<span style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500">/mo</span>',afterVal:'$18.4k<span style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500">/mo</span>',savings:"↓ 56% savings",linkText:"Learn about Azure →",commits:[["Reserved Instances","VM, SQL DB, Cosmos DB"],["Savings Plans","VM families & App Service"],["MACC","acceleration toward target"]]},
+      gcp:{title:"Google Cloud",lede:"Accepting beta customers, with complete support for Committed Use Discounts launching soon.",beforeVal:'$24k<span style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500">/mo</span>',afterVal:'$11.2k<span style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500">/mo</span>',savings:"↓ 53% savings",linkText:"Learn about Google Cloud →",commits:[["Spend-based CUDs","$/hr across compute"],["Resource-based CUDs","Compute Engine, Cloud SQL"],["MCPO","portfolio-level optimization"]]},
+    };
+    const tabs=container.querySelectorAll('.vD .tab');
+    const panel=container.querySelector('#vD-panel');
+    tabs.forEach(tab=>{
+      tab.addEventListener('click',()=>{
+        tabs.forEach(t=>t.setAttribute('aria-selected','false'));
+        tab.setAttribute('aria-selected','true');
+        const k=tab.dataset.cloud;
+        const d=cloudData[k];
+        panel.dataset.cloud=k;
+        container.querySelector('#vD-title').textContent=d.title;
+        container.querySelector('#vD-lede').textContent=d.lede;
+        container.querySelector('#vD-before-val').innerHTML=d.beforeVal;
+        container.querySelector('#vD-after-val').innerHTML=d.afterVal;
+        container.querySelector('#vD-savings-pct').textContent=d.savings;
+        container.querySelector('#vD-link').textContent=d.linkText;
+        const ul=container.querySelector('#vD-commits');
+        ul.innerHTML=d.commits.map(([b,t])=>`<li><span><b>${b}</b> — ${t}</span></li>`).join('');
+      });
+    });
+  },[]);
+
+  const html=`
+  <section class="providers-section vD">
+    <div class="container">
+      <div class="provider-head">
+        <div>
+          <span class="compare-kicker">Multicloud coverage</span>
+          <h2 style="margin-top:16px">De-risk commitments across every cloud.</h2>
+        </div>
+        <p>One platform, one workflow, one compliance posture — whether you're running on AWS, Azure, Google Cloud or all three.</p>
+      </div>
+      <div class="shell">
+        <div class="tabs" role="tablist">
+          <button class="tab" role="tab" aria-selected="true" data-cloud="aws">
+            <div class="logo"><img src="assets/cloud/aws.svg" alt=""/></div>
+            <div><div class="title">Amazon Web Services</div><div class="sub">GRIs · GSPs · PPA insurance</div></div>
+          </button>
+          <button class="tab" role="tab" aria-selected="false" data-cloud="azure">
+            <div class="logo"><img src="assets/cloud/azure-logo-img.svg" alt=""/></div>
+            <div><div class="title">Microsoft Azure</div><div class="sub">Reservations · SPs · MACC</div></div>
+          </button>
+          <button class="tab" role="tab" aria-selected="false" data-cloud="gcp">
+            <div class="logo"><img src="assets/cloud/gcp-logo-img.svg" alt=""/></div>
+            <div><div class="title">Google Cloud</div><div class="sub">CUDs · MCPO</div></div>
+            <span class="pill pill-beta beta">Beta</span>
+          </button>
+        </div>
+        <div class="panel" id="vD-panel" data-cloud="aws">
+          <div class="panel-info">
+            <h3 id="vD-title">Amazon Web Services</h3>
+            <p class="lede" id="vD-lede">Automate Savings Plans and Reserved Instances, maximize your PPA, and prevent shortfall — all without lock-in.</p>
+            <div class="commit-block">
+              <div class="label">Commitments managed</div>
+              <ul id="vD-commits">
+                <li><span><b>GRIs</b> — EC2, RDS, ElastiCache, DynamoDB</span></li>
+                <li><span><b>GSPs</b> — EC2, Lambda, Fargate, ECS/EKS</span></li>
+                <li><span><b>PPA insurance</b> — shortfall protection</span></li>
+              </ul>
+              <a href="#" class="arrow-link" id="vD-link">Learn about AWS →</a>
+            </div>
+          </div>
+          <div class="viz-stack">
+            <div class="viz-card before">
+              <span class="tag">Before</span>
+              <div class="sub">Monthly cloud spend</div>
+              <div class="val" id="vD-before-val">$30k<span style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500">/mo</span></div>
+              <div class="viz-bars">
+                <div class="b" style="height:38%"></div><div class="b" style="height:56%"></div>
+                <div class="b" style="height:42%"></div><div class="b" style="height:72%"></div>
+                <div class="b" style="height:60%"></div>
+              </div>
+            </div>
+            <div class="savings-bridge"><span class="savings-pct" id="vD-savings-pct">↓ 58% savings</span></div>
+            <div class="viz-card after">
+              <span class="tag">After</span>
+              <div class="sub">With insured commitments</div>
+              <div class="val" id="vD-after-val">$12.7k<span style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500">/mo</span></div>
+              <div class="viz-bars">
+                <div class="b" style="height:64%"></div><div class="b" style="height:80%"></div>
+                <div class="b" style="height:72%"></div><div class="b" style="height:92%"></div>
+                <div class="b" style="height:84%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>`;
+
+  return <div ref={containerRef} dangerouslySetInnerHTML={{__html:html}}/>;
+}
+
+/* ═══════════════════════════════════════════
+   TESTIMONIALS — Shared + Variant E
+═══════════════════════════════════════════ */
+const TESTIMONIALS=[
+  {id:'platform9',company:'Platform9',accent:'#7101FF',quote:`We now have the visibility and automation needed to make smart, aggressive cloud management decisions — and we\u2019ve significantly reduced our AWS bill as a result.`,person:{name:'Esten Rye',role:'DevOps Manager',photo:'assets/people/esten.png'}},
+  {id:'floyo',company:'Floyo',accent:'#6DD8FC',quote:`Archera enables us to scale without hours of analysis. We\u2019d recommend it to any startup navigating cloud cost optimization.`,person:{name:'Ashish Gupta',role:'Head of AI Infrastructure',photo:'assets/people/ashish.png'}},
+  {id:'hex',company:'Hex',accent:'#FFD080',quote:`The one differentiator with Archera is transparency in pricing. One fee off the top \u2014 that\u2019s pretty much it.`,person:{name:'Kim Leung',role:'Engineering Lead',photo:'assets/people/kim.png'}},
+];
+
+function CompanyMark({company,size=22,color='var(--slate-3)'}){
+  const src=company==='Platform9'?'assets/customers/platform9.svg':company==='Floyo'?'assets/customers/floyo.svg':company==='Hex'?'assets/customers/hex.svg':null;
+  if(!src) return <span style={{fontFamily:'var(--ff-d)',fontWeight:800,color}}>{company}</span>;
+  const isLight=typeof color==='string'&&/#fff|#FFF|255,\s*255,\s*255|rgba\(255/.test(color);
+  return <img src={src} alt={company} style={{height:size,width:'auto',display:'inline-block',filter:isLight?'brightness(0) invert(1) opacity(0.85)':'grayscale(1) brightness(0) opacity(0.6)'}}/>;
+}
+
+function LogoBandAndCTA({theme='light'}){
+  const isDark=theme==='dark';
+  const logoUrls=Array.from({length:9},(_,i)=>`assets/customers/logo-0${i+1}.svg`);
+  const bandBg=isDark?'rgba(255,255,255,0.03)':'var(--paper-warm)';
+  const bandBorder=isDark?'rgba(255,255,255,0.08)':'var(--line)';
+  const label=isDark?'rgba(255,255,255,0.55)':'var(--slate-4)';
+  const heading=isDark?'#fff':'var(--ink)';
+  const linkColor=isDark?'#6DD8FC':'var(--violet)';
+  return(
+    <div style={{marginTop:96,paddingTop:48,borderTop:`1px solid ${bandBorder}`}}>
+      <div style={{display:'grid',gridTemplateColumns:'1.1fr auto',gap:40,alignItems:'end',marginBottom:40}}>
+        <div>
+          <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:13,letterSpacing:'0.14em',textTransform:'uppercase',color:isDark?'#FFD080':'var(--violet)',marginBottom:14}}>More customer stories</div>
+          <h3 style={{color:heading,fontSize:32,lineHeight:1.15,maxWidth:700,textWrap:'pretty'}}>See how other teams are succeeding in the cloud with Archera.</h3>
+        </div>
+        <a href="#" style={{display:'inline-flex',alignItems:'center',gap:12,fontFamily:'var(--ff-d)',fontWeight:700,fontSize:16,color:linkColor,textDecoration:'none',padding:'14px 22px',borderRadius:999,border:`1.5px solid ${linkColor}`,background:'transparent',whiteSpace:'nowrap'}}>
+          Discover their stories
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke={linkColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        </a>
+      </div>
+      <div style={{position:'relative',marginLeft:-80,marginRight:-80,background:bandBg,borderTop:`1px solid ${bandBorder}`,borderBottom:`1px solid ${bandBorder}`,padding:'32px 0 36px',overflow:'hidden'}}>
+        <div style={{fontFamily:'var(--ff-d)',fontWeight:600,fontSize:13,letterSpacing:'0.16em',textTransform:'uppercase',color:label,marginBottom:24,textAlign:'center'}}>Trusted by cloud teams at scale</div>
+        <div style={{display:'flex',width:'max-content',animation:'logoMarquee 40s linear infinite'}}>
+          {[0,1].map(loop=>(
+            <div key={loop} style={{display:'flex',alignItems:'center',gap:72,paddingRight:72,flexShrink:0}} aria-hidden={loop===1?'true':undefined}>
+              {logoUrls.map((u,i)=>(
+                <div key={i} style={{height:48,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
+                  <img src={u} alt="" style={{maxHeight:44,width:'auto',opacity:isDark?0.75:0.85,filter:isDark?'grayscale(1) brightness(0) invert(1) opacity(0.8)':'grayscale(1) brightness(0) opacity(0.65)'}}/>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`@keyframes logoMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}`}</style>
+    </div>
+  );
+}
+
+function TSectionHeader({theme='light',kickerColor,title,subtitle}){
+  const isDark=theme==='dark';
+  return(
+    <div style={{marginBottom:72}}>
+      <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:13,letterSpacing:'0.14em',textTransform:'uppercase',color:kickerColor||(isDark?'var(--amber)':'var(--violet)'),marginBottom:20}}>Customer stories</div>
+      <div style={{display:'grid',gridTemplateColumns:'1fr auto',gap:48,alignItems:'end'}}>
+        <h2 style={{fontSize:52,lineHeight:1.05,letterSpacing:'-0.025em',color:isDark?'#fff':'var(--ink)',maxWidth:780,textWrap:'balance',margin:0,fontFamily:'var(--ff-d)',fontWeight:700}}>{title}</h2>
+        {subtitle&&<p style={{color:isDark?'rgba(255,255,255,0.68)':'var(--slate-3)',fontSize:17,lineHeight:1.5,maxWidth:420,margin:0,paddingBottom:8}}>{subtitle}</p>}
+      </div>
+    </div>
+  );
+}
+
+function TestimonialsVariantE(){
+  return(
+    <section style={{background:'#fff',padding:'110px 80px 100px',fontFamily:'var(--ff-b)',color:'var(--ink)'}}>
+      <TSectionHeader
+        theme="light"
+        title={<>Real teams.<br/>Real flexibility.<br/>Real savings.</>}
+        subtitle="Engineers, FinOps leads, and founders using Archera to reclaim room in their cloud spend without the lock-in."
+      />
+      <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:2,background:'var(--line)',borderRadius:20,overflow:'hidden'}}>
+        {TESTIMONIALS.map((t,i)=>(
+          <article key={t.id} className="tc-pillar" style={{background:'var(--paper-warm)',padding:'40px 36px 44px',display:'flex',flexDirection:'column',transition:'background .2s'}}>
+            <div style={{height:3,borderRadius:999,background:t.accent,marginBottom:28,flexShrink:0}}/>
+            <div style={{fontFamily:'var(--ff-d)',fontWeight:800,fontSize:13,color:'var(--slate-5)',letterSpacing:'0.08em',marginBottom:20}}>0{i+1}</div>
+            <div style={{marginBottom:24}}><CompanyMark company={t.company} size={18} color="var(--ink)"/></div>
+            <blockquote style={{margin:0,fontFamily:'var(--ff-d)',fontWeight:600,fontSize:20,lineHeight:1.4,letterSpacing:'-0.01em',color:'var(--ink)',textWrap:'pretty',flex:1}}>{t.quote}</blockquote>
+            <div style={{display:'flex',alignItems:'center',gap:14,paddingTop:22,borderTop:'1px solid var(--line-2)',marginTop:28}}>
+              <img src={t.person.photo} alt="" style={{width:48,height:48,borderRadius:'50%',objectFit:'cover',background:'var(--paper)'}}/>
+              <div>
+                <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:14,color:'var(--ink)'}}>{t.person.name}</div>
+                <div style={{fontSize:13,color:'var(--slate-4)',marginTop:2}}>{t.person.role}, {t.company}</div>
+              </div>
+            </div>
+            <a href="#" style={{display:'inline-flex',alignItems:'center',gap:8,fontFamily:'var(--ff-d)',fontWeight:600,fontSize:14,color:t.accent,textDecoration:'none',marginTop:20}}>
+              Read the {t.company} story
+              <span style={{width:22,height:22,borderRadius:'50%',background:`${t.accent}22`,color:t.accent,display:'grid',placeItems:'center'}}>→</span>
+            </a>
+          </article>
+        ))}
+      </div>
+      <LogoBandAndCTA theme="light"/>
+      <style>{`.tc-pillar:hover{background:#fff!important}`}</style>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════
+   PRACTITIONER — Variant D (dark pillars, .cp-d)
+═══════════════════════════════════════════ */
+function PractitionerD(){
+  const html=`
+  <section class="cp-d">
+    <div class="cp-d-head">
+      <div>
+        <div class="cp-d-kicker">Why teams trust Archera</div>
+        <h2>Rated by peers.<br/>Endorsed by the ecosystem.</h2>
+      </div>
+      <p class="cp-d-head-sub">Third-party validation from the communities that cloud practitioners actually trust.</p>
+    </div>
+    <div class="cp-d-pillars">
+      <div class="cp-d-pillar">
+        <div class="cp-d-pillar-num">01</div>
+        <div class="cp-d-pillar-label">Peer reviews</div>
+        <p class="cp-d-pillar-desc">Real engineers rating real ROI. Consistently ranked a high performer by the people doing the work, not the analysts.</p>
+        <div class="cp-d-pillar-badges">
+          <img src="assets/badges/g2-high-performer.svg" alt="G2 High Performer"/>
+          <img src="assets/badges/g2-users-love-us.svg" alt="G2 Users Love Us"/>
+          <img src="assets/badges/g2-score.svg" alt="G2 Score"/>
+        </div>
+      </div>
+      <div class="cp-d-pillar">
+        <div class="cp-d-pillar-num">02</div>
+        <div class="cp-d-pillar-label">FinOps community</div>
+        <p class="cp-d-pillar-desc">Recognized by the FinOps Foundation as a trusted practitioner — aligned with the standards your team already follows.</p>
+        <div class="cp-d-pillar-badges">
+          <img src="assets/badges/finops-foundation.svg" alt="FinOps Foundation"/>
+          <img src="assets/badges/finops-practitioners.svg" alt="FinOps Practitioners"/>
+          <img src="assets/badges/finops-focus.svg" alt="FinOps FOCUS"/>
+        </div>
+      </div>
+      <div class="cp-d-pillar">
+        <div class="cp-d-pillar-num">03</div>
+        <div class="cp-d-pillar-label">Industry recognition</div>
+        <p class="cp-d-pillar-desc">A Microsoft certified partner and one of GeekWire's top 200 companies — the cloud establishment has taken notice.</p>
+        <div class="cp-d-pillar-badges">
+          <img src="assets/badges/microsoft-partner.png" alt="Microsoft Partner"/>
+          <img src="assets/badges/geekwire-200.svg" alt="GeekWire 200"/>
+        </div>
+      </div>
+    </div>
+  </section>`;
+  return <div dangerouslySetInnerHTML={{__html:html}}/>;
+}
+
+/* ═══════════════════════════════════════════
+   SCHEDULE DEMO — Variant C (.sd-c)
+═══════════════════════════════════════════ */
+function ScheduleDemoC(){
+  const html=`
+  <div class="sd-c">
+    <div class="sd-c-left">
+      <div class="sd-c-left-content">
+        <div class="sd-c-kicker">For cloud teams at scale</div>
+        <h2>Buy commitments<br/>without worry.</h2>
+        <p class="body">Insured commitments let your team move fast on cloud costs without the downside of getting it wrong. See the savings in 20 minutes.</p>
+      </div>
+    </div>
+    <div class="sd-c-right">
+      <div class="sd-c-right-eyebrow">We are ready when you are to help you start saving.</div>
+      <div class="sd-c-checklist">
+        <div class="sd-c-check-item"><div class="sd-c-check-icon">✓</div><span>20-minute demo — we map your real footprint live</span></div>
+        <div class="sd-c-check-item"><div class="sd-c-check-icon">✓</div><span>$0 platform fee, forever</span></div>
+        <div class="sd-c-check-item"><div class="sd-c-check-icon">✓</div><span>30-day minimum commitments, not multi-year lock-in</span></div>
+        <div class="sd-c-check-item"><div class="sd-c-check-icon">✓</div><span>Shortfall protection if usage drops</span></div>
+      </div>
+      <div class="sd-c-divider">get started</div>
+      <div class="sd-c-cta-stack">
+        <a href="#" class="btn btn-violet">Schedule your demo &nbsp;→</a>
+      </div>
+      <div style="margin-top:12px">
+        <a href="#" class="btn btn-outline-ink" style="width:100%;justify-content:center">Start now — it's free</a>
+      </div>
+    </div>
+  </div>`;
+  return <div dangerouslySetInnerHTML={{__html:html}}/>;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+function SiteFooter(){
+  const html=`
+  <footer class="site-footer">
+    <div class="container">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <a href="#" class="foot-logo" aria-label="Archera">
+            <img src="assets/brand/archera-horizontal.svg" alt="Archera"/>
+          </a>
+          <p>Insured cloud commitments for AWS, Azure and Google Cloud. Save without the lock-in.</p>
+          <div class="foot-soc">
+            <a href="#" aria-label="LinkedIn"><img src="assets/social/linkedin.svg" alt=""/></a>
+            <a href="#" aria-label="YouTube"><img src="assets/social/youtube.svg" alt=""/></a>
+          </div>
+        </div>
+        <div class="foot-col">
+          <h4>Archera platform</h4>
+          <ul>
+            <li><a href="#">Login</a></li><li><a href="#">Support</a></li>
+            <li><a href="#">Help Center</a></li><li><a href="#">Documentation</a></li>
+            <li><a href="#">Pricing</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Archera</a></li><li><a href="#">Customers</a></li>
+            <li><a href="#">Contact</a></li><li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-cert">
+        <span class="foot-cert-label">Certifications &amp; Partners</span>
+        <div class="foot-aws-group">
+          <img src="assets/trust/aws-qualified.svg" alt="AWS Qualified Software"/>
+          <img src="assets/trust/aws-partner.svg" alt="AWS Partner"/>
+        </div>
+        <div class="foot-cert-divider"></div>
+        <div class="foot-compliance">
+          <img src="assets/trust/aicpa-soc.png" alt="AICPA SOC"/>
+          <img src="assets/trust/soc2-drata.png" alt="SOC 2 — Drata"/>
+          <img src="assets/trust/soc2-prescient.png" alt="SOC 2 Type II"/>
+          <img src="assets/trust/iso-27001.png" alt="ISO/IEC 27001:2022"/>
+          <img src="assets/trust/soc2-type2.png" alt="SOC 2 Type II"/>
+        </div>
+      </div>
+      <div class="foot-legal">
+        <span>© 2026 Archera, Inc. All rights reserved.</span>
+        <div class="foot-legal-links">
+          <a href="#">Terms of Service</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>`;
+  return <div dangerouslySetInnerHTML={{__html:html}}/>;
+}
+
+/* ═══════════════════════════════════════════
+   PAGE ASSEMBLY
+═══════════════════════════════════════════ */
+function HomePage2(){
+  return (
+    <>
+      <HeroSectionB/>
+      <PFVariantC/>
+      <HowVariantA/>
+      <DeRiskD/>
+      <TestimonialsVariantE/>
+      <PractitionerD/>
+      <ScheduleDemoC/>
+      <SiteFooter/>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('site-nav')).render(<SiteNav/>);
+ReactDOM.createRoot(document.getElementById('root')).render(<HomePage2/>);
+
+</script>
+</body>
+</html>

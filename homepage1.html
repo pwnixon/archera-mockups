@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Archera — Homepage 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+:root {
+  --ink:#0C0A30; --ink-2:#1F202C;
+  --violet:#7101FF; --violet-2:#8B01E8; --violet-soft:#F6F0FF;
+  --sky:#6DD8FC; --peach:#F89090; --mint:#38D9BF; --mint-2:#20A795;
+  --amber:#FFD080; --periwinkle:#A2B1FB; --crimson:#AD284B;
+  --slate-1:#090A1D; --slate-2:#1F202C; --slate-3:#444444;
+  --slate-4:#686870; --slate-5:#9D9DA2;
+  --line:#E2E2E5; --line-2:#F1F5F9;
+  --paper:#F6F5F4; --paper-warm:#FDFCFB;
+  --aws:#FF9900; --azure:#007FFF; --gcp:#34A853;
+  --ff-d:"Manrope",system-ui,sans-serif;
+  --ff-b:"Lexend",system-ui,sans-serif;
+  --ff-display:"Manrope",system-ui,sans-serif;
+  --ff-body:"Lexend",system-ui,sans-serif;
+  --radius-xs:6px; --radius-sm:10px; --radius:16px; --radius-lg:24px; --radius-xl:32px;
+  --shadow-sm:0 4px 14px -6px rgba(12,10,48,0.08);
+  --shadow-md:0 12px 32px -12px rgba(12,10,48,0.18);
+  --shadow-lg:0 32px 80px -24px rgba(12,10,48,0.28);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--ff-b);font-size:16px;line-height:1.6;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}
+h1,h2,h3,h4{font-family:var(--ff-d);font-weight:700;letter-spacing:-0.02em;margin:0;line-height:1.1;}
+p{margin:0;}
+
+/* ── Site nav ── */
+#site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;transition:background .3s ease;}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:72px;padding:0 40px;}
+.nav-logo img{height:28px;filter:brightness(0) invert(1);display:block;}
+.nav-links{display:flex;gap:26px;font-size:14px;font-family:var(--ff-d);font-weight:500;}
+.nav-links a{color:rgba(255,255,255,0.8);transition:color .15s;}
+.nav-links a:hover{color:#fff;}
+.nav-ctas{display:flex;gap:10px;}
+.nav-btn-login{display:inline-flex;align-items:center;padding:10px 18px;border-radius:999px;font-family:var(--ff-d);font-weight:600;font-size:14px;color:#fff;border:1px solid rgba(255,255,255,0.25);background:transparent;cursor:pointer;transition:all .2s;}
+.nav-btn-login:hover{border-color:#fff;background:rgba(255,255,255,0.07);}
+.nav-btn-start{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;font-family:var(--ff-d);font-weight:600;font-size:14px;color:#fff;background:var(--violet);border:none;cursor:pointer;transition:all .2s;}
+.nav-btn-start:hover{background:var(--violet-2);box-shadow:0 8px 24px -6px rgba(113,1,255,0.5);}
+.nav-hamburger{display:none;background:transparent;border:none;cursor:pointer;padding:8px;color:#fff;}
+.mobile-drawer{display:none;background:#161259;padding:20px 32px 28px;border-top:1px solid rgba(255,255,255,0.08);}
+.mobile-drawer.open{display:block;}
+.mobile-links{display:flex;flex-direction:column;gap:16px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:20px;margin-bottom:20px;}
+.mobile-links a{color:rgba(255,255,255,0.85);font-family:var(--ff-d);font-size:16px;font-weight:500;}
+.mobile-ctas{display:flex;gap:12px;flex-wrap:wrap;}
+@media(max-width:768px){
+  .nav-links,.nav-ctas{display:none;}
+  .nav-hamburger{display:block;}
+}
+
+/* ── Hero btn (used inside HeroCopy) ── */
+.hero-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border-radius:999px;font-family:var(--ff-d);font-weight:600;font-size:16px;border:1px solid transparent;cursor:pointer;transition:all .2s;white-space:nowrap;text-decoration:none;}
+.hero-btn-p{background:var(--violet);color:#fff;}
+.hero-btn-p:hover{background:var(--violet-2);box-shadow:0 12px 32px -8px rgba(113,1,255,0.6);}
+.hero-btn-o{background:transparent;color:#fff;border-color:rgba(255,255,255,0.25);}
+.hero-btn-o:hover{border-color:#fff;background:rgba(255,255,255,0.05);}
+.btn-arrow{width:18px;height:18px;border-radius:50%;background:currentColor;display:inline-grid;place-items:center;position:relative;}
+.btn-arrow::after{content:"";width:6px;height:6px;border-right:2px solid var(--ink);border-top:2px solid var(--ink);transform:rotate(45deg);margin-left:-2px;}
+.hero-btn-p .btn-arrow{background:#fff;}
+.hero-btn-p .btn-arrow::after{border-color:var(--violet);}
+@keyframes countUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── Shared buttons (schedule demo, etc.) ── */
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--ff-d);font-weight:700;font-size:16px;padding:16px 30px;border-radius:999px;border:2px solid transparent;cursor:pointer;white-space:nowrap;transition:background .2s,border-color .2s,box-shadow .2s,transform .15s;text-decoration:none;}
+.btn:hover{transform:translateY(-1px);}
+.btn-violet{background:var(--violet);color:#fff;border-color:var(--violet);}
+.btn-violet:hover{background:var(--violet-2);border-color:var(--violet-2);box-shadow:0 10px 28px -8px rgba(113,1,255,0.55);}
+.btn-outline-ink{background:transparent;color:var(--ink);border-color:rgba(12,10,48,0.28);}
+.btn-outline-ink:hover{border-color:var(--ink);background:rgba(12,10,48,0.04);}
+.trust-row{display:flex;align-items:center;gap:24px;font-family:var(--ff-d);font-size:13px;font-weight:500;}
+.trust-row .item{display:inline-flex;align-items:center;gap:6px;}
+.trust-row .check{font-weight:800;font-size:12px;}
+
+/* ── Derisk section shared ── */
+.providers-section{padding:120px 0;position:relative;}
+.providers-section .container{max-width:1240px;margin:0 auto;padding:0 32px;}
+.compare-kicker{font-family:var(--ff-display);font-weight:700;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--violet);display:inline-block;margin-bottom:20px;}
+.pill{font-family:var(--ff-display);font-size:12px;font-weight:600;padding:6px 10px;border-radius:999px;background:var(--paper);color:var(--slate-3);white-space:nowrap;}
+.pill-beta{background:var(--amber);color:var(--ink);}
+.link-arrow{font-family:var(--ff-display);font-weight:600;font-size:14px;display:inline-flex;gap:6px;align-items:center;color:var(--slate-3);}
+
+/* ── Derisk Variant C ── */
+.vC{background:var(--paper);}
+.vC .provider-head{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:56px;}
+.vC .provider-head p{color:var(--slate-3);font-size:17px;max-width:480px;}
+.vC h2{font-size:clamp(32px,3.6vw,48px);letter-spacing:-0.025em;}
+.vC .vc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.vC .vc-card{background:#fff;border-radius:var(--radius-xl);overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;}
+.vC .vc-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);}
+.vC .vc-top{position:relative;padding:28px 28px 26px;overflow:hidden;min-height:260px;display:flex;flex-direction:column;}
+.vC .vc-card.vc-aws .vc-top{background:linear-gradient(145deg,#1A0B00 0%,#2C1700 100%);}
+.vC .vc-card.vc-azure .vc-top{background:linear-gradient(145deg,#00071A 0%,#001133 100%);}
+.vC .vc-card.vc-gcp .vc-top{background:linear-gradient(145deg,#001208 0%,#001E0D 100%);}
+.vC .vc-top::before{content:"";position:absolute;width:320px;height:320px;border-radius:50%;top:-100px;right:-80px;pointer-events:none;}
+.vC .vc-card.vc-aws .vc-top::before{background:radial-gradient(circle,rgba(255,153,0,0.6),transparent 65%);}
+.vC .vc-card.vc-azure .vc-top::before{background:radial-gradient(circle,rgba(0,127,255,0.55),transparent 65%);}
+.vC .vc-card.vc-gcp .vc-top::before{background:radial-gradient(circle,rgba(52,168,83,0.55),transparent 65%);}
+.vC .vc-logo-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:auto;position:relative;}
+.vC .vc-logo-row img{max-height:28px;max-width:180px;width:auto;height:auto;display:block;}
+.vC .vc-card.vc-aws .vc-logo-row img{max-height:30px;}
+.vC .vc-card.vc-azure .vc-logo-row img{max-height:22px;max-width:140px;}
+.vC .vc-card.vc-gcp .vc-logo-row img{max-height:20px;max-width:160px;}
+.vC .vc-pct{font-family:var(--ff-display);font-weight:800;font-size:80px;line-height:0.9;letter-spacing:-0.04em;margin-top:18px;position:relative;}
+.vC .vc-pct-unit{font-size:52px;}
+.vC .vc-card.vc-aws .vc-pct{color:var(--aws);}
+.vC .vc-card.vc-azure .vc-pct{color:var(--azure);}
+.vC .vc-card.vc-gcp .vc-pct{color:var(--gcp);}
+.vC .vc-pct-label{font-family:var(--ff-display);font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:8px;margin-bottom:18px;}
+.vC .vc-ba{display:flex;align-items:baseline;gap:8px;font-family:var(--ff-display);font-weight:700;position:relative;}
+.vC .vc-before{font-size:15px;color:rgba(255,255,255,0.3);text-decoration:line-through;}
+.vC .vc-arrow{color:rgba(255,255,255,0.3);font-size:13px;font-weight:400;}
+.vC .vc-after{font-size:24px;color:#fff;}
+.vC .vc-mo{font-size:12px;color:rgba(255,255,255,0.35);font-weight:500;}
+.vC .vc-bar-wrap{height:4px;background:rgba(255,255,255,0.1);border-radius:999px;margin-top:16px;overflow:hidden;}
+.vC .vc-bar-fill{height:100%;border-radius:999px;}
+.vC .vc-card.vc-aws .vc-bar-fill{background:var(--aws);}
+.vC .vc-card.vc-azure .vc-bar-fill{background:var(--azure);}
+.vC .vc-card.vc-gcp .vc-bar-fill{background:var(--gcp);}
+.vC .vc-body{padding:28px;display:flex;flex-direction:column;gap:18px;flex:1;}
+.vC .vc-body h3{font-size:21px;letter-spacing:-0.02em;}
+.vC .vc-commits .label{font-family:var(--ff-display);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--slate-5);margin-bottom:10px;}
+.vC .vc-commits ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;}
+.vC .vc-commits li{display:grid;grid-template-columns:14px 1fr;gap:10px;font-size:14px;color:var(--slate-3);line-height:1.4;}
+.vC .vc-commits li::before{content:"";width:6px;height:6px;border-radius:50%;margin-top:8px;margin-left:4px;}
+.vC .vc-card.vc-aws .vc-commits li::before{background:var(--aws);}
+.vC .vc-card.vc-azure .vc-commits li::before{background:var(--azure);}
+.vC .vc-card.vc-gcp .vc-commits li::before{background:var(--gcp);}
+.vC .vc-commits li b{color:var(--ink);font-weight:600;}
+.vC .vc-foot{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px dashed var(--line);margin-top:auto;}
+.vC .vc-term{font-family:var(--ff-display);font-size:12px;color:var(--slate-5);}
+.vC .vc-card.vc-aws .link-arrow{color:var(--aws);}
+.vC .vc-card.vc-azure .link-arrow{color:var(--azure);}
+.vC .vc-card.vc-gcp .link-arrow{color:var(--gcp);}
+@media(max-width:960px){.vC .vc-grid{grid-template-columns:1fr;}.vC .provider-head{grid-template-columns:1fr;gap:16px;}}
+
+/* ── Practitioner Variant A (prefixed .cp-a) ── */
+.cp-a{background:var(--paper-warm);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:80px 100px;display:grid;grid-template-columns:1fr 1px 1fr;gap:72px;align-items:center;}
+.cp-a-score-side{display:flex;flex-direction:column;gap:28px;}
+.cp-a-stars{display:flex;align-items:center;gap:6px;}
+.cp-a-star{width:28px;height:28px;background:#FF492C;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+.cp-a-score-num{font-family:var(--ff-d);font-weight:800;font-size:52px;letter-spacing:-0.04em;color:var(--ink);line-height:1;}
+.cp-a-score-label{font-family:var(--ff-d);font-size:13px;font-weight:600;color:var(--slate-4);letter-spacing:0.06em;text-transform:uppercase;margin-top:-4px;}
+.cp-a-review-cards{display:flex;flex-direction:column;gap:14px;}
+.cp-a-review-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:8px;}
+.cp-a-review-mini-stars{display:flex;gap:3px;}
+.cp-a-review-mini-star{width:12px;height:12px;background:#FF492C;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+.cp-a-review-text{font-size:14px;line-height:1.5;color:var(--slate-3);font-style:italic;}
+.cp-a-review-who{font-family:var(--ff-d);font-size:12px;font-weight:600;color:var(--slate-5);letter-spacing:0.04em;}
+.cp-a-g2-badges{display:flex;gap:14px;align-items:center;margin-top:6px;}
+.cp-a-g2-badges img{height:80px;width:auto;object-fit:contain;}
+.cp-a-divider{background:var(--line);align-self:stretch;}
+.cp-a-creds-side{display:flex;flex-direction:column;gap:32px;}
+.cp-a-creds-head h3{font-size:28px;color:var(--ink);}
+.cp-a-creds-head p{margin-top:10px;font-size:15px;line-height:1.55;color:var(--slate-4);max-width:360px;}
+.cp-a-badge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.cp-a-badge-slot{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 14px;display:flex;flex-direction:column;align-items:center;gap:10px;transition:box-shadow .2s,transform .2s;}
+.cp-a-badge-slot:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);}
+.cp-a-badge-slot img{height:56px;width:auto;object-fit:contain;}
+.cp-a-badge-slot span{font-family:var(--ff-d);font-size:11px;font-weight:600;color:var(--slate-5);text-align:center;letter-spacing:0.04em;text-transform:uppercase;}
+img[alt="Microsoft Partner"]{max-height:40px!important;}
+img[alt="FinOps FOCUS"]{height:80px!important;}
+@media(max-width:900px){.cp-a{grid-template-columns:1fr;padding:60px 40px;}.cp-a-divider{display:none;}}
+
+/* ── Schedule Demo Variant A (prefixed .sd-a) ── */
+.sd-a{position:relative;height:640px;overflow:hidden;background:linear-gradient(105deg,#E89A9A 0%,#D766B5 20%,#C258C6 40%,#A542DD 60%,#8B3DEF 80%,#6B4CFF 100%);}
+.sd-a-arc{position:absolute;left:50%;top:88px;width:4200px;height:4200px;border-radius:50%;background:#fff;transform:translateX(-50%);pointer-events:none;}
+.sd-a-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;text-align:center;padding:164px 80px 0;}
+.sd-a-kicker{font-family:var(--ff-d);font-weight:700;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:var(--violet);margin-bottom:18px;}
+.sd-a h2{font-size:clamp(44px,4.5vw,64px);color:var(--ink);max-width:800px;text-wrap:balance;}
+.sd-a .body{margin-top:20px;font-size:18px;line-height:1.58;color:var(--slate-3);max-width:500px;text-wrap:pretty;}
+.sd-a .ctas{margin-top:40px;display:flex;gap:14px;align-items:center;}
+.sd-a .trust-row{margin-top:28px;color:var(--slate-4);}
+.sd-a .trust-row .check{color:var(--violet);}
+
+/* ── Footer ── */
+.site-footer{background:var(--slate-1);color:rgba(255,255,255,0.75);padding:72px 0 36px;font-size:14px;font-family:var(--ff-body);}
+.site-footer .container{max-width:1200px;margin:0 auto;padding:0 40px;}
+.foot-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:64px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.foot-brand .foot-logo{display:block;margin-bottom:20px;}
+.foot-brand .foot-logo img{height:28px;width:auto;display:block;filter:brightness(0) invert(1);}
+.foot-brand p{max-width:300px;color:rgba(255,255,255,0.50);line-height:1.7;}
+.foot-soc{margin-top:28px;display:flex;gap:10px;}
+.foot-soc a{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.07);display:grid;place-items:center;transition:background .15s;}
+.foot-soc a:hover{background:rgba(255,255,255,0.14);}
+.foot-soc img{width:22px;height:22px;filter:brightness(0) invert(1);opacity:0.7;}
+.foot-soc a:hover img{opacity:1;}
+.foot-col h4{font-family:var(--ff-display);font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.40);margin-bottom:20px;}
+.foot-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:13px;}
+.foot-col a{color:rgba(255,255,255,0.65);font-size:14px;}
+.foot-col a:hover{color:#fff;}
+.foot-cert{padding:36px 0 32px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:32px;flex-wrap:wrap;}
+.foot-cert-label{font-family:var(--ff-display);font-weight:700;font-size:10px;letter-spacing:0.20em;text-transform:uppercase;color:rgba(255,255,255,0.30);padding-top:4px;flex-shrink:0;min-width:88px;}
+.foot-aws-group{display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;}
+.foot-aws-group img,.foot-compliance img{height:64px;width:auto;display:block;}
+.foot-cert-divider{width:1px;align-self:stretch;background:rgba(255,255,255,0.08);flex-shrink:0;}
+.foot-compliance{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.foot-legal{padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;color:rgba(255,255,255,0.35);font-size:12px;}
+.foot-legal-links{display:flex;gap:0;}
+.foot-legal a{color:rgba(255,255,255,0.45);margin-left:24px;transition:color .15s;}
+.foot-legal a:hover{color:#fff;}
+@media(max-width:900px){.foot-top{grid-template-columns:1fr 1fr;gap:40px;}.foot-brand{grid-column:1/-1;}.foot-cert-divider{display:none;}}
+@media(max-width:600px){.foot-top{grid-template-columns:1fr;}.foot-cert{flex-direction:column;gap:24px;}.foot-legal{flex-direction:column;align-items:flex-start;}.foot-legal-links a:first-child{margin-left:0;}}
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+<div id="root"></div>
+
+<script type="text/babel">
+
+/* ═══════════════════════════════════════════
+   SITE NAV
+═══════════════════════════════════════════ */
+function SiteNav(){
+  const [scrolled, setScrolled] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+  React.useEffect(()=>{
+    const h = ()=> setScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', h, {passive:true});
+    h();
+    return ()=> window.removeEventListener('scroll', h);
+  },[]);
+  const bg = scrolled ? '#161259' : 'transparent';
+  const links = ['Products','Solutions','Pricing','Partners','Company'];
+  return (
+    <div style={{background: bg, transition:'background .3s ease', position:'fixed', top:0, left:0, right:0, zIndex:1000}}>
+      <div className="nav-inner">
+        <a href="#" className="nav-logo" aria-label="Archera">
+          <img src="assets/brand/archera-horizontal.svg" alt="Archera"/>
+        </a>
+        <nav className="nav-links">
+          {links.map(l=><a href="#" key={l}>{l}</a>)}
+        </nav>
+        <div className="nav-ctas">
+          <a href="#" className="nav-btn-login">Login</a>
+          <a href="#" className="nav-btn-start">Start free</a>
+        </div>
+        <button className="nav-hamburger" aria-label="Toggle menu" onClick={()=>setOpen(o=>!o)}>
+          {open ? (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          ) : (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+              <path d="M3 7h18M3 12h18M3 17h18"/>
+            </svg>
+          )}
+        </button>
+      </div>
+      {open && (
+        <div className="mobile-drawer open">
+          <div className="mobile-links">
+            {links.map(l=><a href="#" key={l}>{l}</a>)}
+          </div>
+          <div className="mobile-ctas">
+            <a href="#" className="nav-btn-login">Login</a>
+            <a href="#" className="nav-btn-start">Start free</a>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════
+   HERO (Variant C)
+═══════════════════════════════════════════ */
+function HeroStatsRow(){
+  const stats = [
+    {n:'$4B',   sub:'/yr',  eyebrow:'UNDER MANAGEMENT', l:'in cloud commitments across AWS, Azure & Google Cloud'},
+    {n:'$0',    sub:'',     eyebrow:'PLATFORM FEE',      l:'flat pricing, forever — we never take a cut of your savings'},
+    {n:'SOC 2', sub:'II',   eyebrow:'CERTIFIED',         l:'& ISO 27001:2022 — independently audited'},
+    {n:'30',    sub:'-day', eyebrow:'MINIMUM TERM',      l:'minimum commitment — no multi-year lock-in required'},
+    {n:'20–30', sub:'%',    eyebrow:'COST REDUCTION',    l:'typical cloud cost reduction for Archera customers'},
+  ];
+  return (
+    <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:0,borderTop:'1px solid rgba(255,255,255,0.14)',paddingTop:32}}>
+      {stats.map((s,i)=>(
+        <div key={i} style={{paddingRight:22,borderRight:i<4?'1px solid rgba(255,255,255,0.1)':'none',paddingLeft:i>0?22:0,minWidth:0,animation:`countUp 0.8s ease-out ${0.12*i+0.4}s both`}}>
+          <div style={{fontFamily:'var(--ff-d)',fontSize:9.5,fontWeight:700,letterSpacing:'0.16em',color:'var(--amber)',marginBottom:12}}>{s.eyebrow}</div>
+          <div style={{display:'flex',alignItems:'baseline',gap:3,whiteSpace:'nowrap'}}>
+            <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:44,letterSpacing:'-0.03em',color:'#fff',lineHeight:0.95}}>{s.n}</span>
+            {s.sub && <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:18,color:'var(--sky)',letterSpacing:'-0.015em'}}>{s.sub}</span>}
+          </div>
+          <div style={{fontSize:12.5,color:'rgba(255,255,255,0.6)',marginTop:12,fontFamily:'var(--ff-b)',lineHeight:1.45,maxWidth:200}}>{s.l}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function HeroSection(){
+  return (
+    <div style={{position:'relative',height:'100vh',overflow:'hidden',color:'#fff',
+      background:'linear-gradient(105deg,#E89A9A 0%,#D766B5 20%,#C258C6 40%,#A542DD 60%,#8B3DEF 80%,#6B4CFF 100%)'}}>
+      <div style={{position:'absolute',left:'50%',top:100,width:4200,height:4200,borderRadius:'50%',background:'#0C0A30',transform:'translate(-50%,0)',zIndex:1}}/>
+      <div style={{position:'absolute',top:220,left:0,right:0,zIndex:5,textAlign:'center',padding:'0 40px'}}>
+        <h1 style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:96,letterSpacing:'-0.045em',lineHeight:0.98,margin:0,color:'#fff'}}>
+          Like <span style={{color:'var(--sky)'}}>insurance</span><br/>for your cloud spend.
+        </h1>
+        <p style={{fontSize:20,color:'rgba(255,255,255,0.72)',marginTop:28,maxWidth:580,lineHeight:1.55,margin:'28px auto 0',textWrap:'pretty'}}>
+          Archera offers a new way to reduce unpredictable cloud costs.{' '}
+          <b style={{color:'#fff',fontWeight:600}}>Confidently buy commitments</b>, and we'll cover whatever goes unused.
+          We call it <b style={{color:'#fff',fontWeight:600}}>insured commitments</b>.
+        </p>
+        <div style={{display:'flex',gap:12,marginTop:36,flexWrap:'wrap',justifyContent:'center'}}>
+          <a href="#" className="hero-btn hero-btn-p">Schedule your demo <span className="btn-arrow"/></a>
+          <a href="#" className="hero-btn hero-btn-o">Start now — it's free</a>
+        </div>
+      </div>
+      <div style={{position:'absolute',bottom:56,left:80,right:80,zIndex:5}}>
+        <HeroStatsRow/>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════
+   PROBLEM-FIX — Variant E
+   (All shared + VariantE from pf-variants.jsx)
+═══════════════════════════════════════════ */
+function PFSectionHead({kicker='The commitment trap',kickerTone='violet',title,body,align='left',titleSize=52,dark=false,maxWidth=860}){
+  const ta=align==='center'?'center':'left';
+  const mx=align==='center'?'auto':'0';
+  const kickColor=kickerTone==='sky'?'var(--sky)':kickerTone==='amber'?'var(--amber)':kickerTone==='crimson'?'var(--crimson)':dark?'var(--sky)':'var(--violet)';
+  return(
+    <div style={{textAlign:ta,maxWidth,marginLeft:mx,marginRight:mx}}>
+      <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:13,letterSpacing:'0.16em',textTransform:'uppercase',color:kickColor,display:'inline-block'}}>{kicker}</span>
+      <h2 style={{fontSize:titleSize,letterSpacing:'-0.025em',lineHeight:1.05,marginTop:20,color:dark?'#fff':'var(--ink)',textWrap:'balance'}}>{title}</h2>
+      <p style={{marginTop:22,fontSize:18,lineHeight:1.55,maxWidth:640,marginLeft:align==='center'?'auto':0,marginRight:align==='center'?'auto':0,color:dark?'rgba(255,255,255,0.72)':'var(--slate-3)',textWrap:'pretty'}}>{body}</p>
+    </div>
+  );
+}
+
+const WORKLOADS=[{name:'EC2',bg:'#FF8A3D'},{name:'RDS',bg:'#24A148'},{name:'OpenSearch',bg:'#7101FF'}];
+const PAL={year3:'#FFC83D',year1:'#6DD8FC',ondemand:'#E8EAEE',insured:'#7101FF'};
+const WITHOUT_STACKS=[[18,34,48],[12,28,60],[10,15,75]];
+const WITH_STACKS=[[10,15,72,3],[13,12,70,5],[10,13,71,6]];
+const WITHOUT_COVERED=['52%','40%','25%'];
+const WITH_COVERED=['97%','95%','94%'];
+const TRAP_STACKS=[[5,13,10,24,48],[3,9,7,21,60],[2,8,4,11,75]];
+const TRAP_COVERED=['15%','10%','6%'];
+
+function WorkloadIcon({name,size=28}){
+  const common={width:size,height:size,borderRadius:8,display:'inline-grid',placeItems:'center',color:'#fff'};
+  if(name==='EC2') return <span style={{...common,background:'#FF8A3D'}}><svg width={size*0.55} height={size*0.55} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg></span>;
+  if(name==='RDS') return <span style={{...common,background:'#24A148'}}><svg width={size*0.55} height={size*0.55} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg></span>;
+  return <span style={{...common,background:'#7101FF'}}><svg width={size*0.55} height={size*0.55} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="10" cy="10" r="6"/><path d="M15 15l5 5"/></svg></span>;
+}
+
+function Seg({height,color,hatched,glow,wasted}){
+  return(
+    <div style={{height:`${height}%`,width:'100%',background:hatched?`repeating-linear-gradient(45deg,${color} 0px,${color} 4px,rgba(255,255,255,0.55) 4px,rgba(255,255,255,0.55) 8px)`:color,transition:'height .7s cubic-bezier(.4,0,.2,1)',position:'relative',boxShadow:glow&&height>5?'0 0 20px rgba(113,1,255,0.45),inset 0 0 0 1px rgba(255,255,255,0.12)':'none'}}>
+      {wasted&&height>10&&<div style={{position:'absolute',inset:0,display:'grid',placeItems:'center',fontFamily:'var(--ff-d)',fontSize:9,fontWeight:800,letterSpacing:'0.14em',color:'#fff',textTransform:'uppercase',pointerEvents:'none',textShadow:'0 1px 2px rgba(0,0,0,0.3)'}}>UNUSED</div>}
+    </div>
+  );
+}
+
+function ChartLegend({variant,onDark,trap}){
+  const items=variant==='with'
+    ?[{c:PAL.year3,l:'3-year: 57% off'},{c:PAL.year1,l:'1-year: 27% off'},{c:PAL.insured,l:'30-day commit: 30% off'}]
+    :trap
+      ?[{c:PAL.year3,l:'3-year (utilized)'},{c:PAL.year1,l:'1-year (utilized)'},{c:'#AD284B',l:'Committed but unused',hatched:true},{c:onDark?'rgba(255,255,255,0.2)':PAL.ondemand,l:'On-demand (new drift)'}]
+      :[{c:PAL.year3,l:'3-year: 57% off'},{c:PAL.year1,l:'1-year: 27% off'},{c:onDark?'rgba(255,255,255,0.2)':PAL.ondemand,l:'On-demand: 0% off'}];
+  return(
+    <div style={{display:'flex',gap:20,flexWrap:'wrap',padding:'14px 22px 0',fontFamily:'var(--ff-b)',fontSize:12,color:onDark?'rgba(255,255,255,0.7)':'var(--slate-4)'}}>
+      {items.map((x,i)=>(
+        <div key={i} style={{display:'inline-flex',alignItems:'center',gap:8}}>
+          <span style={{width:12,height:12,borderRadius:'50%',background:x.hatched?`repeating-linear-gradient(45deg,${x.c} 0,${x.c} 2px,rgba(255,255,255,0.6) 2px,rgba(255,255,255,0.6) 4px)`:x.c,display:'inline-block'}}/>
+          {x.l}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function CoverageChart({variant='without',onDark=false,compact=false,embedded=false,trap=false}){
+  const useTrap=trap&&variant!=='with';
+  const stacks=variant==='with'?WITH_STACKS:(useTrap?TRAP_STACKS:WITHOUT_STACKS);
+  const covered=variant==='with'?WITH_COVERED:(useTrap?TRAP_COVERED:WITHOUT_COVERED);
+  const chartH=compact?200:260;
+  const accent=variant==='with'?'var(--violet)':(useTrap?'var(--crimson)':(onDark?'#fff':'var(--ink)'));
+  const gridColor=onDark?'rgba(255,255,255,0.08)':'rgba(12,10,48,0.08)';
+  const axisColor=onDark?'rgba(255,255,255,0.4)':'var(--slate-5)';
+  const header=(
+    <div style={{padding:'18px 22px',background:variant==='with'?'var(--violet)':(onDark?'rgba(255,255,255,0.06)':'var(--paper)'),borderBottom:variant==='with'?'none':(onDark?'1px solid rgba(255,255,255,0.08)':'1px solid var(--line)'),borderRadius:variant==='with'?'var(--radius) var(--radius) 0 0':0}}>
+      <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:18,letterSpacing:'-0.015em',color:variant==='with'?'#fff':(onDark?'#fff':'var(--ink)')}}>{variant==='with'?'With Archera':'Without Archera'}</div>
+    </div>
+  );
+  const content=(
+    <>
+      {!embedded&&header}
+      <ChartLegend variant={variant} onDark={onDark} trap={useTrap}/>
+      <div style={{padding:'18px 22px 22px'}}>
+        <div style={{position:'relative',height:chartH,display:'grid',gridTemplateColumns:'38px 1fr 1fr 1fr',gap:14,alignItems:'end'}}>
+          <div style={{position:'relative',height:'100%'}}>
+            {[0,25,50,75,100].map(v=><div key={v} style={{position:'absolute',right:2,bottom:`${v}%`,transform:'translateY(50%)',fontSize:11,color:axisColor,fontFamily:'var(--ff-d)',fontWeight:500}}>{v}%</div>)}
+          </div>
+          {WORKLOADS.map((w,wi)=>{
+            const stack=stacks[wi];
+            return(
+              <div key={w.name} style={{position:'relative',height:'100%'}}>
+                {[0,25,50,75,100].map(v=><div key={v} style={{position:'absolute',left:-14,right:0,bottom:`${v}%`,height:1,borderTop:`1px dashed ${gridColor}`}}/>)}
+                <div style={{position:'absolute',bottom:0,left:'50%',transform:'translateX(-50%)',width:'65%',height:'100%',display:'flex',flexDirection:'column-reverse',borderRadius:'6px 6px 0 0',overflow:'hidden'}}>
+                  {variant==='with'?(<><Seg height={stack[0]} color={PAL.year3}/><Seg height={stack[1]} color={PAL.year1}/><Seg height={stack[2]} color={PAL.insured} glow/><Seg height={stack[3]} color={onDark?'rgba(255,255,255,0.14)':PAL.ondemand}/></>)
+                  :useTrap?(<><Seg height={stack[0]} color={PAL.year3}/><Seg height={stack[1]} color="#AD284B" hatched wasted={wi===0&&stack[1]>=13}/><Seg height={stack[2]} color={PAL.year1}/><Seg height={stack[3]} color="#AD284B" hatched wasted={wi===1&&stack[3]>=18}/><Seg height={stack[4]} color={onDark?'rgba(255,255,255,0.14)':PAL.ondemand}/></>)
+                  :(<><Seg height={stack[0]} color={PAL.year3}/><Seg height={stack[1]} color={PAL.year1}/><Seg height={stack[2]} color={onDark?'rgba(255,255,255,0.14)':PAL.ondemand}/></>)}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div style={{display:'grid',gridTemplateColumns:'38px 1fr 1fr 1fr',gap:14,marginTop:18}}>
+          <div/>
+          {WORKLOADS.map((w,wi)=>(
+            <div key={w.name} style={{textAlign:'center'}}>
+              <div style={{display:'inline-flex',alignItems:'center',gap:8,fontFamily:'var(--ff-d)',fontWeight:600,fontSize:14,color:onDark?'#fff':'var(--ink)',letterSpacing:'-0.01em'}}>
+                <WorkloadIcon name={w.name}/>{w.name}
+              </div>
+              <div style={{marginTop:6,fontFamily:'var(--ff-d)',fontWeight:700,fontSize:15,color:accent,letterSpacing:'-0.01em'}}>{covered[wi]} Covered</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+  if(embedded) return content;
+  return(
+    <div style={{background:onDark?'rgba(255,255,255,0.04)':'#fff',border:onDark?'1px solid rgba(255,255,255,0.1)':'1px solid var(--line)',borderRadius:'var(--radius)',overflow:'hidden',boxShadow:onDark?'none':'0 2px 6px rgba(12,10,48,0.04)'}}>
+      {content}
+    </div>
+  );
+}
+
+function PFVariantE(){
+  const [active,setActive]=React.useState(0);
+  const [paused,setPaused]=React.useState(false);
+  const [inView,setInView]=React.useState(false);
+  const sectionRef=React.useRef(null);
+  const TICK=8400;
+  React.useEffect(()=>{
+    const el=sectionRef.current;
+    if(!el) return;
+    const obs=new IntersectionObserver(([e])=>setInView(e.isIntersecting),{threshold:0.2});
+    obs.observe(el);
+    return()=>obs.disconnect();
+  },[]);
+  React.useEffect(()=>{
+    if(paused||!inView) return;
+    const t=setTimeout(()=>setActive(s=>(s+1)%3),TICK);
+    return()=>clearTimeout(t);
+  },[active,paused,inView]);
+  const jump=(i)=>{setActive(i);setPaused(true);};
+  const scenes=[
+    {n:'01',kicker:'STATUS QUO',title:"Most spend isn\u2019t under commitment.",body:"Teams under-commit to avoid lock-in. The majority of spend sits at on-demand rates, earning zero discount.",accent:'var(--amber)',accentText:'#B8860B',chartVariant:'without',trap:false},
+    {n:'02',kicker:'THE TRAP',title:"Commit long-term, and usage drifts away.",body:"Native RIs, Savings Plans and CUDs lock you in for 1\u20133 years. When usage shifts, underutilization eats your savings \u2014 but the bill shows up anyway.",accent:'var(--crimson)',accentText:'var(--crimson)',chartVariant:'without',trap:true},
+    {n:'03',kicker:'THE FIX',title:"We cover the downside. You commit aggressively.",body:"Archera reimburses or releases unused commitments, so you can over-commit safely with 30-day insured terms.",accent:'var(--violet)',accentText:'var(--violet)',chartVariant:'with',trap:false},
+  ];
+  const s=scenes[active];
+  return(
+    <div ref={sectionRef} style={{width:'100%',background:'var(--paper-warm)',padding:'72px 80px 64px'}}>
+      <div style={{maxWidth:1280,margin:'0 auto'}}>
+        <PFSectionHead
+          kicker={"The commitment trap \u2014 in three scenes"}
+          title={<span>Cloud commitments save money.<br/>Until they don&rsquo;t.</span>}
+          body={"Click a scene or just watch \u2014 see where savings disappear, and how Archera puts them back."}
+          titleSize={46}
+        />
+        <div style={{marginTop:52,display:'grid',gridTemplateColumns:'repeat(3,minmax(0,1fr))',gap:0,columnGap:20,position:'relative'}}>
+          {scenes.map((sc,i)=>{
+            const isActive=i===active;
+            const isPast=i<active;
+            return(
+              <div key={sc.n} style={{display:'flex',flexDirection:'column',gap:18,minWidth:0}}>
+                <div style={{height:3,borderRadius:2,background:'var(--line)',overflow:'hidden'}}>
+                  <div key={isActive?`a-${active}-${paused}`:`p-${i}-${isPast}`} style={{height:'100%',background:isActive?sc.accent:(isPast?'rgba(12,10,48,0.22)':'transparent'),width:isActive&&paused?'100%':(!isActive&&isPast?'100%':'0%'),animation:isActive&&!paused?`fillBarPFE ${TICK}ms linear forwards`:'none'}}/>
+                </div>
+                <button onClick={()=>jump(i)} style={{background:'transparent',border:'none',color:'var(--ink)',textAlign:'left',cursor:'pointer',padding:0,display:'flex',gap:14,alignItems:'flex-start',minWidth:0}}>
+                  <span style={{width:52,height:52,borderRadius:'50%',display:'grid',placeItems:'center',background:isActive?sc.accent:(isPast?'var(--line-2)':'#fff'),color:isActive?(i===0?'var(--ink)':'#fff'):'var(--slate-4)',border:isActive?`2px solid ${sc.accent}`:'2px solid var(--line)',boxShadow:isActive?`0 4px 16px -4px ${sc.accent}55`:'none',fontFamily:'var(--ff-d)',fontWeight:800,fontSize:17,transition:'all .3s',flex:'0 0 auto'}}>{sc.n}</span>
+                  <span style={{display:'flex',flexDirection:'column',gap:4,minWidth:0,flex:1,paddingTop:4}}>
+                    <span style={{fontFamily:'var(--ff-d)',fontSize:10,letterSpacing:'0.2em',fontWeight:700,color:isActive?sc.accentText:'var(--slate-5)'}}>{sc.kicker}</span>
+                    <span style={{fontFamily:'var(--ff-d)',fontSize:14,fontWeight:600,color:isActive?'var(--ink)':'var(--slate-4)',textWrap:'balance',lineHeight:1.3,wordBreak:'break-word'}}>{sc.title}</span>
+                  </span>
+                </button>
+              </div>
+            );
+          })}
+        </div>
+        <div style={{marginTop:52,display:'grid',gridTemplateColumns:'1fr 1.25fr',gap:72,alignItems:'center'}}>
+          <div key={active} style={{animation:'stageBounceE .5s ease'}}>
+            <div style={{fontFamily:'var(--ff-d)',fontSize:72,fontWeight:800,color:s.accentText,lineHeight:1,letterSpacing:'-0.04em',opacity:0.85}}>{s.n}</div>
+            <h3 style={{fontSize:38,lineHeight:1.1,color:'var(--ink)',marginTop:18,textWrap:'balance',maxWidth:440}}>{s.title}</h3>
+            <p style={{fontSize:17,lineHeight:1.6,color:'var(--slate-3)',marginTop:20,maxWidth:440,textWrap:'pretty'}}>{s.body}</p>
+            <div style={{marginTop:36,display:'flex',gap:12,alignItems:'center'}}>
+              <button onClick={()=>setPaused(p=>!p)} style={{padding:'12px 20px',borderRadius:999,background:paused?'var(--ink)':'var(--line-2)',border:paused?'none':'1px solid var(--line)',color:paused?'#fff':'var(--ink)',fontFamily:'inherit',fontSize:14,fontWeight:600,cursor:'pointer',display:'inline-flex',alignItems:'center',gap:8}}>
+                {paused?<><svg width="10" height="12" viewBox="0 0 10 12"><path d="M0 0 L10 6 L0 12 Z" fill="currentColor"/></svg>Resume</>:<><svg width="10" height="12" viewBox="0 0 10 12"><rect x="0" y="0" width="3" height="12" fill="currentColor"/><rect x="7" y="0" width="3" height="12" fill="currentColor"/></svg>Pause</>}
+              </button>
+              <div style={{fontFamily:'var(--ff-d)',fontSize:11,fontWeight:700,letterSpacing:'0.18em',color:'var(--slate-5)'}}>{String(active+1).padStart(2,'0')} / 03</div>
+            </div>
+          </div>
+          <div style={{background:'#fff',border:'1px solid var(--line)',borderRadius:'var(--radius)',overflow:'hidden',boxShadow:'0 2px 6px rgba(12,10,48,0.04)'}}>
+            <div style={{padding:'18px 22px',background:s.chartVariant==='with'?'var(--violet)':'var(--line-2)',borderBottom:s.chartVariant==='with'?'none':'1px solid var(--line)',transition:'background .55s ease'}}>
+              <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:18,letterSpacing:'-0.015em',color:s.chartVariant==='with'?'#fff':'var(--ink)',transition:'color .55s ease'}}>{s.chartVariant==='with'?'With Archera':'Without Archera'}</div>
+            </div>
+            <CoverageChart variant={s.chartVariant} trap={s.trap} embedded/>
+          </div>
+        </div>
+      </div>
+      <style>{`
+        @keyframes stageBounceE{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes fillBarPFE{from{width:0%}to{width:100%}}
+      `}</style>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════
+   HOW IT WORKS — Variant B (horizontal stepper)
+═══════════════════════════════════════════ */
+const STEPS=[
+  {n:'01',title:'Find on-demand spend you could commit to',body:"Archera analyzes your cloud usage and surfaces the on-demand infrastructure that would save money under a commitment — workloads you're running at full rate today.",accent:'sky',kicker:'ANALYZE'},
+  {n:'02',title:'30-day and 1-year insured commitments',body:'Pick a Guaranteed Reserved Instance or Savings Plan on a 30-day or 1-year term. Each plan includes insurance — Archera covers any unused capacity so you always realize the savings.',accent:'violet',kicker:'PROTECT'},
+  {n:'03',title:'Commitments purchased inside your account',body:"Archera purchases the commitment directly in your cloud account. Your billing relationship stays with the cloud provider — you keep full control, we handle the optimization.",accent:'amber',kicker:'EXECUTE'},
+  {n:'04',title:'If savings go negative, Archera covers it',body:"When usage drops and a commitment's savings would turn negative, Archera's coverage picks up the difference. You only ever see positive savings on your bill.",accent:'mint',kicker:'ABSORB'},
+];
+const ACCENT_HEX={sky:'#6DD8FC',violet:'#7101FF',amber:'#FFD080',mint:'#38D9BF',crimson:'#AD284B'};
+
+function IllusAnalyze(){
+  const cols=7,rows=4,tileW=64,tileH=44,gapX=10,gapY=12,startX=40,startY=80;
+  const candidates=new Set(['1-2','2-4','0-5','2-1','3-3','1-6','3-0']);
+  const glyphs=['EC2','RDS','EKS','EC2','S3','EC2','RDS','EKS','EC2','EC2','RDS','EC2','EC2','EKS','LAM','EC2','EC2','EKS','RDS','EC2','EC2','S3','EC2','EKS','EC2','RDS','EC2','EC2'];
+  const tiles=[];let g=0;
+  for(let r=0;r<rows;r++){for(let c=0;c<cols;c++){const key=`${r}-${c}`;const isCand=candidates.has(key);tiles.push({key,x:startX+c*(tileW+gapX),y:startY+r*(tileH+gapY),isCand,label:glyphs[g++%glyphs.length]});}}
+  return(
+    <svg viewBox="0 0 560 360" style={{width:'100%',display:'block'}}>
+      <defs><linearGradient id="a-cand" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stopColor="#6DD8FC" stopOpacity="0.9"/><stop offset="100%" stopColor="#A2B1FB" stopOpacity="0.7"/></linearGradient></defs>
+      <g fontFamily="Manrope" fontWeight="700" letterSpacing="2" fontSize="10">
+        <rect x="40" y="36" width="112" height="22" rx="11" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)"/>
+        <circle cx="52" cy="47" r="3.5" fill="#F89090"/><text x="62" y="51" fill="#fff" opacity="0.75">ON-DEMAND</text>
+        <rect x="160" y="36" width="128" height="22" rx="11" fill="rgba(109,216,252,0.1)" stroke="#6DD8FC" strokeOpacity="0.5"/>
+        <circle cx="172" cy="47" r="3.5" fill="#6DD8FC"/><text x="182" y="51" fill="#6DD8FC">CANDIDATES</text>
+      </g>
+      <g fontFamily="Manrope" textAnchor="end">
+        <text x="520" y="45" fontSize="11" letterSpacing="2" fontWeight="700" fill="#6DD8FC" opacity="0.8">IDENTIFIED</text>
+        <text x="520" y="68" fontSize="22" fontWeight="800" fill="#fff" letterSpacing="-1">7 resources</text>
+      </g>
+      {tiles.map(t=>(
+        <g key={t.key}>
+          <rect x={t.x} y={t.y} width={tileW} height={tileH} rx="6" fill={t.isCand?'url(#a-cand)':'rgba(255,255,255,0.04)'} stroke={t.isCand?'#6DD8FC':'rgba(255,255,255,0.1)'} strokeWidth={t.isCand?1.5:1}/>
+          <text x={t.x+tileW/2} y={t.y+tileH/2+4} textAnchor="middle" fontFamily="Manrope" fontWeight="700" fontSize="11" fill={t.isCand?'#0C0A30':'rgba(255,255,255,0.45)'} letterSpacing="1">{t.label}</text>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+function IllusProtect(){
+  return(
+    <svg viewBox="0 0 560 360" style={{width:'100%',display:'block'}}>
+      <defs>
+        <linearGradient id="p-dome" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stopColor="#7101FF" stopOpacity="0.55"/><stop offset="60%" stopColor="#7101FF" stopOpacity="0.1"/><stop offset="100%" stopColor="#7101FF" stopOpacity="0"/></linearGradient>
+        <linearGradient id="p-card1" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stopColor="#A2B1FB" stopOpacity="0.95"/><stop offset="100%" stopColor="#7101FF" stopOpacity="0.7"/></linearGradient>
+      </defs>
+      <ellipse cx="280" cy="340" rx="260" ry="30" fill="#7101FF" opacity="0.15"/>
+      <path d="M 50 280 A 230 220 0 0 1 510 280" fill="url(#p-dome)" stroke="#7101FF" strokeWidth="1.5" opacity="0.9"/>
+      <g transform="translate(230,78)"><rect width="100" height="28" rx="14" fill="#fff"/><text x="58" y="18" textAnchor="middle" fontFamily="Manrope" fontWeight="800" fontSize="11" fill="#0C0A30" letterSpacing="1.5">INSURED</text></g>
+      <g transform="translate(65,175)"><rect width="130" height="120" rx="10" fill="url(#p-card1)"/><text x="14" y="24" fill="#fff" opacity="0.75" fontFamily="Manrope" fontWeight="700" fontSize="10" letterSpacing="1.5">1-YEAR</text><text x="14" y="70" fill="#fff" fontFamily="Manrope" fontWeight="800" fontSize="26" letterSpacing="-0.5">GRI</text></g>
+      <g transform="translate(215,155)"><rect width="130" height="140" rx="10" fill="#7101FF"/><text x="14" y="24" fill="#FFD080" fontFamily="Manrope" fontWeight="700" fontSize="10" letterSpacing="1.5">30-DAY</text><text x="14" y="74" fill="#fff" fontFamily="Manrope" fontWeight="800" fontSize="28" letterSpacing="-0.5">GRI</text><circle cx="112" cy="22" r="5" fill="#38D9BF"/></g>
+      <g transform="translate(365,175)"><rect width="130" height="120" rx="10" fill="#15123F" stroke="#A2B1FB" strokeOpacity="0.45" strokeWidth="1.5"/><text x="14" y="24" fill="#6DD8FC" fontFamily="Manrope" fontWeight="700" fontSize="10" letterSpacing="1.5">1-YEAR</text><text x="14" y="70" fill="#fff" fontFamily="Manrope" fontWeight="800" fontSize="26" letterSpacing="-0.5">GSP</text></g>
+    </svg>
+  );
+}
+
+function IllusExecute(){
+  return(
+    <svg viewBox="0 0 560 360" style={{width:'100%',display:'block'}}>
+      <defs>
+        <linearGradient id="e-bar" x1="0" x2="1" y1="0" y2="0"><stop offset="0%" stopColor="#FFD080"/><stop offset="100%" stopColor="#F89090"/></linearGradient>
+        <linearGradient id="e-panel" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stopColor="#1A1352" stopOpacity="0.95"/><stop offset="100%" stopColor="#0C0A30" stopOpacity="1"/></linearGradient>
+      </defs>
+      <g><rect x="110" y="38" width="120" height="22" rx="11" fill="url(#e-bar)" opacity="0.95"/><rect x="260" y="14" width="96" height="22" rx="11" fill="url(#e-bar)" opacity="0.75"/><rect x="380" y="52" width="110" height="22" rx="11" fill="url(#e-bar)" opacity="0.88"/><text x="170" y="53" textAnchor="middle" fontFamily="Manrope" fontSize="11" fontWeight="800" fill="#0C0A30" letterSpacing="1">COMMITMENT</text><text x="308" y="29" textAnchor="middle" fontFamily="Manrope" fontSize="11" fontWeight="800" fill="#0C0A30" letterSpacing="1">COMMITMENT</text><text x="435" y="67" textAnchor="middle" fontFamily="Manrope" fontSize="11" fontWeight="800" fill="#0C0A30" letterSpacing="1">COMMITMENT</text></g>
+      <g transform="translate(50,140)">
+        <rect width="460" height="200" rx="14" fill="url(#e-panel)" stroke="#6DD8FC" strokeOpacity="0.35" strokeWidth="1.5"/>
+        <rect width="460" height="42" rx="14" fill="rgba(109,216,252,0.08)"/>
+        <rect y="28" width="460" height="14" fill="rgba(109,216,252,0.08)"/>
+        <circle cx="18" cy="21" r="4" fill="#F89090" opacity="0.7"/><circle cx="32" cy="21" r="4" fill="#FFD080" opacity="0.7"/><circle cx="46" cy="21" r="4" fill="#38D9BF" opacity="0.7"/>
+        <text x="72" y="26" fontFamily="Manrope" fontWeight="800" fontSize="13" fill="#fff" letterSpacing="0.5">Your Cloud Account</text>
+        <g transform="translate(28,68)">
+          <g transform="translate(0,14)"><rect width="404" height="26" rx="6" fill="#7101FF" opacity="0.85"/></g>
+          <g transform="translate(0,50)"><rect width="404" height="26" rx="6" fill="#A2B1FB" opacity="0.55"/></g>
+          <g transform="translate(0,86)"><rect width="404" height="26" rx="6" fill="#6DD8FC" opacity="0.4"/></g>
+        </g>
+      </g>
+    </svg>
+  );
+}
+
+function IllusAbsorb(){
+  const x0=40,zeroY=200;
+  const curve=[[40,130],[100,120],[160,135],[220,160],[280,185],[340,210],[365,220],[400,240],[450,260],[510,255]];
+  const findCross=()=>{for(let i=0;i<curve.length-1;i++){const[xa,ya]=curve[i],[xb,yb]=curve[i+1];if((ya-zeroY)*(yb-zeroY)<0){const t=(zeroY-ya)/(yb-ya);return[xa+(xb-xa)*t,zeroY];}}return null;};
+  const cross=findCross();
+  const posPts=curve.filter(([x,y])=>y<=zeroY).concat([cross]);
+  const negPts=[cross].concat(curve.filter(([x,y])=>y>zeroY));
+  const toPath=pts=>pts.map((p,i)=>(i===0?'M':'L')+p[0]+' '+p[1]).join(' ');
+  const posFill=`M ${posPts[0][0]} ${zeroY} ${posPts.map(p=>`L ${p[0]} ${p[1]}`).join(' ')} L ${posPts[posPts.length-1][0]} ${zeroY} Z`;
+  const negFill=`M ${negPts[0][0]} ${zeroY} ${negPts.map(p=>`L ${p[0]} ${p[1]}`).join(' ')} L ${negPts[negPts.length-1][0]} ${zeroY} Z`;
+  return(
+    <svg viewBox="0 0 560 360" style={{width:'100%',display:'block'}}>
+      <defs>
+        <linearGradient id="ab-pos" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stopColor="#38D9BF" stopOpacity="0.5"/><stop offset="100%" stopColor="#38D9BF" stopOpacity="0.1"/></linearGradient>
+        <linearGradient id="ab-cov" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stopColor="#38D9BF" stopOpacity="0.15"/><stop offset="100%" stopColor="#38D9BF" stopOpacity="0.55"/></linearGradient>
+      </defs>
+      <line x1={x0} y1={zeroY} x2="520" y2={zeroY} stroke="#fff" strokeOpacity="0.35" strokeWidth="1.2" strokeDasharray="6 4"/>
+      <path d={posFill} fill="url(#ab-pos)"/>
+      <path d={negFill} fill="url(#ab-cov)"/>
+      <path d={toPath(curve)} fill="none" stroke="#38D9BF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+      {cross&&<g><circle cx={cross[0]} cy={cross[1]} r="8" fill="#0C0A30" stroke="#F89090" strokeWidth="2"/><circle cx={cross[0]} cy={cross[1]} r="3" fill="#F89090"/><rect x={cross[0]-72} y={cross[1]-68} width="144" height="26" rx="13" fill="#F89090" opacity="0.95"/><text x={cross[0]} y={cross[1]-50} textAnchor="middle" fontFamily="Manrope" fontWeight="800" fontSize="11" fill="#0C0A30" letterSpacing="1">SAVINGS GO NEGATIVE</text></g>}
+      <g transform="translate(395,258)"><rect x="-10" y="-15" width="160" height="28" rx="14" fill="#38D9BF"/><text x="72" y="5" textAnchor="middle" fontFamily="Manrope" fontWeight="800" fontSize="12" fill="#0C0A30" letterSpacing="0.5">ARCHERA COVERAGE</text></g>
+      <g fontFamily="Manrope" fontSize="10" fill="#fff" opacity="0.38" letterSpacing="1">
+        <text x={x0} y="325">Month 1</text><text x="270" y="325" textAnchor="middle">Usage drops</text><text x="510" y="325" textAnchor="end">End of term</text>
+      </g>
+    </svg>
+  );
+}
+
+const ILLUS=[IllusAnalyze,IllusProtect,IllusExecute,IllusAbsorb];
+
+function DarkStage({children,padTop=120,padBottom=120}){
+  return(
+    <div style={{width:'100%',background:'linear-gradient(180deg,#0C0A30 0%,#1A1352 100%)',color:'#fff',padding:`${padTop}px 96px ${padBottom}px`,position:'relative',overflow:'hidden'}}>
+      <div style={{position:'absolute',inset:0,pointerEvents:'none',background:'radial-gradient(40% 40% at 90% 0%,rgba(113,1,255,0.32),transparent 70%),radial-gradient(40% 40% at 0% 100%,rgba(109,216,252,0.18),transparent 70%)'}}/>
+      <div style={{position:'relative',maxWidth:1280,margin:'0 auto'}}>{children}</div>
+    </div>
+  );
+}
+
+function HowVariantC(){
+  const [active,setActive]=React.useState(0);
+  const [paused,setPaused]=React.useState(false);
+  const [inView,setInView]=React.useState(false);
+  const sectionRef=React.useRef(null);
+  const TICK=8400;
+  React.useEffect(()=>{
+    const el=sectionRef.current;
+    if(!el) return;
+    const obs=new IntersectionObserver(([e])=>setInView(e.isIntersecting),{threshold:0.2});
+    obs.observe(el);
+    return()=>obs.disconnect();
+  },[]);
+  React.useEffect(()=>{
+    if(paused||!inView) return;
+    const t=setTimeout(()=>setActive(s=>(s+1)%STEPS.length),TICK);
+    return()=>clearTimeout(t);
+  },[active,paused,inView]);
+  const s=STEPS[active];
+  const Illus=ILLUS[active];
+  const accent=ACCENT_HEX[s.accent];
+  const jump=(i)=>{setActive(i);setPaused(true);};
+  return(
+    <div ref={sectionRef}>
+    <DarkStage padTop={100} padBottom={110}>
+      <div style={{textAlign:'left',maxWidth:820,margin:0,position:'relative'}}>
+        <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:13,letterSpacing:'0.16em',textTransform:'uppercase',color:'var(--sky)'}}>How insured commitments work</span>
+        <h2 style={{fontSize:56,letterSpacing:'-0.025em',lineHeight:1.05,marginTop:18,color:'#fff',textWrap:'balance'}}>Short-term commitments.<br/>Guaranteed savings.</h2>
+        <p style={{marginTop:22,fontSize:18,lineHeight:1.55,maxWidth:600,color:'rgba(255,255,255,0.65)',textWrap:'pretty'}}>Archera sits between your cloud usage and your commitments — insuring the downside, so the flexibility of 30-day and 1-year terms actually pays off.</p>
+      </div>
+      <div style={{marginTop:56,display:'grid',gridTemplateColumns:'repeat(4,minmax(0,1fr))',gap:0,columnGap:16,position:'relative'}}>
+        {STEPS.map((st,i)=>{
+          const a=ACCENT_HEX[st.accent];
+          const isActive=i===active,isPast=i<active;
+          return(
+            <div key={st.n} style={{display:'flex',flexDirection:'column',gap:18,minWidth:0}}>
+              <div style={{height:3,borderRadius:2,background:'rgba(255,255,255,0.1)',overflow:'hidden',position:'relative'}}>
+                <div key={isActive?`active-${active}-${paused}`:`idle-${i}-${isPast}`}
+                  style={{height:'100%',background:isActive?a:(isPast?'rgba(255,255,255,0.35)':'transparent'),
+                    width:isActive&&paused?'100%':(!isActive&&isPast?'100%':'0%'),
+                    animation:isActive&&!paused?`fillBar ${TICK}ms linear forwards`:'none'}}/>
+              </div>
+              <button onClick={()=>jump(i)} style={{background:'transparent',border:'none',color:'#fff',textAlign:'left',cursor:'pointer',padding:0,display:'flex',gap:14,alignItems:'flex-start',minWidth:0}}>
+                <span style={{width:56,height:56,borderRadius:'50%',display:'grid',placeItems:'center',background:isActive?a:(isPast?'rgba(255,255,255,0.15)':'#15123F'),color:isActive?'#0C0A30':'#fff',border:isActive?`2px solid ${a}`:'2px solid rgba(255,255,255,0.15)',boxShadow:isActive?`0 0 0 8px ${a}1F`:'none',fontFamily:'var(--ff-d)',fontWeight:800,fontSize:18,transition:'all .3s',flex:'0 0 auto'}}>{st.n}</span>
+                <span style={{display:'flex',flexDirection:'column',gap:4,minWidth:0,flex:1,paddingTop:4}}>
+                  <span style={{fontFamily:'var(--ff-d)',fontSize:10,letterSpacing:'0.2em',fontWeight:700,color:isActive?a:'rgba(255,255,255,0.4)'}}>{st.kicker}</span>
+                  <span style={{fontFamily:'var(--ff-d)',fontSize:14,fontWeight:600,color:isActive?'#fff':'rgba(255,255,255,0.55)',textWrap:'balance',lineHeight:1.3,wordBreak:'break-word'}}>{st.title}</span>
+                </span>
+              </button>
+            </div>
+          );
+        })}
+      </div>
+      <div key={active} style={{marginTop:72,display:'grid',gridTemplateColumns:'1fr 1.3fr',gap:80,alignItems:'center',animation:'fadeStage .5s ease'}}>
+        <div>
+          <div style={{fontFamily:'var(--ff-d)',fontSize:72,fontWeight:800,color:accent,lineHeight:1,letterSpacing:'-0.04em',opacity:0.9}}>{s.n}</div>
+          <h3 style={{fontSize:40,lineHeight:1.1,color:'#fff',marginTop:20,textWrap:'balance',maxWidth:440}}>{s.title}</h3>
+          <p style={{fontSize:17.5,lineHeight:1.6,color:'rgba(255,255,255,0.7)',marginTop:22,maxWidth:440,textWrap:'pretty'}}>{s.body}</p>
+          <div style={{marginTop:40,display:'flex',gap:12,alignItems:'center'}}>
+            <button onClick={()=>setPaused(p=>!p)} style={{padding:'12px 20px',borderRadius:999,background:paused?accent:'rgba(255,255,255,0.06)',border:paused?'none':'1px solid rgba(255,255,255,0.15)',color:paused?'#0C0A30':'#fff',fontFamily:'inherit',fontSize:14,fontWeight:600,cursor:'pointer',display:'inline-flex',alignItems:'center',gap:8}}>
+              {paused?(
+                <><svg width="10" height="12" viewBox="0 0 10 12"><path d="M0 0 L10 6 L0 12 Z" fill="currentColor"/></svg> Resume</>
+              ):(
+                <><svg width="10" height="12" viewBox="0 0 10 12"><rect x="0" y="0" width="3" height="12" fill="currentColor"/><rect x="7" y="0" width="3" height="12" fill="currentColor"/></svg> Pause</>
+              )}
+            </button>
+            <div style={{fontFamily:'var(--ff-d)',fontSize:11,fontWeight:700,letterSpacing:'0.18em',color:'rgba(255,255,255,0.4)'}}>
+              {String(active+1).padStart(2,'0')} / {String(STEPS.length).padStart(2,'0')}
+            </div>
+          </div>
+        </div>
+        <div><Illus animated/></div>
+      </div>
+      <style>{`
+        @keyframes fadeStage{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes fillBar{from{width:0%}to{width:100%}}
+      `}</style>
+    </DarkStage>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════
+   DERISK — Variant C (savings spotlight cards)
+═══════════════════════════════════════════ */
+function DeRiskC(){
+  const html=`
+    <div class="container">
+      <div class="provider-head">
+        <div>
+          <span class="compare-kicker">Multicloud coverage</span>
+          <h2 style="margin-top:16px">De-risk commitments across every cloud.</h2>
+        </div>
+        <p>One platform, one workflow, one compliance posture — whether you're running on AWS, Azure, Google Cloud or all three.</p>
+      </div>
+      <div class="vc-grid">
+        <article class="vc-card vc-aws">
+          <div class="vc-top">
+            <div class="vc-logo-row"><img src="assets/cloud/aws-dark.svg" alt="AWS"/></div>
+            <div class="vc-pct">58<span class="vc-pct-unit">%</span></div>
+            <div class="vc-pct-label">cost savings</div>
+            <div class="vc-ba"><span class="vc-before">$30k</span><span class="vc-arrow">→</span><span class="vc-after">$12.7k</span><span class="vc-mo">/mo</span></div>
+            <div class="vc-bar-wrap"><div class="vc-bar-fill" style="width:42%"></div></div>
+          </div>
+          <div class="vc-body">
+            <h3>Amazon Web Services</h3>
+            <div class="vc-commits">
+              <div class="label">Commitments managed</div>
+              <ul><li><span><b>GRIs</b> — EC2, RDS, ElastiCache, DynamoDB</span></li><li><span><b>GSPs</b> — EC2, Lambda, Fargate, ECS/EKS</span></li><li><span><b>PPA insurance</b> — shortfall protection</span></li></ul>
+            </div>
+            <div class="vc-foot"><a href="#" class="link-arrow">Learn about AWS →</a><span class="vc-term">30-day min · up to 3 yrs</span></div>
+          </div>
+        </article>
+        <article class="vc-card vc-azure">
+          <div class="vc-top">
+            <div class="vc-logo-row"><img src="assets/cloud/azure-dark.svg" alt="Azure"/></div>
+            <div class="vc-pct">56<span class="vc-pct-unit">%</span></div>
+            <div class="vc-pct-label">cost savings</div>
+            <div class="vc-ba"><span class="vc-before">$42k</span><span class="vc-arrow">→</span><span class="vc-after">$18.4k</span><span class="vc-mo">/mo</span></div>
+            <div class="vc-bar-wrap"><div class="vc-bar-fill" style="width:44%"></div></div>
+          </div>
+          <div class="vc-body">
+            <h3>Microsoft Azure</h3>
+            <div class="vc-commits">
+              <div class="label">Commitments managed</div>
+              <ul><li><span><b>Reserved Instances</b> — VM, SQL DB, Cosmos DB</span></li><li><span><b>Savings Plans</b> — VM families &amp; App Service</span></li><li><span><b>MACC</b> — acceleration toward target</span></li></ul>
+            </div>
+            <div class="vc-foot"><a href="#" class="link-arrow">Learn about Azure →</a><span class="vc-term">30-day min · flex term</span></div>
+          </div>
+        </article>
+        <article class="vc-card vc-gcp">
+          <div class="vc-top">
+            <div class="vc-logo-row"><img src="assets/cloud/gcp-dark.svg" alt="Google Cloud"/><span class="pill pill-beta">Beta</span></div>
+            <div class="vc-pct">53<span class="vc-pct-unit">%</span></div>
+            <div class="vc-pct-label">cost savings</div>
+            <div class="vc-ba"><span class="vc-before">$24k</span><span class="vc-arrow">→</span><span class="vc-after">$11.2k</span><span class="vc-mo">/mo</span></div>
+            <div class="vc-bar-wrap"><div class="vc-bar-fill" style="width:47%"></div></div>
+          </div>
+          <div class="vc-body">
+            <h3>Google Cloud</h3>
+            <div class="vc-commits">
+              <div class="label">Commitments managed</div>
+              <ul><li><span><b>Spend-based CUDs</b> — $/hr across compute</span></li><li><span><b>Resource-based CUDs</b> — Compute Engine, Cloud SQL</span></li><li><span><b>MCPO</b> — portfolio-level optimization</span></li></ul>
+            </div>
+            <div class="vc-foot"><a href="#" class="link-arrow">Learn about Google Cloud →</a><span class="vc-term">30-day min · flex term</span></div>
+          </div>
+        </article>
+      </div>
+    </div>`;
+  return <section className="providers-section vC" dangerouslySetInnerHTML={{__html:html}}/>;
+}
+
+/* ═══════════════════════════════════════════
+   TESTIMONIALS — Variant D (dark triptych)
+═══════════════════════════════════════════ */
+const TESTIMONIALS=[
+  {id:'platform9',company:'Platform9',accent:'#7101FF',quote:"We now have the visibility and automation needed to make smart, aggressive cloud management decisions — and we\u2019ve significantly reduced our AWS bill as a result.",person:{name:'Esten Rye',role:'DevOps Manager',photo:'assets/people/esten.png'}},
+  {id:'floyo',company:'Floyo',accent:'#6DD8FC',quote:"Archera enables us to scale without hours of analysis. We\u2019d recommend it to any startup navigating cloud cost optimization.",person:{name:'Ashish Gupta',role:'Head of AI Infrastructure',photo:'assets/people/ashish.png'}},
+  {id:'hex',company:'Hex',accent:'#FFD080',quote:"The one differentiator with Archera is transparency in pricing. One fee off the top \u2014 that\u2019s pretty much it.",person:{name:'Kim Leung',role:'Engineering Lead',photo:'assets/people/kim.png'}},
+];
+
+function CompanyMark({company,size=22,color='var(--slate-3)'}){
+  const src=company==='Platform9'?'assets/customers/platform9.svg':company==='Floyo'?'assets/customers/floyo.svg':company==='Hex'?'assets/customers/hex.svg':null;
+  if(!src) return <span style={{fontFamily:'var(--ff-d)',fontWeight:800,color}}>{company}</span>;
+  const isLight=typeof color==='string'&&/#fff|#FFF|255,\s*255,\s*255|rgba\(255/.test(color);
+  return <img src={src} alt={company} style={{height:size,width:'auto',display:'inline-block',filter:isLight?'brightness(0) invert(1) opacity(0.85)':'grayscale(1) brightness(0) opacity(0.6)'}}/>;
+}
+
+function LogoBandAndCTA({theme='light'}){
+  const isDark=theme==='dark';
+  const logoUrls=Array.from({length:9},(_,i)=>`assets/customers/logo-0${i+1}.svg`);
+  const bandBg=isDark?'rgba(255,255,255,0.03)':'var(--paper-warm)';
+  const bandBorder=isDark?'rgba(255,255,255,0.08)':'var(--line)';
+  const heading=isDark?'#fff':'var(--ink)';
+  const linkColor=isDark?'#6DD8FC':'var(--violet)';
+  return(
+    <div style={{marginTop:96,paddingTop:48,borderTop:`1px solid ${bandBorder}`}}>
+      <div style={{display:'grid',gridTemplateColumns:'1.1fr auto',gap:40,alignItems:'end',marginBottom:40}}>
+        <div>
+          <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:13,letterSpacing:'0.14em',textTransform:'uppercase',color:isDark?'#FFD080':'var(--violet)',marginBottom:14}}>More customer stories</div>
+          <h3 style={{color:heading,fontSize:32,lineHeight:1.15,maxWidth:700,textWrap:'pretty'}}>See how other teams are succeeding in the cloud with Archera.</h3>
+        </div>
+        <a href="#" style={{display:'inline-flex',alignItems:'center',gap:12,fontFamily:'var(--ff-d)',fontWeight:700,fontSize:16,color:linkColor,textDecoration:'none',padding:'14px 22px',borderRadius:999,border:`1.5px solid ${linkColor}`,background:'transparent',whiteSpace:'nowrap'}}>
+          Discover their stories
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke={linkColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        </a>
+      </div>
+      <div style={{position:'relative',marginLeft:-80,marginRight:-80,background:bandBg,borderTop:`1px solid ${bandBorder}`,borderBottom:`1px solid ${bandBorder}`,padding:'32px 0 36px',overflow:'hidden'}}>
+        <div style={{fontFamily:'var(--ff-d)',fontWeight:600,fontSize:13,letterSpacing:'0.16em',textTransform:'uppercase',color:isDark?'rgba(255,255,255,0.55)':'var(--slate-4)',marginBottom:24,textAlign:'center'}}>Trusted by cloud teams at scale</div>
+        <div style={{display:'flex',width:'max-content',animation:'logoMarquee 40s linear infinite'}}>
+          {[0,1].map(loop=>(
+            <div key={loop} style={{display:'flex',alignItems:'center',gap:72,paddingRight:72,flexShrink:0}} aria-hidden={loop===1?'true':undefined}>
+              {logoUrls.map((u,i)=>(
+                <div key={i} style={{height:48,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
+                  <img src={u} alt="" style={{maxHeight:44,width:'auto',opacity:isDark?0.75:0.85,filter:isDark?'grayscale(1) brightness(0) invert(1) opacity(0.8)':'grayscale(1) brightness(0) opacity(0.65)'}}/>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`@keyframes logoMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}`}</style>
+    </div>
+  );
+}
+
+function TSectionHeader({theme='light',kickerColor,title,subtitle}){
+  const isDark=theme==='dark';
+  return(
+    <div style={{marginBottom:72}}>
+      <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:13,letterSpacing:'0.14em',textTransform:'uppercase',color:kickerColor||(isDark?'var(--amber)':'var(--violet)'),marginBottom:20}}>Customer stories</div>
+      <div style={{display:'grid',gridTemplateColumns:'1fr auto',gap:48,alignItems:'end'}}>
+        <h2 style={{fontSize:52,lineHeight:1.05,letterSpacing:'-0.025em',color:isDark?'#fff':'var(--ink)',maxWidth:780,textWrap:'balance',margin:0,fontFamily:'var(--ff-d)',fontWeight:700}}>{title}</h2>
+        {subtitle&&<p style={{color:isDark?'rgba(255,255,255,0.68)':'var(--slate-3)',fontSize:17,lineHeight:1.5,maxWidth:420,margin:0,paddingBottom:8}}>{subtitle}</p>}
+      </div>
+    </div>
+  );
+}
+
+function TestimonialsVariantD(){
+  const isDark=true;
+  const [idx,setIdx]=React.useState(0);
+  const t=TESTIMONIALS[idx];
+  const CARDS={
+    platform9:{tag:'DevOps',headline:'Reclaim your AWS bill',blurb:'Automation and visibility Platform9 used to make aggressive cloud decisions — and cut AWS spend significantly.',stat:'↓ AWS',statLabel:'Aggressive cut in monthly AWS spend'},
+    floyo:{tag:'AI Startup',headline:'Scale without the analysis',blurb:'Archera removed hours of commitment modeling so Floyo could grow its AI infra without a dedicated FinOps hire.',stat:'0 hrs',statLabel:'Of manual commitment analysis per month'},
+    hex:{tag:'Data',headline:'Transparent, flat-fee pricing',blurb:"Hex chose Archera for the one thing competitors kept hiding: a single predictable fee off the top — nothing more.",stat:'1 fee',statLabel:'Flat rate, off the top — no surprises'},
+  };
+  const card=CARDS[t.id];
+  const BG={platform9:'#7101FF',floyo:'#6DD8FC',hex:'#F89090'};
+  const bg=BG[t.id];
+  return(
+    <section style={{background:'var(--ink)',padding:'110px 80px 100px',fontFamily:'var(--ff-b)',color:'#fff',position:'relative',overflow:'hidden'}}>
+      <TSectionHeader theme="dark" title={<>Real teams.<br/>Real flexibility.<br/>Real savings.</>} subtitle="Engineers, FinOps leads, and founders using Archera to reclaim room in their cloud spend without the lock-in."/>
+      <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:32}}>
+        <div style={{display:'flex',alignItems:'center',gap:8}}>
+          {TESTIMONIALS.map((tm,i)=>(
+            <button key={tm.id} onClick={()=>setIdx(i)} style={{padding:'12px 22px',borderRadius:999,background:i===idx?'#fff':'transparent',color:i===idx?'var(--ink)':'rgba(255,255,255,0.75)',border:'none',cursor:i===idx?'default':'pointer',fontFamily:'var(--ff-d)',fontWeight:600,fontSize:15,transition:'background .2s,color .2s'}}>{tm.company}</button>
+          ))}
+        </div>
+        <div style={{display:'flex',alignItems:'center',gap:14}}>
+          <div style={{position:'relative',width:80,height:2,background:'rgba(255,255,255,0.18)',borderRadius:999,overflow:'hidden'}}>
+            <div style={{position:'absolute',inset:0,width:`${((idx+1)/TESTIMONIALS.length)*100}%`,background:'#fff',transition:'width .4s cubic-bezier(.2,.7,.3,1)'}}/>
+          </div>
+          <div style={{fontFamily:'var(--ff-d)',fontSize:14,fontWeight:600,color:'rgba(255,255,255,0.8)'}}>{idx+1} <span style={{color:'rgba(255,255,255,0.35)'}}>/ {TESTIMONIALS.length}</span></div>
+        </div>
+      </div>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 2fr',gap:16}}>
+        <div key={t.id+'-cs'} style={{position:'relative',background:`linear-gradient(200deg,${bg}1A 0%,${bg}4D 55%,${bg}99 100%),#FFFFFF`,borderRadius:'var(--radius-lg)',padding:'40px 40px 36px',display:'flex',flexDirection:'column',minHeight:480,overflow:'hidden',animation:'tcPanel .5s ease both'}}>
+          <div style={{fontFamily:'var(--ff-d)',fontWeight:600,fontSize:13,letterSpacing:'0.14em',textTransform:'uppercase',color:'var(--slate-4)'}}>Case study · {card.tag}</div>
+          <h3 style={{marginTop:24,fontFamily:'var(--ff-d)',fontWeight:600,fontSize:36,lineHeight:1.1,letterSpacing:'-0.02em',color:'var(--ink)',textWrap:'balance'}}>{card.headline}</h3>
+          <p style={{marginTop:20,fontSize:15,lineHeight:1.55,color:'var(--slate-3)',textWrap:'pretty'}}>{card.blurb}</p>
+          <a href="#" style={{marginTop:'auto',display:'inline-flex',alignItems:'center',gap:12,fontFamily:'var(--ff-d)',fontWeight:600,fontSize:15,color:'var(--ink)',textDecoration:'none',alignSelf:'flex-start'}}>Read more <span style={{width:30,height:30,borderRadius:'50%',background:'var(--ink)',color:'#fff',display:'grid',placeItems:'center'}}><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/></svg></span></a>
+        </div>
+        <div key={t.id+'-hero'} style={{position:'relative',background:`linear-gradient(135deg,var(--ink) 0%,var(--ink) 55%,${bg} 180%)`,color:'#fff',borderRadius:'var(--radius-lg)',padding:'40px 48px 44px',display:'flex',flexDirection:'column',minHeight:480,overflow:'hidden',animation:'tcPanel .5s .05s ease both',border:'1px solid rgba(255,255,255,0.18)'}}>
+          <div style={{position:'absolute',width:520,height:520,borderRadius:'50%',bottom:-200,right:-140,background:`radial-gradient(circle,${bg}66,transparent 65%)`,pointerEvents:'none'}}/>
+          <div style={{position:'relative',display:'flex',alignItems:'center',justifyContent:'space-between',gap:20}}>
+            <div style={{display:'flex',alignItems:'center',gap:14}}>
+              <img src={t.person.photo} alt="" style={{width:52,height:52,borderRadius:'50%',objectFit:'cover',background:t.accent,flexShrink:0}}/>
+              <div>
+                <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:16,color:'#fff'}}>{t.person.name}</div>
+                <div style={{fontSize:13,color:'rgba(255,255,255,0.6)',marginTop:2}}>{t.person.role}</div>
+              </div>
+            </div>
+            <CompanyMark company={t.company} size={28} color="#fff"/>
+          </div>
+          <blockquote style={{position:'relative',margin:'36px 0 0 0',fontFamily:'var(--ff-d)',fontWeight:500,fontSize:28,lineHeight:1.3,letterSpacing:'-0.018em',color:'#fff',textWrap:'pretty',maxWidth:720}}>"{t.quote}"</blockquote>
+          <div style={{position:'relative',marginTop:'auto',paddingTop:32,borderTop:'1px solid rgba(255,255,255,0.12)',display:'flex',alignItems:'flex-end',gap:24}}>
+            <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:88,lineHeight:0.95,letterSpacing:'-0.03em',color:'var(--amber)'}}>{card.stat}</div>
+            <div style={{paddingBottom:10,fontSize:14,color:'var(--amber)',lineHeight:1.4,maxWidth:320,opacity:0.9}}>{card.statLabel}</div>
+          </div>
+        </div>
+      </div>
+      <LogoBandAndCTA theme="dark"/>
+      <style>{`@keyframes tcPanel{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}`}</style>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════
+   PRACTITIONER — Variant A (peer-reviewed)
+═══════════════════════════════════════════ */
+function PractitionerA(){
+  const html=`
+    <div class="cp-a-creds-side">
+      <div class="cp-a-creds-head">
+        <h3>Loved by practitioners.<br/>Backed by the industry.</h3>
+        <p>Validated by the FinOps Foundation, recognized by GeekWire, and certified by Microsoft.</p>
+      </div>
+      <div class="cp-a-badge-grid">
+        <div class="cp-a-badge-slot"><img src="assets/badges/finops-foundation.svg" alt="FinOps Foundation"/><span>FinOps Foundation</span></div>
+        <div class="cp-a-badge-slot"><img src="assets/badges/finops-practitioners.svg" alt="FinOps Practitioners"/><span>Practitioners</span></div>
+        <div class="cp-a-badge-slot"><img src="assets/badges/finops-focus.svg" alt="FinOps Focus"/><span>FinOps FOCUS</span></div>
+        <div class="cp-a-badge-slot"><img src="assets/badges/microsoft-partner.png" alt="Microsoft Partner"/><span>Microsoft Partner</span></div>
+        <div class="cp-a-badge-slot"><img src="assets/badges/geekwire-200.svg" alt="GeekWire 200"/><span>GeekWire 200</span></div>
+      </div>
+    </div>
+    <div class="cp-a-divider"></div>
+    <div class="cp-a-score-side">
+      <div>
+        <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:8px">
+          <div class="cp-a-score-num">4.7</div>
+          <div>
+            <div class="cp-a-stars"><div class="cp-a-star"></div><div class="cp-a-star"></div><div class="cp-a-star"></div><div class="cp-a-star"></div><div class="cp-a-star"></div></div>
+            <div class="cp-a-score-label" style="margin-top:4px">out of 5 on G2</div>
+          </div>
+        </div>
+        <div class="cp-a-g2-badges">
+          <img src="assets/badges/g2-high-performer.svg" alt="G2 High Performer"/>
+          <img src="assets/badges/g2-users-love-us.svg" alt="G2 Users Love Us"/>
+          <img src="assets/badges/g2-score.svg" alt="G2 Score"/>
+        </div>
+      </div>
+      <div class="cp-a-review-cards">
+        <div class="cp-a-review-card">
+          <div class="cp-a-review-mini-stars"><div class="cp-a-review-mini-star"></div><div class="cp-a-review-mini-star"></div><div class="cp-a-review-mini-star"></div><div class="cp-a-review-mini-star"></div><div class="cp-a-review-mini-star"></div></div>
+          <div class="cp-a-review-text">"We now have the visibility and automation needed to make smart, aggressive cloud management decisions — and we've significantly reduced our AWS bill as a result."</div>
+          <div class="cp-a-review-who">Esten Rye, DevOps Manager · Platform9 &nbsp;·&nbsp; <span style="color:#FF492C;font-weight:700">G2</span> verified review</div>
+        </div>
+        <div class="cp-a-review-card">
+          <div class="cp-a-review-mini-stars"><div class="cp-a-review-mini-star"></div><div class="cp-a-review-mini-star"></div><div class="cp-a-review-mini-star"></div><div class="cp-a-review-mini-star"></div><div class="cp-a-review-mini-star"></div></div>
+          <div class="cp-a-review-text">"The one differentiator with Archera is transparency in pricing. One fee off the top — that's pretty much it."</div>
+          <div class="cp-a-review-who">Kim Leung, Engineering Lead · Hex &nbsp;·&nbsp; <span style="color:#FF492C;font-weight:700">G2</span> verified review</div>
+        </div>
+      </div>
+    </div>`;
+  return <section className="cp-a" dangerouslySetInnerHTML={{__html:html}}/>;
+}
+
+/* ═══════════════════════════════════════════
+   SCHEDULE DEMO — Variant A (light arc)
+═══════════════════════════════════════════ */
+function ScheduleDemoA(){
+  const html=`
+    <div class="sd-a-arc"></div>
+    <div class="sd-a-inner">
+      <div class="sd-a-kicker">One conversation changes everything</div>
+      <h2>Buy commitments<br/>without worry.</h2>
+      <p class="body">See exactly where insured commitments would save your team money — a 20-minute demo, or jump straight in for free.</p>
+      <div class="ctas">
+        <a href="#" class="btn btn-violet">Schedule your demo &nbsp;→</a>
+        <a href="#" class="btn btn-outline-ink">Start now — it's free</a>
+      </div>
+      <div class="trust-row">
+        <span class="item"><span class="check">✓</span> 20-min demo</span>
+        <span class="item"><span class="check">✓</span> No long-term contracts</span>
+        <span class="item"><span class="check">✓</span> $0 platform fee</span>
+      </div>
+    </div>`;
+  return <div className="sd-a" dangerouslySetInnerHTML={{__html:html}}/>;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+function SiteFooter(){
+  const html=`
+    <div class="container">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <a href="#" class="foot-logo" aria-label="Archera"><img src="assets/brand/archera-horizontal.svg" alt="Archera"/></a>
+          <p>Insured cloud commitments for AWS, Azure and Google Cloud. Save without the lock-in.</p>
+          <div class="foot-soc">
+            <a href="#" aria-label="LinkedIn"><img src="assets/social/linkedin.svg" alt=""/></a>
+            <a href="#" aria-label="YouTube"><img src="assets/social/youtube.svg" alt=""/></a>
+          </div>
+        </div>
+        <div class="foot-col">
+          <h4>Archera platform</h4>
+          <ul><li><a href="#">Login</a></li><li><a href="#">Support</a></li><li><a href="#">Help Center</a></li><li><a href="#">Documentation</a></li><li><a href="#">Pricing</a></li></ul>
+        </div>
+        <div class="foot-col">
+          <h4>Company</h4>
+          <ul><li><a href="#">About Archera</a></li><li><a href="#">Customers</a></li><li><a href="#">Contact</a></li><li><a href="#">Careers</a></li></ul>
+        </div>
+      </div>
+      <div class="foot-cert">
+        <span class="foot-cert-label">Certifications &amp; Partners</span>
+        <div class="foot-aws-group">
+          <img src="assets/trust/aws-qualified.svg" alt="AWS Qualified Software"/>
+          <img src="assets/trust/aws-partner.svg" alt="AWS Partner"/>
+        </div>
+        <div class="foot-cert-divider"></div>
+        <div class="foot-compliance">
+          <img src="assets/trust/aicpa-soc.png" alt="AICPA SOC"/>
+          <img src="assets/trust/soc2-drata.png" alt="SOC 2 — Drata"/>
+          <img src="assets/trust/soc2-prescient.png" alt="SOC 2 Type II"/>
+          <img src="assets/trust/iso-27001.png" alt="ISO/IEC 27001:2022"/>
+          <img src="assets/trust/soc2-type2.png" alt="SOC 2 Type II"/>
+        </div>
+      </div>
+      <div class="foot-legal">
+        <span>© 2026 Archera, Inc. All rights reserved.</span>
+        <div class="foot-legal-links">
+          <a href="#">Terms of Service</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Sitemap</a>
+        </div>
+      </div>
+    </div>`;
+  return <footer className="site-footer" dangerouslySetInnerHTML={{__html:html}}/>;
+}
+
+/* ═══════════════════════════════════════════
+   PAGE ASSEMBLY
+═══════════════════════════════════════════ */
+function HomePage1(){
+  return (
+    <>
+      <HeroSection/>
+      <PFVariantE/>
+      <HowVariantC/>
+      <DeRiskC/>
+      <TestimonialsVariantD/>
+      <PractitionerA/>
+      <ScheduleDemoA/>
+      <SiteFooter/>
+    </>
+  );
+}
+
+// Render nav into its own div (outside React root for simplicity)
+ReactDOM.createRoot(document.getElementById('site-nav')).render(<SiteNav/>);
+ReactDOM.createRoot(document.getElementById('root')).render(<HomePage1/>);
+</script>
+</body>
+</html>
