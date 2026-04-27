@@ -49,13 +49,18 @@ p{margin:0;}
 .nav-btn-login:hover{border-color:#fff;background:rgba(255,255,255,0.07);}
 .nav-btn-start{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;font-family:var(--ff-d);font-weight:600;font-size:14px;color:#fff;background:var(--violet);border:none;cursor:pointer;transition:all .2s;}
 .nav-btn-start:hover{background:var(--violet-2);box-shadow:0 8px 24px -6px rgba(113,1,255,0.5);}
-.nav-hamburger{display:none;background:transparent;border:none;cursor:pointer;padding:8px;color:#fff;}
-.mobile-drawer{display:none;background:#161259;padding:20px 32px 28px;border-top:1px solid rgba(255,255,255,0.08);}
-.mobile-drawer.open{display:block;}
-.mobile-links{display:flex;flex-direction:column;gap:16px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:20px;margin-bottom:20px;}
-.mobile-links a{color:rgba(255,255,255,0.85);font-family:var(--ff-d);font-size:16px;font-weight:500;}
-.mobile-ctas{display:flex;gap:12px;flex-wrap:wrap;}
-@media(max-width:768px){.nav-links,.nav-ctas{display:none;}.nav-hamburger{display:block;}}
+.nav-hamburger{display:none;background:transparent;border:none;cursor:pointer;padding:8px;color:#fff;flex-shrink:0;}
+.mobile-drawer{display:none;position:fixed;top:72px;left:0;right:0;bottom:0;background:#161259;padding:32px 24px 40px;overflow-y:auto;z-index:999;flex-direction:column;}
+.mobile-drawer.open{display:flex;}
+.mobile-links{display:flex;flex-direction:column;gap:20px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:28px;margin-bottom:28px;}
+.mobile-links a{color:rgba(255,255,255,0.85);font-family:var(--ff-d);font-size:18px;font-weight:500;}
+.mobile-ctas{display:flex;flex-direction:column;gap:12px;}
+.mobile-ctas .nav-btn-login,.mobile-ctas .nav-btn-start{justify-content:center;padding:14px 18px;font-size:15px;}
+@media(max-width:768px){
+  .nav-inner{padding:0 20px;}
+  .nav-links,.nav-ctas{display:none;}
+  .nav-hamburger{display:block;}
+}
 
 /* ── Hero buttons ── */
 .hero-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border-radius:999px;font-family:var(--ff-d);font-weight:600;font-size:16px;border:1px solid transparent;cursor:pointer;transition:all .2s;white-space:nowrap;text-decoration:none;}
@@ -124,10 +129,9 @@ p{margin:0;}
 .vD .viz-bars .b{flex:1;border-radius:4px;}
 .vD .viz-card.before .b{background:var(--peach);opacity:0.9;}
 .vD .viz-card.before .b:nth-child(even){background:var(--amber);}
-#vD-panel[data-cloud="aws"] .viz-card.after .b{background:var(--aws);}
+#vD-panel .viz-card.after .b{background:var(--aws);}
 #vD-panel[data-cloud="azure"] .viz-card.after .b{background:var(--azure);}
 #vD-panel[data-cloud="gcp"] .viz-card.after .b{background:var(--gcp);}
-.vD .viz-card.after .b{background:var(--aws);}
 .vD .viz-card.after .b:nth-child(even){opacity:0.8;}
 .vD .savings-bridge{display:flex;justify-content:center;align-items:center;position:relative;z-index:2;margin:-2px 0;}
 .vD .savings-pct{background:var(--violet);color:#fff;font-family:var(--ff-display);font-size:12px;font-weight:800;padding:5px 14px;border-radius:999px;box-shadow:0 4px 14px rgba(12,10,48,0.12);letter-spacing:0.02em;}
@@ -141,7 +145,7 @@ p{margin:0;}
 .cp-d h2{font-size:clamp(32px,3.2vw,46px);color:#fff;max-width:640px;}
 .cp-d-head-sub{font-size:16px;line-height:1.55;color:rgba(255,255,255,0.55);max-width:320px;text-align:right;padding-bottom:4px;}
 .cp-d-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,0.85);border-radius:20px;overflow:hidden;}
-.cp-d-pillar{background:var(--paper-warm);padding:40px 36px 44px;display:flex;flex-direction:column;gap:0;transition:background .2s;}
+.cp-d-pillar{background:var(--paper);padding:40px 36px 44px;display:flex;flex-direction:column;gap:0;transition:background .2s;}
 .cp-d-pillar:hover{background:#fff;}
 .cp-d-pillar-num{font-family:var(--ff-d);font-weight:800;font-size:13px;color:var(--slate-5);letter-spacing:0.08em;margin-bottom:20px;}
 .cp-d-pillar-label{font-family:var(--ff-d);font-weight:700;font-size:20px;color:var(--ink);margin-bottom:10px;}
@@ -203,6 +207,20 @@ img[alt="FinOps FOCUS"],img[alt="FinOps Focus"]{height:80px!important;}
 .foot-legal a:hover{color:#fff;}
 @media(max-width:900px){.foot-top{grid-template-columns:1fr 1fr;gap:40px;}.foot-brand{grid-column:1/-1;}.foot-cert-divider{display:none;}}
 @media(max-width:600px){.foot-top{grid-template-columns:1fr;}.foot-cert{flex-direction:column;gap:24px;}.foot-legal{flex-direction:column;align-items:flex-start;}.foot-legal-links a:first-child{margin-left:0;}}
+
+/* ── Practitioner D responsive ── */
+@media(max-width:960px){.cp-d{padding:60px 40px;}.cp-d-pillars{grid-template-columns:1fr;}.cp-d-head{grid-template-columns:1fr;gap:16px;}.cp-d-head-sub{text-align:left;max-width:none;}}
+@media(max-width:639px){.cp-d{padding:48px 20px;overflow:hidden;}}
+
+/* ── Schedule Demo C responsive ── */
+@media(max-width:768px){.sd-c{grid-template-columns:1fr;height:auto;}.sd-c-left{padding:52px 32px 44px;}.sd-c-right{padding:44px 32px 52px;}}
+@media(max-width:639px){.sd-c-left{padding:48px 20px 40px;}.sd-c-right{padding:40px 20px 48px;}}
+
+/* ── DeRisk vD responsive ── */
+@media(max-width:639px){
+  .vD .panel{padding:20px;min-height:auto;}
+}
+.vD .tabs::-webkit-scrollbar{display:none;}
 </style>
 </head>
 <body>
@@ -210,6 +228,16 @@ img[alt="FinOps FOCUS"],img[alt="FinOps Focus"]{height:80px!important;}
 <div id="root"></div>
 
 <script type="text/babel">
+
+function useBreakpoint(){
+  const[w,setW]=React.useState(window.innerWidth);
+  React.useEffect(()=>{
+    const h=()=>setW(window.innerWidth);
+    window.addEventListener('resize',h,{passive:true});
+    return()=>window.removeEventListener('resize',h);
+  },[]);
+  return{isSm:w<640,isMd:w>=640&&w<1024,isLg:w>=1024};
+}
 
 /* ═══════════════════════════════════════════
    SITE NAV
@@ -266,9 +294,9 @@ function SiteNav(){
 }
 
 /* ═══════════════════════════════════════════
-   HERO — Variant B
+   HERO — Variant A
 ═══════════════════════════════════════════ */
-function HeroStatsRow(){
+function HeroStatsRow({compact=false}){
   const stats = [
     {n:'$4B',   sub:'/yr',  eyebrow:'UNDER MANAGEMENT', l:'in cloud commitments across AWS, Azure & Google Cloud'},
     {n:'$0',    sub:'',     eyebrow:'PLATFORM FEE',      l:'flat pricing, forever — we never take a cut of your savings'},
@@ -276,16 +304,22 @@ function HeroStatsRow(){
     {n:'30',    sub:'-day', eyebrow:'MINIMUM TERM',      l:'minimum commitment — no multi-year lock-in required'},
     {n:'20–30', sub:'%',    eyebrow:'COST REDUCTION',    l:'typical cloud cost reduction for Archera customers'},
   ];
+  const numSize=compact?28:44;
+  const subSize=compact?12:18;
+  const labelSize=compact?8:9.5;
+  const bodySize=compact?11:12.5;
+  const pad=compact?14:22;
+  const pt=compact?20:32;
   return (
-    <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:0,borderTop:'1px solid rgba(255,255,255,0.14)',paddingTop:32}}>
+    <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:0,borderTop:'1px solid rgba(255,255,255,0.14)',paddingTop:pt}}>
       {stats.map((s,i)=>(
-        <div key={i} style={{paddingRight:22,borderRight:i<4?'1px solid rgba(255,255,255,0.1)':'none',paddingLeft:i>0?22:0,minWidth:0,animation:`countUp 0.8s ease-out ${0.12*i+0.4}s both`}}>
-          <div style={{fontFamily:'var(--ff-d)',fontSize:9.5,fontWeight:700,letterSpacing:'0.16em',color:'var(--amber)',marginBottom:12}}>{s.eyebrow}</div>
+        <div key={i} style={{paddingRight:pad,borderRight:i<4?'1px solid rgba(255,255,255,0.1)':'none',paddingLeft:i>0?pad:0,minWidth:0,animation:`countUp 0.8s ease-out ${0.12*i+0.4}s both`}}>
+          <div style={{fontFamily:'var(--ff-d)',fontSize:labelSize,fontWeight:700,letterSpacing:'0.16em',color:'var(--amber)',marginBottom:compact?7:12}}>{s.eyebrow}</div>
           <div style={{display:'flex',alignItems:'baseline',gap:3,whiteSpace:'nowrap'}}>
-            <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:44,letterSpacing:'-0.03em',color:'#fff',lineHeight:0.95}}>{s.n}</span>
-            {s.sub && <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:18,color:'var(--sky)',letterSpacing:'-0.015em'}}>{s.sub}</span>}
+            <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:numSize,letterSpacing:'-0.03em',color:'#fff',lineHeight:0.95}}>{s.n}</span>
+            {s.sub && <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:subSize,color:'var(--sky)',letterSpacing:'-0.015em'}}>{s.sub}</span>}
           </div>
-          <div style={{fontSize:12.5,color:'rgba(255,255,255,0.6)',marginTop:12,fontFamily:'var(--ff-b)',lineHeight:1.45,maxWidth:200}}>{s.l}</div>
+          <div style={{fontSize:bodySize,color:'rgba(255,255,255,0.6)',marginTop:compact?7:12,fontFamily:'var(--ff-b)',lineHeight:1.45,maxWidth:200}}>{s.l}</div>
         </div>
       ))}
     </div>
@@ -293,27 +327,87 @@ function HeroStatsRow(){
 }
 
 function HeroSectionB(){
+  const{isSm,isMd,isLg}=useBreakpoint();
+  // Variant A: h1 uses 80% of xl size (matches hero-variants copy='a')
+  const h1Size=isSm?38:isMd?58:77;
+  const hPad=isSm?'0 20px':isMd?'0 40px':'0 80px';
+  const pSize=isSm?16:isMd?17:20;
+  // Variant A circle: left-of-center on desktop (arc from bottom-left), centered on mobile
+  const circleLeft=isLg?200:isMd?'32%':'50%';
+  const circleW=isLg?3200:isMd?3200:2400;
+  const circleTop=isSm?60:isMd?80:100;
+  const statsMini=[
+    {n:'$4B',sub:'/yr',eyebrow:'UNDER MGMT'},
+    {n:'$0',sub:'',eyebrow:'PLATFORM FEE'},
+    {n:'SOC 2',sub:'II',eyebrow:'CERTIFIED'},
+    {n:'30',sub:'-day',eyebrow:'MIN TERM'},
+    {n:'20–30',sub:'%',eyebrow:'COST REDUCTION'},
+  ];
+  const Headline=()=>(
+    <h1 style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:h1Size,letterSpacing:'-0.045em',lineHeight:1,margin:0,color:'#fff'}}>
+      Commit aggressively,<br/>without the <span style={{color:'var(--sky)'}}>risk.</span>
+    </h1>
+  );
+  const Body=({center=false})=>(
+    <p style={{fontSize:pSize,color:'rgba(255,255,255,0.72)',marginTop:isSm?16:28,maxWidth:isSm?'100%':520,lineHeight:1.55,textWrap:'pretty',...(center&&{margin:`${isSm?16:28}px auto 0`})}}>
+      With <b style={{color:'var(--sky)',fontWeight:600}}>Insured Commitments</b>, you lock in the savings of long-term cloud commitments without the downside — if you don't use it, we cover it.
+    </p>
+  );
   return (
-    <div style={{position:'relative',height:'100vh',overflow:'hidden',color:'#fff',
-      background:'linear-gradient(105deg,#5032AC 0%,#7148D8 18%,#8E6FE6 35%,#9B8AEB 52%,#B5A8EF 68%,#D8A8D0 85%,#E89FB4 100%)'}}>
-      <div style={{position:'absolute',left:'50%',top:100,width:4200,height:4200,borderRadius:'50%',background:'#1A1E4D',transform:'translate(-50%,0)',zIndex:1}}/>
-      <div style={{position:'absolute',top:220,left:0,right:0,zIndex:5,textAlign:'center',padding:'0 40px'}}>
-        <h1 style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:96,letterSpacing:'-0.045em',lineHeight:0.98,margin:0,color:'#fff'}}>
-          Stop <span style={{color:'var(--peach)',textDecoration:'line-through',textDecorationThickness:'4px',textDecorationColor:'var(--peach)'}}>overspending.</span><br/>
-          Start <span style={{color:'var(--mint-2)'}}>saving.</span>
-        </h1>
-        <p style={{fontSize:20,color:'rgba(255,255,255,0.72)',marginTop:28,maxWidth:600,lineHeight:1.55,margin:'28px auto 0',textWrap:'pretty'}}>
-          Cloud commitments can save you up to 72% — if you use them. Archera insures the downside so you can{' '}
-          <b style={{color:'#fff',fontWeight:600}}>commit aggressively, without the risk</b>.
-        </p>
-        <div style={{display:'flex',gap:12,marginTop:36,flexWrap:'wrap',justifyContent:'center'}}>
-          <a href="#" className="hero-btn hero-btn-p">Schedule your demo <span className="btn-arrow"/></a>
-          <a href="#" className="hero-btn hero-btn-o">Start now — it's free</a>
-        </div>
+    <div style={{position:'relative',minHeight:'100svh',overflow:'hidden',color:'#fff',
+      background:'linear-gradient(90deg,#6B4CFF 0%,#8B3DEF 22%,#A542DD 45%,#C258C6 70%,#DC7AA8 88%,#E89A9A 100%)',
+      ...(isLg&&{display:'flex',flexDirection:'column'})}}>
+      {/* Variant A: dark circle anchored left-of-center on desktop — creates "arc from bottom-left" */}
+      <div style={{position:'absolute',left:circleLeft,top:circleTop,width:circleW,height:circleW,borderRadius:'50%',background:'#0C0A30',transform:'translate(-50%,0)',zIndex:1}}/>
+      {/* Content */}
+      <div style={{position:'relative',zIndex:5,padding:hPad,
+        ...(isMd?{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',minHeight:'100svh',paddingTop:88,paddingBottom:160,textAlign:'center'}
+           :isSm?{paddingTop:96,paddingBottom:32,textAlign:'center'}
+               :{flex:1,display:'flex',flexDirection:'column',justifyContent:'center',paddingTop:72,paddingBottom:24})}}>
+        {/* Desktop: 1.8fr / 1fr grid — copy left, right falls into dark circle zone */}
+        {isLg?(
+          <div style={{display:'grid',gridTemplateColumns:'1.8fr 1fr',gap:40,alignItems:'center',width:'100%'}}>
+            <div>
+              <Headline/>
+              <Body/>
+              <div style={{display:'flex',gap:12,marginTop:36,flexWrap:'wrap'}}>
+                <a href="#" className="hero-btn hero-btn-p">Schedule your demo <span className="btn-arrow"/></a>
+                <a href="#" className="hero-btn hero-btn-o">Start now — it's free</a>
+              </div>
+            </div>
+            <div/>
+          </div>
+        ):(
+          <>
+            <Headline/>
+            <Body center/>
+            <div style={{display:'flex',gap:12,marginTop:isSm?20:36,flexWrap:'wrap',justifyContent:'center'}}>
+              <a href="#" className="hero-btn hero-btn-p">Schedule your demo <span className="btn-arrow"/></a>
+              <a href="#" className="hero-btn hero-btn-o">Start now — it's free</a>
+            </div>
+          </>
+        )}
+        {/* Mobile: 2-col metrics tiles */}
+        {isSm&&(
+          <div style={{marginTop:36,display:'grid',gridTemplateColumns:'1fr 1fr',gap:1,borderTop:'1px solid rgba(255,255,255,0.14)',paddingTop:24,textAlign:'left'}}>
+            {statsMini.map((s,i)=>(
+              <div key={i} style={{padding:'14px 12px',borderRight:i%2===0?'1px solid rgba(255,255,255,0.1)':'none',borderBottom:i<3?'1px solid rgba(255,255,255,0.1)':'none'}}>
+                <div style={{fontFamily:'var(--ff-d)',fontSize:8,fontWeight:700,letterSpacing:'0.16em',color:'var(--amber)',marginBottom:6}}>{s.eyebrow}</div>
+                <div style={{display:'flex',alignItems:'baseline',gap:2}}>
+                  <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:28,letterSpacing:'-0.03em',color:'#fff',lineHeight:1}}>{s.n}</span>
+                  {s.sub&&<span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:13,color:'var(--sky)'}}>{s.sub}</span>}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-      <div style={{position:'absolute',bottom:56,left:80,right:80,zIndex:5}}>
-        <HeroStatsRow/>
-      </div>
+      {/* Stats row — in-flow for desktop (isLg), absolute for tablet (isMd), hidden mobile */}
+      {!isSm&&(
+        isLg
+          ?<div style={{position:'relative',zIndex:5,padding:'0 80px 56px'}}><HeroStatsRow compact={false}/></div>
+          :<div style={{position:'absolute',bottom:28,left:28,right:28,zIndex:5}}><HeroStatsRow compact={true}/></div>
+      )}
     </div>
   );
 }
@@ -389,24 +483,32 @@ function CoverageChart({variant='without',onDark=false,compact=false,embedded=fa
   const useTrap=trap&&variant!=='with';
   const stacks=variant==='with'?WITH_STACKS:(useTrap?TRAP_STACKS:WITHOUT_STACKS);
   const covered=variant==='with'?WITH_COVERED:(useTrap?TRAP_COVERED:WITHOUT_COVERED);
-  const chartH=compact?200:260;
+  const chartH=compact?130:260;
+  const axisW=compact?24:38;
+  const gap=compact?8:14;
+  const iconSize=compact?18:28;
+  const axisTicks=compact?[0,50,100]:[0,25,50,75,100];
+  const axisFontSize=compact?8:11;
+  const labelFontSize=compact?10:14;
+  const coveredFontSize=compact?10:15;
+  const chartPad=compact?'10px 12px 12px':'18px 22px 22px';
   const accent=variant==='with'?'var(--violet)':(useTrap?'var(--crimson)':(onDark?'#fff':'var(--ink)'));
   const gridColor=onDark?'rgba(255,255,255,0.08)':'rgba(12,10,48,0.08)';
   const axisColor=onDark?'rgba(255,255,255,0.4)':'var(--slate-5)';
   const content=(
     <>
       {!embedded&&<ChartHeader variant={variant} onDark={onDark}/>}
-      <ChartLegend variant={variant} onDark={onDark} trap={useTrap}/>
-      <div style={{padding:'18px 22px 22px'}}>
-        <div style={{position:'relative',height:chartH,display:'grid',gridTemplateColumns:'38px 1fr 1fr 1fr',gap:14,alignItems:'end'}}>
+      {!compact&&<ChartLegend variant={variant} onDark={onDark} trap={useTrap}/>}
+      <div style={{padding:chartPad}}>
+        <div style={{position:'relative',height:chartH,display:'grid',gridTemplateColumns:`${axisW}px 1fr 1fr 1fr`,gap,alignItems:'end'}}>
           <div style={{position:'relative',height:'100%'}}>
-            {[0,25,50,75,100].map(v=><div key={v} style={{position:'absolute',right:2,bottom:`${v}%`,transform:'translateY(50%)',fontSize:11,color:axisColor,fontFamily:'var(--ff-d)',fontWeight:500}}>{v}%</div>)}
+            {axisTicks.map(v=><div key={v} style={{position:'absolute',right:2,bottom:`${v}%`,transform:'translateY(50%)',fontSize:axisFontSize,color:axisColor,fontFamily:'var(--ff-d)',fontWeight:500}}>{v}%</div>)}
           </div>
           {WORKLOADS.map((w,wi)=>{
             const stack=stacks[wi];
             return(
               <div key={w.name} style={{position:'relative',height:'100%'}}>
-                {[0,25,50,75,100].map(v=><div key={v} style={{position:'absolute',left:-14,right:0,bottom:`${v}%`,height:1,borderTop:`1px dashed ${gridColor}`}}/>)}
+                {axisTicks.map(v=><div key={v} style={{position:'absolute',left:compact?-8:-14,right:0,bottom:`${v}%`,height:1,borderTop:`1px dashed ${gridColor}`}}/>)}
                 <div style={{position:'absolute',bottom:0,left:'50%',transform:'translateX(-50%)',width:'65%',height:'100%',display:'flex',flexDirection:'column-reverse',borderRadius:'6px 6px 0 0',overflow:'hidden'}}>
                   {variant==='with'?(<><Seg height={stack[0]} color={PAL.year3}/><Seg height={stack[1]} color={PAL.year1}/><Seg height={stack[2]} color={PAL.insured} glow/><Seg height={stack[3]} color={onDark?'rgba(255,255,255,0.14)':PAL.ondemand}/></>)
                   :useTrap?(<><Seg height={stack[0]} color={PAL.year3}/><Seg height={stack[1]} color="#AD284B" hatched wasted={wi===0&&stack[1]>=13}/><Seg height={stack[2]} color={PAL.year1}/><Seg height={stack[3]} color="#AD284B" hatched wasted={wi===1&&stack[3]>=18}/><Seg height={stack[4]} color={onDark?'rgba(255,255,255,0.14)':PAL.ondemand}/></>)
@@ -416,14 +518,14 @@ function CoverageChart({variant='without',onDark=false,compact=false,embedded=fa
             );
           })}
         </div>
-        <div style={{display:'grid',gridTemplateColumns:'38px 1fr 1fr 1fr',gap:14,marginTop:18}}>
+        <div style={{display:'grid',gridTemplateColumns:`${axisW}px 1fr 1fr 1fr`,gap,marginTop:compact?8:18}}>
           <div/>
           {WORKLOADS.map((w,wi)=>(
             <div key={w.name} style={{textAlign:'center'}}>
-              <div style={{display:'inline-flex',alignItems:'center',gap:8,fontFamily:'var(--ff-d)',fontWeight:600,fontSize:14,color:onDark?'#fff':'var(--ink)',letterSpacing:'-0.01em'}}>
-                <WorkloadIcon name={w.name}/>{w.name}
+              <div style={{display:'inline-flex',alignItems:'center',gap:compact?4:8,fontFamily:'var(--ff-d)',fontWeight:600,fontSize:labelFontSize,color:onDark?'#fff':'var(--ink)',letterSpacing:'-0.01em'}}>
+                <WorkloadIcon name={w.name} size={iconSize}/>{w.name}
               </div>
-              <div style={{marginTop:6,fontFamily:'var(--ff-d)',fontWeight:700,fontSize:15,color:accent,letterSpacing:'-0.01em'}}>{covered[wi]} Covered</div>
+              <div style={{marginTop:compact?3:6,fontFamily:'var(--ff-d)',fontWeight:700,fontSize:coveredFontSize,color:accent,letterSpacing:'-0.01em'}}>{compact?covered[wi]:covered[wi]+' Covered'}</div>
             </div>
           ))}
         </div>
@@ -438,7 +540,7 @@ function CoverageChart({variant='without',onDark=false,compact=false,embedded=fa
   );
 }
 
-function ScrollytellingChart({step,variant,trap}){
+function ScrollytellingChart({step,variant,trap,compact=false}){
   const accents=['var(--amber)','var(--crimson)','var(--violet)'];
   const headers=['Coverage today','What happens when usage drifts','With Archera — insured commitments'];
   const notes=[
@@ -448,10 +550,10 @@ function ScrollytellingChart({step,variant,trap}){
   ];
   return(
     <div style={{background:'#fff',border:'1px solid var(--line)',borderRadius:'var(--radius-lg)',padding:0,boxShadow:'0 24px 60px -28px rgba(12,10,48,0.2)',overflow:'hidden'}}>
-      <div style={{padding:'22px 24px',borderBottom:'1px solid var(--line-2)',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+      <div style={{padding:compact?'12px 14px':'22px 24px',borderBottom:'1px solid var(--line-2)',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
         <div>
-          <div style={{fontFamily:'var(--ff-d)',fontSize:11,fontWeight:700,letterSpacing:'0.18em',color:'var(--slate-5)'}}>SCENE {String(step+1).padStart(2,'0')} / 03</div>
-          <div style={{fontFamily:'var(--ff-d)',fontSize:20,fontWeight:700,letterSpacing:'-0.015em',marginTop:4,color:accents[step],transition:'color .4s'}}>{headers[step]}</div>
+          <div style={{fontFamily:'var(--ff-d)',fontSize:compact?9:11,fontWeight:700,letterSpacing:'0.18em',color:'var(--slate-5)'}}>SCENE {String(step+1).padStart(2,'0')} / 03</div>
+          <div style={{fontFamily:'var(--ff-d)',fontSize:compact?15:20,fontWeight:700,letterSpacing:'-0.015em',marginTop:compact?2:4,color:accents[step],transition:'color .4s'}}>{headers[step]}</div>
         </div>
         <div style={{display:'flex',gap:6}}>
           {[0,1,2].map(i=>(
@@ -459,16 +561,17 @@ function ScrollytellingChart({step,variant,trap}){
           ))}
         </div>
       </div>
-      <CoverageChart variant={variant} trap={trap} embedded/>
-      <div style={{padding:'16px 24px 22px',display:'flex',gap:12,alignItems:'flex-start',borderTop:'1px solid var(--line-2)',background:'var(--paper)'}}>
-        <div style={{width:4,alignSelf:'stretch',borderRadius:2,background:accents[step],transition:'background .4s',minHeight:32}}/>
-        <div style={{fontSize:13.5,color:'var(--slate-3)',lineHeight:1.5,fontFamily:'var(--ff-b)'}}>{notes[step]}</div>
+      <CoverageChart variant={variant} trap={trap} embedded compact={compact}/>
+      <div style={{padding:compact?'10px 14px 14px':'16px 24px 22px',display:'flex',gap:10,alignItems:'flex-start',borderTop:'1px solid var(--line-2)',background:'var(--paper)'}}>
+        <div style={{width:4,alignSelf:'stretch',borderRadius:2,background:accents[step],transition:'background .4s',minHeight:24,flexShrink:0}}/>
+        <div style={{fontSize:compact?12:13.5,color:'var(--slate-3)',lineHeight:1.5,fontFamily:'var(--ff-b)'}}>{notes[step]}</div>
       </div>
     </div>
   );
 }
 
 function PFVariantC(){
+  const{isSm,isMd}=useBreakpoint();
   const [step,setStep]=React.useState(0);
   const [chartTop,setChartTop]=React.useState(0);
   const stepRefs=React.useRef([]);
@@ -476,6 +579,7 @@ function PFVariantC(){
   const chartColRef=React.useRef(null);
 
   React.useEffect(()=>{
+    if(isSm) return;
     let raf=0;
     const update=()=>{
       raf=0;
@@ -525,16 +629,39 @@ function PFVariantC(){
   const chartForStep=(i)=>i===2?'with':'without';
   const trapForStep=(i)=>i===1;
 
+  // Mobile: simple prev/next stepper
+  if(isSm){
+    const s=steps[step];
+    const toneColor=s.tone==='amber'?'var(--amber)':s.tone==='crimson'?'var(--crimson)':'var(--violet)';
+    const toneTextDark=s.tone==='amber';
+    return(
+      <div style={{width:'100%',background:'var(--paper-warm)',padding:'48px 20px 56px',overflowX:'hidden'}}>
+        <SectionHead kicker="The commitment trap — in three scenes" title={<span>Cloud commitments save money.<br/>Until they don't.</span>} body="Three scenes showing where savings disappear — and how Archera puts them back." align="center" maxWidth={500} titleSize={30}/>
+        <div style={{marginTop:32}}>
+          <ScrollytellingChart step={step} variant={chartForStep(step)} trap={trapForStep(step)} compact/>
+          <div style={{marginTop:12,padding:'0 4px'}}>
+            <div style={{fontFamily:'var(--ff-d)',fontSize:10,fontWeight:700,color:toneColor,letterSpacing:'0.16em',textTransform:'uppercase',marginBottom:4}}>{s.kicker}</div>
+            <div style={{fontFamily:'var(--ff-d)',fontSize:14,fontWeight:600,color:'var(--ink)',lineHeight:1.35,wordBreak:'break-word'}}>{s.title}</div>
+          </div>
+          <div style={{marginTop:16,display:'flex',gap:10}}>
+            <button onClick={()=>setStep(Math.max(0,step-1))} disabled={step===0} style={{flex:1,padding:'12px 0',borderRadius:999,background:'var(--line-2)',border:'1px solid var(--line)',color:step===0?'var(--slate-5)':'var(--ink)',fontFamily:'inherit',fontSize:14,fontWeight:500,cursor:step===0?'default':'pointer'}}>← Prev</button>
+            <button onClick={()=>setStep(Math.min(2,step+1))} disabled={step===2} style={{flex:1,padding:'12px 0',borderRadius:999,background:toneColor,border:'none',color:toneTextDark?'var(--ink)':'#fff',fontFamily:'inherit',fontSize:14,fontWeight:600,cursor:step===2?'default':'pointer',opacity:step===2?0.4:1}}>Next →</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return(
-    <div style={{width:'100%',background:'var(--paper-warm)',padding:'64px 80px 100px'}}>
+    <div style={{width:'100%',background:'var(--paper-warm)',padding:`64px ${isMd?40:80}px 100px`}}>
       <div style={{maxWidth:1280,margin:'0 auto'}}>
         <SectionHead
           kicker="The commitment trap — in three scenes"
-          title={<span style={{whiteSpace:'nowrap'}}>Cloud commitments save money.<br/>Until they don't.</span>}
+          title={<>Cloud commitments save money.<br/>Until they don't.</>}
           body="Scroll through three scenes that show where the savings disappear — and how Archera puts them back on the table."
           align="center"
           maxWidth={820}
-          titleSize={46}
+          titleSize={isMd?38:46}
         />
         <div ref={narrativeRef} style={{position:'relative',display:'grid',gridTemplateColumns:'1fr 1.05fr',gap:72,marginTop:56,alignItems:'start'}}>
           <div>
@@ -581,13 +708,14 @@ const STEPS=[
 const ACCENT_HEX={sky:'#6DD8FC',violet:'#7101FF',amber:'#FFD080',mint:'#38D9BF',crimson:'#AD284B'};
 
 function HowHead(){
+  const{isSm,isMd,isLg}=useBreakpoint();
   return(
-    <div style={{maxWidth:800,position:'relative'}}>
-      <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:13,letterSpacing:'0.16em',textTransform:'uppercase',color:'var(--sky)'}}>How insured commitments work</span>
-      <h2 style={{fontSize:56,letterSpacing:'-0.025em',lineHeight:1.05,marginTop:18,color:'#fff',textWrap:'balance'}}>
+    <div style={{maxWidth:isLg?900:640,margin:'0 auto',textAlign:'center',position:'relative'}}>
+      <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:isSm?11:13,letterSpacing:'0.16em',textTransform:'uppercase',color:'var(--sky)'}}>How insured commitments work</span>
+      <h2 style={{fontSize:isSm?34:isMd?44:56,letterSpacing:'-0.025em',lineHeight:1.05,marginTop:isSm?12:18,color:'#fff',textWrap:'balance'}}>
         Short-term commitments.<br/>Guaranteed savings.
       </h2>
-      <p style={{marginTop:22,fontSize:18,lineHeight:1.55,maxWidth:600,color:'rgba(255,255,255,0.65)',textWrap:'pretty'}}>
+      <p style={{marginTop:isSm?14:22,fontSize:isSm?15:isMd?16:18,lineHeight:1.55,color:'rgba(255,255,255,0.65)',textWrap:'pretty'}}>
         Archera sits between your cloud usage and your commitments — insuring the downside, so the flexibility of 30-day and 1-year terms actually pays off.
       </p>
     </div>
@@ -595,8 +723,12 @@ function HowHead(){
 }
 
 function DarkStage({children,padTop=120,padBottom=120}){
+  const{isSm,isMd}=useBreakpoint();
+  const pt=isSm?Math.min(padTop,60):isMd?Math.round(padTop*0.72):padTop;
+  const pb=isSm?Math.min(padBottom,68):isMd?Math.round(padBottom*0.72):padBottom;
+  const hPad=isSm?20:isMd?48:96;
   return(
-    <div style={{width:'100%',background:'linear-gradient(180deg,#0C0A30 0%,#1A1352 100%)',color:'#fff',padding:`${padTop}px 96px ${padBottom}px`,position:'relative',overflow:'hidden'}}>
+    <div style={{width:'100%',background:'linear-gradient(180deg,#0C0A30 0%,#1A1352 100%)',color:'#fff',padding:`${pt}px ${hPad}px ${pb}px`,position:'relative',overflow:'hidden'}}>
       <div style={{position:'absolute',inset:0,pointerEvents:'none',background:`radial-gradient(40% 40% at 90% 0%, rgba(113,1,255,0.32), transparent 70%), radial-gradient(40% 40% at 0% 100%, rgba(109,216,252,0.18), transparent 70%)`}}/>
       <div style={{position:'relative',maxWidth:1280,margin:'0 auto'}}>{children}</div>
     </div>
@@ -709,10 +841,12 @@ function IllusAbsorb(){
 const ILLUS=[IllusAnalyze,IllusProtect,IllusExecute,IllusAbsorb];
 
 function HowVariantA(){
+  const{isSm}=useBreakpoint();
   const [active,setActive]=React.useState(0);
   const rowRefs=React.useRef([]);
 
   React.useEffect(()=>{
+    if(isSm) return;
     let raf=0;
     const update=()=>{
       raf=0;
@@ -739,7 +873,38 @@ function HowVariantA(){
       window.removeEventListener('resize',onScroll);
       rObs.disconnect();
     };
-  },[]);
+  },[isSm]);
+
+  if(isSm){
+    const s=STEPS[active];
+    const Illus=ILLUS[active];
+    const accent=ACCENT_HEX[s.accent];
+    return(
+      <div style={{width:'100%',background:'var(--ink)'}}>
+        <DarkStage padTop={64} padBottom={72}>
+          <HowHead/>
+          <div style={{marginTop:32}}>
+            <div style={{marginBottom:16}}>
+              <div style={{fontFamily:'var(--ff-d)',fontSize:10,fontWeight:700,letterSpacing:'0.22em',color:accent,marginBottom:6,textTransform:'uppercase'}}>{s.kicker}</div>
+              <h3 style={{fontSize:24,lineHeight:1.15,color:'#fff',marginBottom:10,textWrap:'balance'}}>{s.title}</h3>
+              <p style={{fontSize:15,lineHeight:1.6,color:'rgba(255,255,255,0.68)',textWrap:'pretty'}}>{s.body}</p>
+            </div>
+            <div style={{borderRadius:16,overflow:'hidden',marginBottom:20,aspectRatio:'560/360'}}>
+              <Illus/>
+            </div>
+            <div style={{display:'flex',gap:10}}>
+              <button onClick={()=>setActive(Math.max(0,active-1))} disabled={active===0} style={{flex:1,padding:'12px 0',borderRadius:999,background:'rgba(255,255,255,0.08)',border:'1px solid rgba(255,255,255,0.15)',color:active===0?'rgba(255,255,255,0.3)':'#fff',fontFamily:'inherit',fontSize:14,fontWeight:500,cursor:active===0?'default':'pointer'}}>← Prev</button>
+              <button onClick={()=>setActive(Math.min(STEPS.length-1,active+1))} disabled={active===STEPS.length-1} style={{flex:1,padding:'12px 0',borderRadius:999,background:accent,border:'none',color:'#0C0A30',fontFamily:'inherit',fontSize:14,fontWeight:600,cursor:active===STEPS.length-1?'default':'pointer',opacity:active===STEPS.length-1?0.4:1}}>Next →</button>
+            </div>
+            <div style={{marginTop:16,display:'flex',gap:6,justifyContent:'center'}}>
+              {STEPS.map((_,i)=><div key={i} style={{width:active===i?22:8,height:8,borderRadius:999,background:active===i?ACCENT_HEX[STEPS[i].accent]:'rgba(255,255,255,0.2)',transition:'all .3s'}}/>)}
+            </div>
+          </div>
+          <style>{`@keyframes shimmerSweep{0%{transform:translateX(-100%);opacity:0}30%{opacity:1}100%{transform:translateX(100%);opacity:0}}`}</style>
+        </DarkStage>
+      </div>
+    );
+  }
 
   return(
     <div style={{width:'100%',background:'var(--ink)'}}>
@@ -783,8 +948,19 @@ function HowVariantA(){
    DE-RISK — Variant D (light tabbed)
 ═══════════════════════════════════════════ */
 function DeRiskD(){
+  const{isSm,isMd,isLg}=useBreakpoint();
   const containerRef=React.useRef(null);
+  const[activeCloud,setActiveCloud]=React.useState('aws');
+
+  const clouds=[
+    {key:'aws',title:'Amazon Web Services',sub:'GRIs · GSPs · PPA insurance',lede:'Automate Savings Plans and Reserved Instances, maximize your PPA, and prevent shortfall — all without lock-in.',beforeVal:'$30k',afterVal:'$12.7k',savings:'↓ 58% savings',linkText:'Learn about AWS →',accent:'var(--aws)',logo:'assets/cloud/aws.svg',logoH:22,commits:[['GRIs','EC2, RDS, ElastiCache, DynamoDB'],['GSPs','EC2, Lambda, Fargate, ECS/EKS'],['PPA insurance','shortfall protection']]},
+    {key:'azure',title:'Microsoft Azure',sub:'Reservations · SPs · MACC',lede:'Increase reservation and savings plan coverage and accelerate your Microsoft MACC commitments.',beforeVal:'$42k',afterVal:'$18.4k',savings:'↓ 56% savings',linkText:'Learn about Azure →',accent:'var(--azure)',logo:'assets/cloud/azure-logo-img.svg',logoH:16,commits:[['Reserved Instances','VM, SQL DB, Cosmos DB'],['Savings Plans','VM families & App Service'],['MACC','acceleration toward target']]},
+    {key:'gcp',title:'Google Cloud',sub:'CUDs · MCPO',lede:'Accepting beta customers, with complete support for Committed Use Discounts launching soon.',beforeVal:'$24k',afterVal:'$11.2k',savings:'↓ 53% savings',linkText:'Learn about Google Cloud →',accent:'var(--gcp)',logo:'assets/cloud/gcp-logo-img.svg',logoH:15,beta:true,commits:[['Spend-based CUDs','$/hr across compute'],['Resource-based CUDs','Compute Engine, Cloud SQL'],['MCPO','portfolio-level optimization']]},
+  ];
+
+  // Desktop: wire up tab clicks via DOM
   React.useEffect(()=>{
+    if(!isLg) return;
     const container=containerRef.current;
     if(!container) return;
     const cloudData={
@@ -811,8 +987,172 @@ function DeRiskD(){
         ul.innerHTML=d.commits.map(([b,t])=>`<li><span><b>${b}</b> — ${t}</span></li>`).join('');
       });
     });
-  },[]);
+  },[isLg]);
 
+  // Shared section header
+  const SectionHead=()=>(
+    <div className="provider-head">
+      <div>
+        <span className="compare-kicker">Multicloud coverage</span>
+        <h2 style={{marginTop:16}}>De-risk commitments across every cloud.</h2>
+      </div>
+      <p>One platform, one workflow, one compliance posture — whether you're running on AWS, Azure, Google Cloud or all three.</p>
+    </div>
+  );
+
+  // Shared JSX panel content for a given cloud object
+  const Panel=({c})=>(
+    <div className="panel" data-cloud={c.key}>
+      <div className="panel-info">
+        <h3>{c.title}</h3>
+        <p className="lede">{c.lede}</p>
+        <div className="commit-block">
+          <div className="label">Commitments managed</div>
+          <ul>
+            {c.commits.map(([b,t],i)=>(
+              <li key={i}><span><b>{b}</b> — {t}</span></li>
+            ))}
+          </ul>
+          <a href="#" className="arrow-link">{c.linkText}</a>
+        </div>
+      </div>
+      <div className="viz-stack">
+        <div className="viz-card before">
+          <span className="tag">Before</span>
+          <div className="sub">Monthly cloud spend</div>
+          <div className="val">{c.beforeVal}<span style={{fontSize:14,color:'rgba(255,255,255,0.5)',fontWeight:500}}>/mo</span></div>
+          <div className="viz-bars">
+            <div className="b" style={{height:'38%'}}/><div className="b" style={{height:'56%'}}/>
+            <div className="b" style={{height:'42%'}}/><div className="b" style={{height:'72%'}}/>
+            <div className="b" style={{height:'60%'}}/>
+          </div>
+        </div>
+        <div className="savings-bridge"><span className="savings-pct">{c.savings}</span></div>
+        <div className="viz-card after">
+          <span className="tag">After</span>
+          <div className="sub">With insured commitments</div>
+          <div className="val">{c.afterVal}<span style={{fontSize:14,color:'rgba(255,255,255,0.5)',fontWeight:500}}>/mo</span></div>
+          <div className="viz-bars">
+            <div className="b" style={{height:'64%',background:c.accent}}/><div className="b" style={{height:'80%',background:c.accent,opacity:0.8}}/>
+            <div className="b" style={{height:'72%',background:c.accent}}/><div className="b" style={{height:'92%',background:c.accent,opacity:0.8}}/>
+            <div className="b" style={{height:'84%',background:c.accent}}/>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // ── Mobile: stacked dark-header cards ──────────────────────────────────
+  if(isSm){
+    return(
+      <section style={{background:'var(--paper)',padding:'52px 20px 60px'}}>
+        <div style={{marginBottom:32}}>
+          <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:11,letterSpacing:'0.14em',textTransform:'uppercase',color:'var(--violet)',display:'inline-block',marginBottom:12}}>Multicloud coverage</span>
+          <h2 style={{fontSize:30,letterSpacing:'-0.025em',color:'var(--ink)',marginBottom:12,textWrap:'balance'}}>De-risk commitments across every cloud.</h2>
+          <p style={{color:'var(--slate-3)',fontSize:14,lineHeight:1.55}}>One platform, one workflow — whether you're running on AWS, Azure, Google Cloud or all three.</p>
+        </div>
+        <div style={{display:'flex',flexDirection:'column',gap:14}}>
+          {clouds.map(c=>(
+            <div key={c.key} style={{background:'#fff',border:'1px solid var(--line)',borderRadius:16,overflow:'hidden'}}>
+              <div style={{padding:'16px 20px',background:c.key==='aws'?'linear-gradient(145deg,#1A0B00,#2C1700)':c.key==='azure'?'linear-gradient(145deg,#00071A,#001133)':'linear-gradient(145deg,#001208,#001E0D)',position:'relative',overflow:'hidden',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+                <div style={{position:'absolute',width:200,height:200,borderRadius:'50%',top:-80,right:-40,background:c.key==='aws'?'radial-gradient(circle,rgba(255,153,0,0.45),transparent 65%)':c.key==='azure'?'radial-gradient(circle,rgba(0,127,255,0.4),transparent 65%)':'radial-gradient(circle,rgba(52,168,83,0.4),transparent 65%)',pointerEvents:'none'}}/>
+                <div style={{position:'relative',display:'flex',alignItems:'center',gap:10}}>
+                  <img src={c.logo} style={{maxHeight:c.logoH,width:'auto',filter:'brightness(0) invert(1)',opacity:0.9}} alt=""/>
+                  <div>
+                    <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:14,color:'#fff'}}>{c.title}</div>
+                    {c.beta&&<span style={{fontSize:9,fontWeight:700,color:'var(--ink)',background:'var(--amber)',padding:'1px 6px',borderRadius:999,display:'inline-block',marginTop:2}}>Beta</span>}
+                  </div>
+                </div>
+                <div style={{position:'relative',textAlign:'right',flexShrink:0,marginLeft:12}}>
+                  <div style={{fontFamily:'var(--ff-d)',fontWeight:800,fontSize:20,color:c.accent,lineHeight:1,letterSpacing:'-0.02em'}}>{c.savings}</div>
+                  <div style={{fontFamily:'var(--ff-d)',fontSize:9,fontWeight:600,color:'rgba(255,255,255,0.45)',letterSpacing:'0.08em',marginTop:3,textTransform:'uppercase'}}>savings</div>
+                </div>
+              </div>
+              <div style={{padding:'14px 20px 18px'}}>
+                <p style={{fontSize:13,color:'var(--slate-3)',lineHeight:1.5,marginBottom:10}}>{c.lede}</p>
+                <div style={{fontSize:10,fontWeight:700,letterSpacing:'0.12em',textTransform:'uppercase',color:'var(--slate-5)',marginBottom:6,fontFamily:'var(--ff-d)'}}>Commitment types</div>
+                <ul style={{margin:0,padding:0,listStyle:'none',display:'grid',gap:5,marginBottom:12}}>
+                  {c.commits.map(([b,t],i)=>(
+                    <li key={i} style={{display:'grid',gridTemplateColumns:'14px 1fr',gap:8,fontSize:13,color:'var(--slate-3)',lineHeight:1.4}}>
+                      <span style={{width:6,height:6,borderRadius:'50%',background:c.accent,display:'block',marginTop:6,marginLeft:4}}/>
+                      <span><b style={{color:'var(--ink)',fontWeight:600}}>{b}</b> — {t}</span>
+                    </li>
+                  ))}
+                </ul>
+                <a href="#" style={{fontFamily:'var(--ff-d)',fontWeight:600,fontSize:13,color:c.accent,display:'inline-flex',alignItems:'center',gap:4}}>{c.linkText}</a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  // ── Tablet: horizontal tabs (equal-width) + side-by-side panel ──────────
+  if(isMd){
+    const active=clouds.find(c=>c.key===activeCloud)||clouds[0];
+    return(
+      <section className="providers-section vD">
+        <div className="container">
+          <SectionHead/>
+          <div className="tabs" role="tablist" style={{flexDirection:'row',marginBottom:16}}>
+            {clouds.map(c=>(
+              <button key={c.key} className="tab" role="tab" aria-selected={activeCloud===c.key}
+                data-cloud={c.key} onClick={()=>setActiveCloud(c.key)}
+                style={{flex:1,width:'auto'}}>
+                <div className="logo"><img src={c.logo} alt=""/></div>
+                <div>
+                  <div className="title">{c.title}</div>
+                  <div className="sub">{c.sub}</div>
+                </div>
+                {c.beta&&<span className="pill pill-beta">Beta</span>}
+              </button>
+            ))}
+          </div>
+          <div className="panel" data-cloud={active.key} style={{gridTemplateColumns:'1fr 1fr'}}>
+            <div className="panel-info">
+              <h3>{active.title}</h3>
+              <p className="lede">{active.lede}</p>
+              <div className="commit-block">
+                <div className="label">Commitments managed</div>
+                <ul>
+                  {active.commits.map(([b,t],i)=>(
+                    <li key={i}><span><b>{b}</b> — {t}</span></li>
+                  ))}
+                </ul>
+                <a href="#" className="arrow-link">{active.linkText}</a>
+              </div>
+            </div>
+            <div className="viz-stack">
+              <div className="viz-card before">
+                <span className="tag">Before</span>
+                <div className="sub">Monthly cloud spend</div>
+                <div className="val">{active.beforeVal}<span style={{fontSize:14,color:'rgba(255,255,255,0.5)',fontWeight:500}}>/mo</span></div>
+                <div className="viz-bars">
+                  <div className="b" style={{height:'38%'}}/><div className="b" style={{height:'56%'}}/>
+                  <div className="b" style={{height:'42%'}}/><div className="b" style={{height:'72%'}}/>
+                  <div className="b" style={{height:'60%'}}/>
+                </div>
+              </div>
+              <div className="savings-bridge"><span className="savings-pct">{active.savings}</span></div>
+              <div className="viz-card after">
+                <span className="tag">After</span>
+                <div className="sub">With insured commitments</div>
+                <div className="val">{active.afterVal}<span style={{fontSize:14,color:'rgba(255,255,255,0.5)',fontWeight:500}}>/mo</span></div>
+                <div className="viz-bars">
+                  <div className="b" style={{height:'64%',background:active.accent}}/><div className="b" style={{height:'80%',background:active.accent,opacity:0.8}}/>
+                  <div className="b" style={{height:'72%',background:active.accent}}/><div className="b" style={{height:'92%',background:active.accent,opacity:0.8}}/>
+                  <div className="b" style={{height:'84%',background:active.accent}}/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // ── Desktop: original tab sidebar + panel via dangerouslySetInnerHTML ──
   const html=`
   <section class="providers-section vD">
     <div class="container">
@@ -901,6 +1241,7 @@ function CompanyMark({company,size=22,color='var(--slate-3)'}){
 }
 
 function LogoBandAndCTA({theme='light'}){
+  const{isSm,isMd}=useBreakpoint();
   const isDark=theme==='dark';
   const logoUrls=Array.from({length:9},(_,i)=>`assets/customers/logo-0${i+1}.svg`);
   const bandBg=isDark?'rgba(255,255,255,0.03)':'var(--paper-warm)';
@@ -908,19 +1249,20 @@ function LogoBandAndCTA({theme='light'}){
   const label=isDark?'rgba(255,255,255,0.55)':'var(--slate-4)';
   const heading=isDark?'#fff':'var(--ink)';
   const linkColor=isDark?'#6DD8FC':'var(--violet)';
+  const negMargin=isSm?-20:isMd?-40:-80;
   return(
-    <div style={{marginTop:96,paddingTop:48,borderTop:`1px solid ${bandBorder}`}}>
-      <div style={{display:'grid',gridTemplateColumns:'1.1fr auto',gap:40,alignItems:'end',marginBottom:40}}>
+    <div style={{marginTop:isSm?48:96,paddingTop:isSm?32:48,borderTop:`1px solid ${bandBorder}`}}>
+      <div style={{display:'grid',gridTemplateColumns:isSm?'1fr':'1.1fr auto',gap:isSm?16:40,alignItems:'end',marginBottom:isSm?24:40}}>
         <div>
-          <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:13,letterSpacing:'0.14em',textTransform:'uppercase',color:isDark?'#FFD080':'var(--violet)',marginBottom:14}}>More customer stories</div>
-          <h3 style={{color:heading,fontSize:32,lineHeight:1.15,maxWidth:700,textWrap:'pretty'}}>See how other teams are succeeding in the cloud with Archera.</h3>
+          <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:isSm?11:13,letterSpacing:'0.14em',textTransform:'uppercase',color:isDark?'#FFD080':'var(--violet)',marginBottom:isSm?10:14}}>More customer stories</div>
+          <h3 style={{color:heading,fontSize:isSm?22:isMd?26:32,lineHeight:1.15,maxWidth:700,textWrap:'pretty'}}>See how other teams are succeeding in the cloud with Archera.</h3>
         </div>
-        <a href="#" style={{display:'inline-flex',alignItems:'center',gap:12,fontFamily:'var(--ff-d)',fontWeight:700,fontSize:16,color:linkColor,textDecoration:'none',padding:'14px 22px',borderRadius:999,border:`1.5px solid ${linkColor}`,background:'transparent',whiteSpace:'nowrap'}}>
+        <a href="#" style={{display:'inline-flex',alignItems:'center',gap:12,fontFamily:'var(--ff-d)',fontWeight:700,fontSize:isSm?14:16,color:linkColor,textDecoration:'none',padding:isSm?'12px 18px':'14px 22px',borderRadius:999,border:`1.5px solid ${linkColor}`,background:'transparent',whiteSpace:'nowrap',alignSelf:'flex-start'}}>
           Discover their stories
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke={linkColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke={linkColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
         </a>
       </div>
-      <div style={{position:'relative',marginLeft:-80,marginRight:-80,background:bandBg,borderTop:`1px solid ${bandBorder}`,borderBottom:`1px solid ${bandBorder}`,padding:'32px 0 36px',overflow:'hidden'}}>
+      <div style={{position:'relative',marginLeft:negMargin,marginRight:negMargin,background:bandBg,borderTop:`1px solid ${bandBorder}`,borderBottom:`1px solid ${bandBorder}`,padding:'32px 0 36px',overflow:'hidden'}}>
         <div style={{fontFamily:'var(--ff-d)',fontWeight:600,fontSize:13,letterSpacing:'0.16em',textTransform:'uppercase',color:label,marginBottom:24,textAlign:'center'}}>Trusted by cloud teams at scale</div>
         <div style={{display:'flex',width:'max-content',animation:'logoMarquee 40s linear infinite'}}>
           {[0,1].map(loop=>(
@@ -940,29 +1282,32 @@ function LogoBandAndCTA({theme='light'}){
 }
 
 function TSectionHeader({theme='light',kickerColor,title,subtitle}){
+  const{isSm,isMd}=useBreakpoint();
   const isDark=theme==='dark';
   return(
-    <div style={{marginBottom:72}}>
-      <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:13,letterSpacing:'0.14em',textTransform:'uppercase',color:kickerColor||(isDark?'var(--amber)':'var(--violet)'),marginBottom:20}}>Customer stories</div>
-      <div style={{display:'grid',gridTemplateColumns:'1fr auto',gap:48,alignItems:'end'}}>
-        <h2 style={{fontSize:52,lineHeight:1.05,letterSpacing:'-0.025em',color:isDark?'#fff':'var(--ink)',maxWidth:780,textWrap:'balance',margin:0,fontFamily:'var(--ff-d)',fontWeight:700}}>{title}</h2>
-        {subtitle&&<p style={{color:isDark?'rgba(255,255,255,0.68)':'var(--slate-3)',fontSize:17,lineHeight:1.5,maxWidth:420,margin:0,paddingBottom:8}}>{subtitle}</p>}
+    <div style={{marginBottom:isSm?36:72}}>
+      <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:isSm?11:13,letterSpacing:'0.14em',textTransform:'uppercase',color:kickerColor||(isDark?'var(--amber)':'var(--violet)'),marginBottom:isSm?14:20}}>Customer stories</div>
+      <div style={{display:'grid',gridTemplateColumns:isSm?'1fr':'1fr auto',gap:isSm?16:48,alignItems:'end'}}>
+        <h2 style={{fontSize:isSm?32:isMd?42:52,lineHeight:1.05,letterSpacing:'-0.025em',color:isDark?'#fff':'var(--ink)',maxWidth:780,textWrap:'balance',margin:0,fontFamily:'var(--ff-d)',fontWeight:700}}>{title}</h2>
+        {subtitle&&<p style={{color:isDark?'rgba(255,255,255,0.68)':'var(--slate-3)',fontSize:isSm?15:17,lineHeight:1.5,maxWidth:420,margin:0,paddingBottom:8}}>{subtitle}</p>}
       </div>
     </div>
   );
 }
 
 function TestimonialsVariantE(){
+  const{isSm,isMd}=useBreakpoint();
+  const sectionPad=isSm?'72px 20px 60px':isMd?'80px 40px 72px':'110px 80px 100px';
   return(
-    <section style={{background:'#fff',padding:'110px 80px 100px',fontFamily:'var(--ff-b)',color:'var(--ink)'}}>
+    <section style={{background:'#fff',padding:sectionPad,fontFamily:'var(--ff-b)',color:'var(--ink)',overflowX:'hidden'}}>
       <TSectionHeader
         theme="light"
         title={<>Real teams.<br/>Real flexibility.<br/>Real savings.</>}
         subtitle="Engineers, FinOps leads, and founders using Archera to reclaim room in their cloud spend without the lock-in."
       />
-      <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:2,background:'var(--line)',borderRadius:20,overflow:'hidden'}}>
+      <div style={{display:'grid',gridTemplateColumns:isSm?'1fr':isMd?'1fr':'repeat(3,1fr)',gap:isSm?16:2,background:isSm?'transparent':'var(--line)',borderRadius:20,overflow:isSm?'visible':'hidden'}}>
         {TESTIMONIALS.map((t,i)=>(
-          <article key={t.id} className="tc-pillar" style={{background:'var(--paper-warm)',padding:'40px 36px 44px',display:'flex',flexDirection:'column',transition:'background .2s'}}>
+          <article key={t.id} className="tc-pillar" style={{background:'var(--paper)',padding:isSm?'28px 20px 32px':'40px 36px 44px',display:'flex',flexDirection:'column',transition:'background .2s',borderRadius:isSm?16:0,border:isSm?'1px solid var(--line)':'none'}}>
             <div style={{height:3,borderRadius:999,background:t.accent,marginBottom:28,flexShrink:0}}/>
             <div style={{fontFamily:'var(--ff-d)',fontWeight:800,fontSize:13,color:'var(--slate-5)',letterSpacing:'0.08em',marginBottom:20}}>0{i+1}</div>
             <div style={{marginBottom:24}}><CompanyMark company={t.company} size={18} color="var(--ink)"/></div>

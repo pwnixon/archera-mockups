@@ -989,9 +989,13 @@ function TestimonialsVariantD(){
       <div style={{display:'grid',gridTemplateColumns:isSm?'1fr':isMd?'1fr 1.5fr':'1fr 2fr',gap:isSm?12:16}}>
         {!isSm&&<div key={t.id+'-cs'} style={{position:'relative',background:`linear-gradient(200deg,${bg}1A 0%,${bg}4D 55%,${bg}99 100%),#FFFFFF`,borderRadius:'var(--radius-lg)',padding:isMd?'28px 28px 24px':'40px 40px 36px',display:'flex',flexDirection:'column',minHeight:isMd?380:480,overflow:'hidden',animation:'tcPanel .5s ease both'}}>
           <div style={{fontFamily:'var(--ff-d)',fontWeight:600,fontSize:13,letterSpacing:'0.14em',textTransform:'uppercase',color:'var(--slate-4)'}}>Case study · {card.tag}</div>
-          <h3 style={{marginTop:20,fontFamily:'var(--ff-d)',fontWeight:600,fontSize:isMd?26:36,lineHeight:1.1,letterSpacing:'-0.02em',color:'var(--ink)',textWrap:'balance'}}>{card.headline}</h3>
-          <p style={{marginTop:16,fontSize:isMd?14:15,lineHeight:1.55,color:'var(--slate-3)',textWrap:'pretty'}}>{card.blurb}</p>
-          <a href="#" style={{marginTop:'auto',display:'inline-flex',alignItems:'center',gap:12,fontFamily:'var(--ff-d)',fontWeight:600,fontSize:15,color:'var(--ink)',textDecoration:'none',alignSelf:'flex-start'}}>Read more <span style={{width:30,height:30,borderRadius:'50%',background:'var(--ink)',color:'#fff',display:'grid',placeItems:'center'}}><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/></svg></span></a>
+          <div style={{flex:1,display:'flex',flexDirection:'column'}}>
+            <div style={{flex:1}}/>
+            <h3 style={{fontFamily:'var(--ff-d)',fontWeight:600,fontSize:isMd?26:36,lineHeight:1.1,letterSpacing:'-0.02em',color:'var(--ink)',textWrap:'balance'}}>{card.headline}</h3>
+            <p style={{marginTop:16,fontSize:isMd?14:15,lineHeight:1.55,color:'var(--slate-3)',textWrap:'pretty'}}>{card.blurb}</p>
+            <div style={{flex:2}}/>
+          </div>
+          <a href="#" style={{display:'inline-flex',alignItems:'center',gap:12,fontFamily:'var(--ff-d)',fontWeight:600,fontSize:15,color:'var(--ink)',textDecoration:'none',alignSelf:'flex-start'}}>Read more <span style={{width:30,height:30,borderRadius:'50%',background:'var(--ink)',color:'#fff',display:'grid',placeItems:'center'}}><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/></svg></span></a>
         </div>}
         <div key={t.id+'-hero'} style={{position:'relative',background:`linear-gradient(135deg,var(--ink) 0%,var(--ink) 55%,${bg} 180%)`,color:'#fff',borderRadius:'var(--radius-lg)',padding:isSm?'28px 24px 28px':isMd?'28px 32px 32px':'40px 48px 44px',display:'flex',flexDirection:'column',minHeight:isSm?'auto':isMd?380:480,overflow:'hidden',animation:'tcPanel .5s .05s ease both',border:'1px solid rgba(255,255,255,0.18)'}}>
           <div style={{position:'absolute',width:520,height:520,borderRadius:'50%',bottom:-200,right:-140,background:`radial-gradient(circle,${bg}66,transparent 65%)`,pointerEvents:'none'}}/>
