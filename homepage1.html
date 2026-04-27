@@ -445,7 +445,7 @@ const WITHOUT_STACKS=[[18,34,48],[12,28,60],[10,15,75]];
 const WITH_STACKS=[[10,15,72,3],[13,12,70,5],[10,13,71,6]];
 const WITHOUT_COVERED=['52%','40%','25%'];
 const WITH_COVERED=['97%','95%','94%'];
-const TRAP_STACKS=[[5,13,10,24,48],[3,9,7,21,60],[2,8,4,11,75]];
+const TRAP_STACKS=[[5,13,10,24,48],[3,13,7,21,56],[2,13,4,13,68]];
 const TRAP_COVERED=['15%','10%','6%'];
 
 function WorkloadIcon({name,size=28}){
@@ -458,7 +458,7 @@ function WorkloadIcon({name,size=28}){
 function Seg({height,color,hatched,glow,wasted}){
   return(
     <div style={{height:`${height}%`,width:'100%',background:hatched?`repeating-linear-gradient(45deg,${color} 0px,${color} 4px,rgba(255,255,255,0.55) 4px,rgba(255,255,255,0.55) 8px)`:color,transition:'height .7s cubic-bezier(.4,0,.2,1)',position:'relative',boxShadow:glow&&height>5?'0 0 20px rgba(113,1,255,0.45),inset 0 0 0 1px rgba(255,255,255,0.12)':'none'}}>
-      {wasted&&height>10&&<div style={{position:'absolute',inset:0,display:'grid',placeItems:'center',fontFamily:'var(--ff-d)',fontSize:9,fontWeight:800,letterSpacing:'0.14em',color:'#fff',textTransform:'uppercase',pointerEvents:'none',textShadow:'0 1px 2px rgba(0,0,0,0.3)'}}>UNUSED</div>}
+      {wasted&&<div style={{position:'absolute',inset:0,display:'grid',placeItems:'center',pointerEvents:'none'}}><span style={{background:'#AD284B',border:'1px solid rgba(255,255,255,0.4)',borderRadius:3,padding:'2px 6px',fontFamily:'var(--ff-d)',fontSize:8,fontWeight:800,letterSpacing:'0.14em',color:'#fff',textTransform:'uppercase',lineHeight:1}}>UNUSED</span></div>}
     </div>
   );
 }
@@ -485,7 +485,7 @@ function CoverageChart({variant='without',onDark=false,compact=false,embedded=fa
   const useTrap=trap&&variant!=='with';
   const stacks=variant==='with'?WITH_STACKS:(useTrap?TRAP_STACKS:WITHOUT_STACKS);
   const covered=variant==='with'?WITH_COVERED:(useTrap?TRAP_COVERED:WITHOUT_COVERED);
-  const chartH=compact?130:260;
+  const chartH=compact?130:210;
   const axisW=compact?24:38;
   const gap=compact?8:14;
   const iconSize=compact?18:28;
@@ -513,7 +513,7 @@ function CoverageChart({variant='without',onDark=false,compact=false,embedded=fa
                 {(compact?[0,50,100]:[0,25,50,75,100]).map(v=><div key={v} style={{position:'absolute',left:-gap/2,right:0,bottom:`${v}%`,height:1,borderTop:`1px dashed ${gridColor}`}}/>)}
                 <div style={{position:'absolute',bottom:0,left:'50%',transform:'translateX(-50%)',width:'65%',height:'100%',display:'flex',flexDirection:'column-reverse',borderRadius:'6px 6px 0 0',overflow:'hidden'}}>
                   {variant==='with'?(<><Seg height={stack[0]} color={PAL.year3}/><Seg height={stack[1]} color={PAL.year1}/><Seg height={stack[2]} color={PAL.insured} glow/><Seg height={stack[3]} color={onDark?'rgba(255,255,255,0.14)':PAL.ondemand}/></>)
-                  :useTrap?(<><Seg height={stack[0]} color={PAL.year3}/><Seg height={stack[1]} color="#AD284B" hatched wasted={wi===0&&stack[1]>=13}/><Seg height={stack[2]} color={PAL.year1}/><Seg height={stack[3]} color="#AD284B" hatched wasted={wi===1&&stack[3]>=18}/><Seg height={stack[4]} color={onDark?'rgba(255,255,255,0.14)':PAL.ondemand}/></>)
+                  :useTrap?(<><Seg height={stack[0]} color={PAL.year3}/><Seg height={stack[1]} color="#AD284B" hatched wasted/><Seg height={stack[2]} color={PAL.year1}/><Seg height={stack[3]} color="#AD284B" hatched wasted/><Seg height={stack[4]} color={onDark?'rgba(255,255,255,0.14)':PAL.ondemand}/></>)
                   :(<><Seg height={stack[0]} color={PAL.year3}/><Seg height={stack[1]} color={PAL.year1}/><Seg height={stack[2]} color={onDark?'rgba(255,255,255,0.14)':PAL.ondemand}/></>)}
                 </div>
               </div>
@@ -551,11 +551,11 @@ function PFVariantE(){
     {n:'03',kicker:'THE FIX',title:"We cover the downside. You commit aggressively.",body:"Archera reimburses or releases unused commitments, so you can over-commit safely with 30-day insured terms.",accent:'var(--violet)',accentText:'var(--violet)',chartVariant:'with',trap:false},
   ];
   const s=scenes[active];
-  const hPad=isSm?'48px 20px 40px':isMd?'60px 40px 52px':'72px 80px 64px';
+  const hPad=isSm?'40px 20px 32px':isMd?'48px 40px 40px':'56px 80px 48px';
   const titleSize=isSm?32:isMd?38:46;
   const stageGrid=isSm?'1fr':isMd?'1fr 1.1fr':'1fr 1.25fr';
-  const stageGap=isSm?32:isMd?40:72;
-  const bigNumSize=isSm?48:isMd?56:72;
+  const stageGap=isSm?28:isMd?36:60;
+  const bigNumSize=isSm?36:isMd?44:56;
   const h3Size=isSm?26:isMd?30:38;
   const bodySize=isSm?15:16;
   return(
@@ -568,7 +568,7 @@ function PFVariantE(){
           titleSize={titleSize}
         />
         {/* Desktop/tablet: scene tab nav */}
-        {!isSm&&<div style={{marginTop:52,display:'grid',gridTemplateColumns:'repeat(3,minmax(0,1fr))',gap:0,columnGap:20,position:'relative'}}>
+        {!isSm&&<div style={{marginTop:36,display:'grid',gridTemplateColumns:'repeat(3,minmax(0,1fr))',gap:0,columnGap:20,position:'relative'}}>
           {scenes.map((sc,i)=>{
             const isActive=i===active;
             const isPast=i<active;
@@ -589,7 +589,7 @@ function PFVariantE(){
           })}
         </div>}
 
-        <div style={{marginTop:isSm?28:52,display:'grid',gridTemplateColumns:stageGrid,gap:stageGap,alignItems:isSm?'start':'center'}}>
+        <div style={{marginTop:isSm?20:36,display:'grid',gridTemplateColumns:stageGrid,gap:stageGap,alignItems:isSm?'start':'center'}}>
           <div key={active} style={{animation:'stageBounceE .5s ease'}}>
             <div style={{fontFamily:'var(--ff-d)',fontSize:bigNumSize,fontWeight:800,color:s.accentText,lineHeight:1,letterSpacing:'-0.04em',opacity:0.85}}>{s.n}</div>
             <h3 style={{fontSize:h3Size,lineHeight:1.1,color:'var(--ink)',marginTop:isSm?12:18,textWrap:'balance',maxWidth:isSm?'100%':440}}>{s.title}</h3>
@@ -755,12 +755,12 @@ function HowVariantC(){
   const accent=ACCENT_HEX[s.accent];
   const h2Size=isSm?32:isMd?42:56;
   const h3Size=isSm?24:isMd?30:40;
-  const bigNumSize=isSm?48:isMd?56:72;
+  const bigNumSize=isSm?36:isMd?44:56;
   const stageGrid=isSm?'1fr':isMd?'1fr 1.1fr':'1fr 1.3fr';
-  const stageGap=isSm?28:isMd?48:80;
+  const stageGap=isSm?24:isMd?40:64;
 
   const stepperEl=isSm?null:(
-    <div style={{marginTop:56,display:'grid',gridTemplateColumns:'repeat(4,minmax(0,1fr))',gap:0,position:'relative',columnGap:isMd?12:16}}>
+    <div style={{marginTop:40,display:'grid',gridTemplateColumns:'repeat(4,minmax(0,1fr))',gap:0,position:'relative',columnGap:isMd?12:16}}>
       <div style={{gridColumn:'1/-1',gridRow:1,height:2,background:'rgba(255,255,255,0.1)',alignSelf:'start',position:'relative',top:isMd?22:28}}/>
       <div style={{gridColumn:'1/-1',gridRow:1,height:2,background:`linear-gradient(90deg,${accent},${accent}66)`,width:`${((active+1)/STEPS.length)*100}%`,alignSelf:'start',position:'relative',top:isMd?22:28,transition:'width .45s cubic-bezier(.4,0,.2,1)'}}/>
       {STEPS.map((st,i)=>{
@@ -781,14 +781,14 @@ function HowVariantC(){
   );
 
   return(
-    <DarkStage padTop={100} padBottom={110}>
+    <DarkStage padTop={72} padBottom={80}>
       <div style={{textAlign:'left',maxWidth:820,margin:0,position:'relative'}}>
         <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:isSm?11:13,letterSpacing:'0.16em',textTransform:'uppercase',color:'var(--sky)'}}>How insured commitments work</span>
         <h2 style={{fontSize:h2Size,letterSpacing:'-0.025em',lineHeight:1.05,marginTop:isSm?14:18,color:'#fff',textWrap:'balance'}}>Short-term commitments.<br/>Guaranteed savings.</h2>
         <p style={{marginTop:isSm?14:22,fontSize:isSm?15:18,lineHeight:1.55,maxWidth:600,color:'rgba(255,255,255,0.65)',textWrap:'pretty'}}>Archera sits between your cloud usage and your commitments — insuring the downside, so the flexibility of 30-day and 1-year terms actually pays off.</p>
       </div>
       {stepperEl}
-      <div key={active} style={{marginTop:isSm?24:72,display:'grid',gridTemplateColumns:stageGrid,gap:stageGap,alignItems:'center',animation:'fadeStage .5s ease'}}>
+      <div key={active} style={{marginTop:isSm?20:48,display:'grid',gridTemplateColumns:stageGrid,gap:stageGap,alignItems:'center',animation:'fadeStage .5s ease'}}>
         <div>
           <div style={{fontFamily:'var(--ff-d)',fontSize:bigNumSize,fontWeight:800,color:accent,lineHeight:1,letterSpacing:'-0.04em',opacity:0.9}}>{s.n}</div>
           <h3 style={{fontSize:h3Size,lineHeight:1.1,color:'#fff',marginTop:isSm?12:20,textWrap:'balance',maxWidth:440}}>{s.title}</h3>

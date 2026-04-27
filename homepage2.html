@@ -434,7 +434,7 @@ const WITHOUT_STACKS=[[18,34,48],[12,28,60],[10,15,75]];
 const WITH_STACKS=[[10,15,72,3],[13,12,70,5],[10,13,71,6]];
 const WITHOUT_COVERED=['52%','40%','25%'];
 const WITH_COVERED=['97%','95%','94%'];
-const TRAP_STACKS=[[5,13,10,24,48],[3,9,7,21,60],[2,8,4,11,75]];
+const TRAP_STACKS=[[5,13,10,24,48],[3,13,7,21,56],[2,13,4,13,68]];
 const TRAP_COVERED=['15%','10%','6%'];
 
 function WorkloadIcon({name,size=28}){
@@ -447,7 +447,7 @@ function WorkloadIcon({name,size=28}){
 function Seg({height,color,hatched,glow,wasted}){
   return(
     <div style={{height:`${height}%`,width:'100%',background:hatched?`repeating-linear-gradient(45deg,${color} 0px,${color} 4px,rgba(255,255,255,0.55) 4px,rgba(255,255,255,0.55) 8px)`:color,transition:'height .7s cubic-bezier(.4,0,.2,1)',position:'relative',boxShadow:glow&&height>5?'0 0 20px rgba(113,1,255,0.45),inset 0 0 0 1px rgba(255,255,255,0.12)':'none'}}>
-      {wasted&&height>10&&<div style={{position:'absolute',inset:0,display:'grid',placeItems:'center',fontFamily:'var(--ff-d)',fontSize:9,fontWeight:800,letterSpacing:'0.14em',color:'#fff',textTransform:'uppercase',pointerEvents:'none',textShadow:'0 1px 2px rgba(0,0,0,0.3)'}}>UNUSED</div>}
+      {wasted&&<div style={{position:'absolute',inset:0,display:'grid',placeItems:'center',pointerEvents:'none'}}><span style={{background:'#AD284B',border:'1px solid rgba(255,255,255,0.4)',borderRadius:3,padding:'2px 6px',fontFamily:'var(--ff-d)',fontSize:8,fontWeight:800,letterSpacing:'0.14em',color:'#fff',textTransform:'uppercase',lineHeight:1}}>UNUSED</span></div>}
     </div>
   );
 }
@@ -483,7 +483,7 @@ function CoverageChart({variant='without',onDark=false,compact=false,embedded=fa
   const useTrap=trap&&variant!=='with';
   const stacks=variant==='with'?WITH_STACKS:(useTrap?TRAP_STACKS:WITHOUT_STACKS);
   const covered=variant==='with'?WITH_COVERED:(useTrap?TRAP_COVERED:WITHOUT_COVERED);
-  const chartH=compact?130:260;
+  const chartH=compact?130:210;
   const axisW=compact?24:38;
   const gap=compact?8:14;
   const iconSize=compact?18:28;
@@ -511,7 +511,7 @@ function CoverageChart({variant='without',onDark=false,compact=false,embedded=fa
                 {axisTicks.map(v=><div key={v} style={{position:'absolute',left:compact?-8:-14,right:0,bottom:`${v}%`,height:1,borderTop:`1px dashed ${gridColor}`}}/>)}
                 <div style={{position:'absolute',bottom:0,left:'50%',transform:'translateX(-50%)',width:'65%',height:'100%',display:'flex',flexDirection:'column-reverse',borderRadius:'6px 6px 0 0',overflow:'hidden'}}>
                   {variant==='with'?(<><Seg height={stack[0]} color={PAL.year3}/><Seg height={stack[1]} color={PAL.year1}/><Seg height={stack[2]} color={PAL.insured} glow/><Seg height={stack[3]} color={onDark?'rgba(255,255,255,0.14)':PAL.ondemand}/></>)
-                  :useTrap?(<><Seg height={stack[0]} color={PAL.year3}/><Seg height={stack[1]} color="#AD284B" hatched wasted={wi===0&&stack[1]>=13}/><Seg height={stack[2]} color={PAL.year1}/><Seg height={stack[3]} color="#AD284B" hatched wasted={wi===1&&stack[3]>=18}/><Seg height={stack[4]} color={onDark?'rgba(255,255,255,0.14)':PAL.ondemand}/></>)
+                  :useTrap?(<><Seg height={stack[0]} color={PAL.year3}/><Seg height={stack[1]} color="#AD284B" hatched wasted/><Seg height={stack[2]} color={PAL.year1}/><Seg height={stack[3]} color="#AD284B" hatched wasted/><Seg height={stack[4]} color={onDark?'rgba(255,255,255,0.14)':PAL.ondemand}/></>)
                   :(<><Seg height={stack[0]} color={PAL.year3}/><Seg height={stack[1]} color={PAL.year1}/><Seg height={stack[2]} color={onDark?'rgba(255,255,255,0.14)':PAL.ondemand}/></>)}
                 </div>
               </div>
