@@ -49,13 +49,15 @@ p{margin:0;}
 .nav-btn-login:hover{border-color:#fff;background:rgba(255,255,255,0.07);}
 .nav-btn-start{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;font-family:var(--ff-d);font-weight:600;font-size:14px;color:#fff;background:var(--violet);border:none;cursor:pointer;transition:all .2s;}
 .nav-btn-start:hover{background:var(--violet-2);box-shadow:0 8px 24px -6px rgba(113,1,255,0.5);}
-.nav-hamburger{display:none;background:transparent;border:none;cursor:pointer;padding:8px;color:#fff;}
-.mobile-drawer{display:none;background:#161259;padding:20px 32px 28px;border-top:1px solid rgba(255,255,255,0.08);}
-.mobile-drawer.open{display:block;}
-.mobile-links{display:flex;flex-direction:column;gap:16px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:20px;margin-bottom:20px;}
-.mobile-links a{color:rgba(255,255,255,0.85);font-family:var(--ff-d);font-size:16px;font-weight:500;}
-.mobile-ctas{display:flex;gap:12px;flex-wrap:wrap;}
+.nav-hamburger{display:none;background:transparent;border:none;cursor:pointer;padding:8px;color:#fff;flex-shrink:0;}
+.mobile-drawer{display:none;position:fixed;top:72px;left:0;right:0;bottom:0;background:#161259;padding:32px 24px 40px;overflow-y:auto;z-index:999;flex-direction:column;}
+.mobile-drawer.open{display:flex;}
+.mobile-links{display:flex;flex-direction:column;gap:20px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:28px;margin-bottom:28px;}
+.mobile-links a{color:rgba(255,255,255,0.85);font-family:var(--ff-d);font-size:18px;font-weight:500;}
+.mobile-ctas{display:flex;flex-direction:column;gap:12px;}
+.mobile-ctas .nav-btn-login,.mobile-ctas .nav-btn-start{justify-content:center;padding:14px 18px;font-size:15px;}
 @media(max-width:768px){
+  .nav-inner{padding:0 20px;}
   .nav-links,.nav-ctas{display:none;}
   .nav-hamburger{display:block;}
 }
@@ -144,6 +146,13 @@ p{margin:0;}
 .vC .vc-card.vc-azure .link-arrow{color:var(--azure);}
 .vC .vc-card.vc-gcp .link-arrow{color:var(--gcp);}
 @media(max-width:960px){.vC .vc-grid{grid-template-columns:1fr;}.vC .provider-head{grid-template-columns:1fr;gap:16px;}}
+@media(min-width:640px) and (max-width:960px){
+  .vC .vc-card{flex-direction:row;}
+  .vC .vc-top{width:220px;flex-shrink:0;min-height:0;padding:24px 22px;}
+  .vC .vc-pct{font-size:62px;margin-top:14px;}
+  .vC .vc-pct-unit{font-size:40px;}
+  .vC .vc-body{flex:1;}
+}
 
 /* ── Practitioner Variant A (prefixed .cp-a) ── */
 .cp-a{background:var(--paper-warm);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:80px 100px;display:grid;grid-template-columns:1fr 1px 1fr;gap:72px;align-items:center;}
@@ -212,6 +221,41 @@ img[alt="FinOps FOCUS"]{height:80px!important;}
 .foot-legal a:hover{color:#fff;}
 @media(max-width:900px){.foot-top{grid-template-columns:1fr 1fr;gap:40px;}.foot-brand{grid-column:1/-1;}.foot-cert-divider{display:none;}}
 @media(max-width:600px){.foot-top{grid-template-columns:1fr;}.foot-cert{flex-direction:column;gap:24px;}.foot-legal{flex-direction:column;align-items:flex-start;}.foot-legal-links a:first-child{margin-left:0;}}
+
+/* ── Responsive: tablet + mobile overrides ── */
+@media(max-width:639px){
+  .hero-btn{font-size:14px;padding:13px 20px;}
+  .btn{font-size:14px;padding:13px 22px;}
+  .providers-section{padding:56px 0;}
+  .providers-section .container{padding:0 20px;}
+  /* Derisk: shrink big stat numbers */
+  .vC .vc-pct{font-size:44px;}
+  .vC .vc-pct-unit{font-size:28px;}
+  .vC .vc-top{min-height:200px;}
+  /* Practitioner: prevent overflow */
+  .cp-a{padding:48px 20px;overflow:hidden;}
+  .cp-a-badge-grid{grid-template-columns:repeat(2,1fr)!important;}
+  .cp-a-g2-badges{flex-wrap:wrap;gap:10px;}
+  .cp-a-g2-badges img{height:56px!important;}
+  .cp-a-score-num{font-size:40px!important;}
+  /* Schedule demo */
+  .sd-a{height:auto;}
+  .sd-a-arc{top:52px;width:1200px;height:1200px;}
+  .sd-a-inner{padding:80px 24px 56px;}
+  .sd-a h2{font-size:clamp(30px,8vw,42px)!important;}
+  .sd-a .body{font-size:16px!important;}
+  .sd-a .ctas{flex-direction:column;align-items:stretch;}
+  .sd-a .ctas .btn{justify-content:center;}
+  .sd-a .trust-row{flex-wrap:wrap;gap:8px 14px;justify-content:center;}
+  .foot-aws-group img,.foot-compliance img{height:40px;}
+  .foot-cert{gap:16px;}
+}
+@media(min-width:640px) and (max-width:1023px){
+  .providers-section{padding:80px 0;}
+  .cp-a{padding:64px 48px;}
+  .sd-a-inner{padding:130px 48px 0;}
+  .sd-a h2{font-size:clamp(38px,5vw,56px)!important;}
+}
 </style>
 </head>
 <body>
@@ -219,6 +263,17 @@ img[alt="FinOps FOCUS"]{height:80px!important;}
 <div id="root"></div>
 
 <script type="text/babel">
+
+/* ── Breakpoint hook ── */
+function useBreakpoint(){
+  const[w,setW]=React.useState(window.innerWidth);
+  React.useEffect(()=>{
+    const h=()=>setW(window.innerWidth);
+    window.addEventListener('resize',h,{passive:true});
+    return()=>window.removeEventListener('resize',h);
+  },[]);
+  return{isSm:w<640,isMd:w>=640&&w<1024,isLg:w>=1024};
+}
 
 /* ═══════════════════════════════════════════
    SITE NAV
@@ -277,7 +332,7 @@ function SiteNav(){
 /* ═══════════════════════════════════════════
    HERO (Variant C)
 ═══════════════════════════════════════════ */
-function HeroStatsRow(){
+function HeroStatsRow({compact=false}){
   const stats = [
     {n:'$4B',   sub:'/yr',  eyebrow:'UNDER MANAGEMENT', l:'in cloud commitments across AWS, Azure & Google Cloud'},
     {n:'$0',    sub:'',     eyebrow:'PLATFORM FEE',      l:'flat pricing, forever — we never take a cut of your savings'},
@@ -285,16 +340,22 @@ function HeroStatsRow(){
     {n:'30',    sub:'-day', eyebrow:'MINIMUM TERM',      l:'minimum commitment — no multi-year lock-in required'},
     {n:'20–30', sub:'%',    eyebrow:'COST REDUCTION',    l:'typical cloud cost reduction for Archera customers'},
   ];
+  const numSize=compact?28:44;
+  const subSize=compact?12:18;
+  const labelSize=compact?8:9.5;
+  const bodySize=compact?11:12.5;
+  const pad=compact?14:22;
+  const pt=compact?20:32;
   return (
-    <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:0,borderTop:'1px solid rgba(255,255,255,0.14)',paddingTop:32}}>
+    <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:0,borderTop:'1px solid rgba(255,255,255,0.14)',paddingTop:pt}}>
       {stats.map((s,i)=>(
-        <div key={i} style={{paddingRight:22,borderRight:i<4?'1px solid rgba(255,255,255,0.1)':'none',paddingLeft:i>0?22:0,minWidth:0,animation:`countUp 0.8s ease-out ${0.12*i+0.4}s both`}}>
-          <div style={{fontFamily:'var(--ff-d)',fontSize:9.5,fontWeight:700,letterSpacing:'0.16em',color:'var(--amber)',marginBottom:12}}>{s.eyebrow}</div>
+        <div key={i} style={{paddingRight:pad,borderRight:i<4?'1px solid rgba(255,255,255,0.1)':'none',paddingLeft:i>0?pad:0,minWidth:0,animation:`countUp 0.8s ease-out ${0.12*i+0.4}s both`}}>
+          <div style={{fontFamily:'var(--ff-d)',fontSize:labelSize,fontWeight:700,letterSpacing:'0.16em',color:'var(--amber)',marginBottom:compact?7:12}}>{s.eyebrow}</div>
           <div style={{display:'flex',alignItems:'baseline',gap:3,whiteSpace:'nowrap'}}>
-            <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:44,letterSpacing:'-0.03em',color:'#fff',lineHeight:0.95}}>{s.n}</span>
-            {s.sub && <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:18,color:'var(--sky)',letterSpacing:'-0.015em'}}>{s.sub}</span>}
+            <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:numSize,letterSpacing:'-0.03em',color:'#fff',lineHeight:0.95}}>{s.n}</span>
+            {s.sub && <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:subSize,color:'var(--sky)',letterSpacing:'-0.015em'}}>{s.sub}</span>}
           </div>
-          <div style={{fontSize:12.5,color:'rgba(255,255,255,0.6)',marginTop:12,fontFamily:'var(--ff-b)',lineHeight:1.45,maxWidth:200}}>{s.l}</div>
+          <div style={{fontSize:bodySize,color:'rgba(255,255,255,0.6)',marginTop:compact?7:12,fontFamily:'var(--ff-b)',lineHeight:1.45,maxWidth:200}}>{s.l}</div>
         </div>
       ))}
     </div>
@@ -302,27 +363,61 @@ function HeroStatsRow(){
 }
 
 function HeroSection(){
+  const{isSm,isMd,isLg}=useBreakpoint();
+  const h1Size=isSm?42:isMd?66:96;
+  const circleTop=isSm?60:isMd?80:100;
+  const textTop=isSm?104:isMd?160:220;
+  const hPad=isSm?'0 20px':isMd?'0 32px':'0 40px';
+  const pSize=isSm?16:isMd?17:20;
+  const btnGap=isSm?20:36;
+  const stats=[
+    {n:'$4B',sub:'/yr',eyebrow:'UNDER MGMT'},
+    {n:'$0',sub:'',eyebrow:'PLATFORM FEE'},
+    {n:'SOC 2',sub:'II',eyebrow:'CERTIFIED'},
+    {n:'30',sub:'-day',eyebrow:'MIN TERM'},
+    {n:'20–30',sub:'%',eyebrow:'COST REDUCTION'},
+  ];
   return (
-    <div style={{position:'relative',height:'100vh',overflow:'hidden',color:'#fff',
-      background:'linear-gradient(105deg,#E89A9A 0%,#D766B5 20%,#C258C6 40%,#A542DD 60%,#8B3DEF 80%,#6B4CFF 100%)'}}>
-      <div style={{position:'absolute',left:'50%',top:100,width:4200,height:4200,borderRadius:'50%',background:'#0C0A30',transform:'translate(-50%,0)',zIndex:1}}/>
-      <div style={{position:'absolute',top:220,left:0,right:0,zIndex:5,textAlign:'center',padding:'0 40px'}}>
-        <h1 style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:96,letterSpacing:'-0.045em',lineHeight:0.98,margin:0,color:'#fff'}}>
+    <div style={{position:'relative',minHeight:'100svh',overflow:'hidden',color:'#fff',
+      background:'linear-gradient(105deg,#E89A9A 0%,#D766B5 20%,#C258C6 40%,#A542DD 60%,#8B3DEF 80%,#6B4CFF 100%)',
+      ...(isLg&&{display:'flex',flexDirection:'column'})}}>
+      <div style={{position:'absolute',left:'50%',top:circleTop,width:4200,height:4200,borderRadius:'50%',background:'#0C0A30',transform:'translate(-50%,0)',zIndex:1}}/>
+      <div style={{position:'relative',zIndex:5,textAlign:'center',padding:hPad,
+        ...(isMd?{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',minHeight:'100svh',paddingTop:88,paddingBottom:160}
+           :isSm?{paddingTop:96,paddingBottom:32}
+               :{flex:1,display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',paddingTop:72,paddingBottom:24})}}>
+        <h1 style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:h1Size,letterSpacing:'-0.045em',lineHeight:0.98,margin:0,color:'#fff'}}>
           Like <span style={{color:'var(--sky)'}}>insurance</span><br/>for your cloud spend.
         </h1>
-        <p style={{fontSize:20,color:'rgba(255,255,255,0.72)',marginTop:28,maxWidth:580,lineHeight:1.55,margin:'28px auto 0',textWrap:'pretty'}}>
+        <p style={{fontSize:pSize,color:'rgba(255,255,255,0.72)',marginTop:isSm?16:28,maxWidth:580,lineHeight:1.55,margin:`${isSm?16:28}px auto 0`,textWrap:'pretty'}}>
           Archera offers a new way to reduce unpredictable cloud costs.{' '}
           <b style={{color:'#fff',fontWeight:600}}>Confidently buy commitments</b>, and we'll cover whatever goes unused.
           We call it <b style={{color:'#fff',fontWeight:600}}>insured commitments</b>.
         </p>
-        <div style={{display:'flex',gap:12,marginTop:36,flexWrap:'wrap',justifyContent:'center'}}>
+        <div style={{display:'flex',gap:12,marginTop:btnGap,flexWrap:'wrap',justifyContent:'center'}}>
           <a href="#" className="hero-btn hero-btn-p">Schedule your demo <span className="btn-arrow"/></a>
           <a href="#" className="hero-btn hero-btn-o">Start now — it's free</a>
         </div>
+        {isSm&&(
+          <div style={{marginTop:36,display:'grid',gridTemplateColumns:'1fr 1fr',gap:1,borderTop:'1px solid rgba(255,255,255,0.14)',paddingTop:24,textAlign:'left'}}>
+            {stats.map((s,i)=>(
+              <div key={i} style={{padding:'14px 12px',borderRight:i%2===0?'1px solid rgba(255,255,255,0.1)':'none',borderBottom:i<3?'1px solid rgba(255,255,255,0.1)':'none'}}>
+                <div style={{fontFamily:'var(--ff-d)',fontSize:8,fontWeight:700,letterSpacing:'0.16em',color:'var(--amber)',marginBottom:6}}>{s.eyebrow}</div>
+                <div style={{display:'flex',alignItems:'baseline',gap:2}}>
+                  <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:28,letterSpacing:'-0.03em',color:'#fff',lineHeight:1}}>{s.n}</span>
+                  {s.sub&&<span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:13,color:'var(--sky)'}}>{s.sub}</span>}
+                </div>
+              </div>
+            ))}
+            {/* 5th stat spans full width */}
+          </div>
+        )}
       </div>
-      <div style={{position:'absolute',bottom:56,left:80,right:80,zIndex:5}}>
-        <HeroStatsRow/>
-      </div>
+      {!isSm && (
+        isLg
+          ? <div style={{position:'relative',zIndex:5,padding:'0 80px 56px'}}><HeroStatsRow compact={false}/></div>
+          : <div style={{position:'absolute',bottom:28,left:28,right:28,zIndex:5}}><HeroStatsRow compact={true}/></div>
+      )}
     </div>
   );
 }
@@ -390,7 +485,10 @@ function CoverageChart({variant='without',onDark=false,compact=false,embedded=fa
   const useTrap=trap&&variant!=='with';
   const stacks=variant==='with'?WITH_STACKS:(useTrap?TRAP_STACKS:WITHOUT_STACKS);
   const covered=variant==='with'?WITH_COVERED:(useTrap?TRAP_COVERED:WITHOUT_COVERED);
-  const chartH=compact?200:260;
+  const chartH=compact?130:260;
+  const axisW=compact?24:38;
+  const gap=compact?8:14;
+  const iconSize=compact?18:28;
   const accent=variant==='with'?'var(--violet)':(useTrap?'var(--crimson)':(onDark?'#fff':'var(--ink)'));
   const gridColor=onDark?'rgba(255,255,255,0.08)':'rgba(12,10,48,0.08)';
   const axisColor=onDark?'rgba(255,255,255,0.4)':'var(--slate-5)';
@@ -402,17 +500,17 @@ function CoverageChart({variant='without',onDark=false,compact=false,embedded=fa
   const content=(
     <>
       {!embedded&&header}
-      <ChartLegend variant={variant} onDark={onDark} trap={useTrap}/>
-      <div style={{padding:'18px 22px 22px'}}>
-        <div style={{position:'relative',height:chartH,display:'grid',gridTemplateColumns:'38px 1fr 1fr 1fr',gap:14,alignItems:'end'}}>
+      {!compact&&<ChartLegend variant={variant} onDark={onDark} trap={useTrap}/>}
+      <div style={{padding:compact?'10px 12px 12px':'18px 22px 22px'}}>
+        <div style={{position:'relative',height:chartH,display:'grid',gridTemplateColumns:`${axisW}px 1fr 1fr 1fr`,gap,alignItems:'end'}}>
           <div style={{position:'relative',height:'100%'}}>
-            {[0,25,50,75,100].map(v=><div key={v} style={{position:'absolute',right:2,bottom:`${v}%`,transform:'translateY(50%)',fontSize:11,color:axisColor,fontFamily:'var(--ff-d)',fontWeight:500}}>{v}%</div>)}
+            {(compact?[0,50,100]:[0,25,50,75,100]).map(v=><div key={v} style={{position:'absolute',right:2,bottom:`${v}%`,transform:'translateY(50%)',fontSize:compact?8:11,color:axisColor,fontFamily:'var(--ff-d)',fontWeight:500}}>{v}%</div>)}
           </div>
           {WORKLOADS.map((w,wi)=>{
             const stack=stacks[wi];
             return(
               <div key={w.name} style={{position:'relative',height:'100%'}}>
-                {[0,25,50,75,100].map(v=><div key={v} style={{position:'absolute',left:-14,right:0,bottom:`${v}%`,height:1,borderTop:`1px dashed ${gridColor}`}}/>)}
+                {(compact?[0,50,100]:[0,25,50,75,100]).map(v=><div key={v} style={{position:'absolute',left:-gap/2,right:0,bottom:`${v}%`,height:1,borderTop:`1px dashed ${gridColor}`}}/>)}
                 <div style={{position:'absolute',bottom:0,left:'50%',transform:'translateX(-50%)',width:'65%',height:'100%',display:'flex',flexDirection:'column-reverse',borderRadius:'6px 6px 0 0',overflow:'hidden'}}>
                   {variant==='with'?(<><Seg height={stack[0]} color={PAL.year3}/><Seg height={stack[1]} color={PAL.year1}/><Seg height={stack[2]} color={PAL.insured} glow/><Seg height={stack[3]} color={onDark?'rgba(255,255,255,0.14)':PAL.ondemand}/></>)
                   :useTrap?(<><Seg height={stack[0]} color={PAL.year3}/><Seg height={stack[1]} color="#AD284B" hatched wasted={wi===0&&stack[1]>=13}/><Seg height={stack[2]} color={PAL.year1}/><Seg height={stack[3]} color="#AD284B" hatched wasted={wi===1&&stack[3]>=18}/><Seg height={stack[4]} color={onDark?'rgba(255,255,255,0.14)':PAL.ondemand}/></>)
@@ -422,14 +520,14 @@ function CoverageChart({variant='without',onDark=false,compact=false,embedded=fa
             );
           })}
         </div>
-        <div style={{display:'grid',gridTemplateColumns:'38px 1fr 1fr 1fr',gap:14,marginTop:18}}>
+        <div style={{display:'grid',gridTemplateColumns:`${axisW}px 1fr 1fr 1fr`,gap,marginTop:compact?8:18}}>
           <div/>
           {WORKLOADS.map((w,wi)=>(
             <div key={w.name} style={{textAlign:'center'}}>
-              <div style={{display:'inline-flex',alignItems:'center',gap:8,fontFamily:'var(--ff-d)',fontWeight:600,fontSize:14,color:onDark?'#fff':'var(--ink)',letterSpacing:'-0.01em'}}>
-                <WorkloadIcon name={w.name}/>{w.name}
+              <div style={{display:'inline-flex',alignItems:'center',gap:compact?4:8,fontFamily:'var(--ff-d)',fontWeight:600,fontSize:compact?10:14,color:onDark?'#fff':'var(--ink)',letterSpacing:'-0.01em'}}>
+                <WorkloadIcon name={w.name} size={iconSize}/>{w.name}
               </div>
-              <div style={{marginTop:6,fontFamily:'var(--ff-d)',fontWeight:700,fontSize:15,color:accent,letterSpacing:'-0.01em'}}>{covered[wi]} Covered</div>
+              <div style={{marginTop:compact?3:6,fontFamily:'var(--ff-d)',fontWeight:700,fontSize:compact?10:15,color:accent,letterSpacing:'-0.01em'}}>{covered[wi]}</div>
             </div>
           ))}
         </div>
@@ -445,6 +543,7 @@ function CoverageChart({variant='without',onDark=false,compact=false,embedded=fa
 }
 
 function PFVariantE(){
+  const{isSm,isMd}=useBreakpoint();
   const [active,setActive]=React.useState(0);
   const scenes=[
     {n:'01',kicker:'STATUS QUO',title:"Most spend isn\u2019t under commitment.",body:"Teams under-commit to avoid lock-in. The majority of spend sits at on-demand rates, earning zero discount.",accent:'var(--amber)',accentText:'#B8860B',chartVariant:'without',trap:false},
@@ -452,16 +551,24 @@ function PFVariantE(){
     {n:'03',kicker:'THE FIX',title:"We cover the downside. You commit aggressively.",body:"Archera reimburses or releases unused commitments, so you can over-commit safely with 30-day insured terms.",accent:'var(--violet)',accentText:'var(--violet)',chartVariant:'with',trap:false},
   ];
   const s=scenes[active];
+  const hPad=isSm?'48px 20px 40px':isMd?'60px 40px 52px':'72px 80px 64px';
+  const titleSize=isSm?32:isMd?38:46;
+  const stageGrid=isSm?'1fr':isMd?'1fr 1.1fr':'1fr 1.25fr';
+  const stageGap=isSm?32:isMd?40:72;
+  const bigNumSize=isSm?48:isMd?56:72;
+  const h3Size=isSm?26:isMd?30:38;
+  const bodySize=isSm?15:16;
   return(
-    <div style={{width:'100%',background:'var(--paper-warm)',padding:'72px 80px 64px'}}>
+    <div style={{width:'100%',background:'var(--paper-warm)',padding:hPad,overflowX:'hidden'}}>
       <div style={{maxWidth:1280,margin:'0 auto'}}>
         <PFSectionHead
           kicker={"The commitment trap \u2014 in three scenes"}
           title={<span>Cloud commitments save money.<br/>Until they don&rsquo;t.</span>}
           body={"Click a scene to explore — see where savings disappear, and how Archera puts them back."}
-          titleSize={46}
+          titleSize={titleSize}
         />
-        <div style={{marginTop:52,display:'grid',gridTemplateColumns:'repeat(3,minmax(0,1fr))',gap:0,columnGap:20,position:'relative'}}>
+        {/* Desktop/tablet: scene tab nav */}
+        {!isSm&&<div style={{marginTop:52,display:'grid',gridTemplateColumns:'repeat(3,minmax(0,1fr))',gap:0,columnGap:20,position:'relative'}}>
           {scenes.map((sc,i)=>{
             const isActive=i===active;
             const isPast=i<active;
@@ -474,28 +581,39 @@ function PFVariantE(){
                   <span style={{width:52,height:52,borderRadius:'50%',display:'grid',placeItems:'center',background:isActive?sc.accent:(isPast?'var(--line-2)':'#fff'),color:isActive?(i===0?'var(--ink)':'#fff'):'var(--slate-4)',border:isActive?`2px solid ${sc.accent}`:'2px solid var(--line)',boxShadow:isActive?`0 4px 16px -4px ${sc.accent}55`:'none',fontFamily:'var(--ff-d)',fontWeight:800,fontSize:17,transition:'all .3s',flexShrink:0}}>{sc.n}</span>
                   <span style={{display:'flex',flexDirection:'column',gap:4,minWidth:0,flex:1,paddingTop:4}}>
                     <span style={{fontFamily:'var(--ff-d)',fontSize:10,letterSpacing:'0.2em',fontWeight:700,color:isActive?sc.accentText:'var(--slate-5)'}}>{sc.kicker}</span>
-                    <span style={{fontFamily:'var(--ff-d)',fontSize:14,fontWeight:600,color:isActive?'var(--ink)':'var(--slate-4)',textWrap:'balance',lineHeight:1.3,wordBreak:'break-word'}}>{sc.title}</span>
+                    <span style={{fontFamily:'var(--ff-d)',fontSize:13,fontWeight:600,color:isActive?'var(--ink)':'var(--slate-4)',textWrap:'balance',lineHeight:1.3,wordBreak:'break-word'}}>{sc.title}</span>
                   </span>
                 </button>
               </div>
             );
           })}
-        </div>
-        <div style={{marginTop:52,display:'grid',gridTemplateColumns:'1fr 1.25fr',gap:72,alignItems:'center'}}>
+        </div>}
+
+        <div style={{marginTop:isSm?28:52,display:'grid',gridTemplateColumns:stageGrid,gap:stageGap,alignItems:isSm?'start':'center'}}>
           <div key={active} style={{animation:'stageBounceE .5s ease'}}>
-            <div style={{fontFamily:'var(--ff-d)',fontSize:72,fontWeight:800,color:s.accentText,lineHeight:1,letterSpacing:'-0.04em',opacity:0.85}}>{s.n}</div>
-            <h3 style={{fontSize:38,lineHeight:1.1,color:'var(--ink)',marginTop:18,textWrap:'balance',maxWidth:440}}>{s.title}</h3>
-            <p style={{fontSize:17,lineHeight:1.6,color:'var(--slate-3)',marginTop:20,maxWidth:440,textWrap:'pretty'}}>{s.body}</p>
-            <div style={{marginTop:36,display:'flex',gap:12}}>
+            <div style={{fontFamily:'var(--ff-d)',fontSize:bigNumSize,fontWeight:800,color:s.accentText,lineHeight:1,letterSpacing:'-0.04em',opacity:0.85}}>{s.n}</div>
+            <h3 style={{fontSize:h3Size,lineHeight:1.1,color:'var(--ink)',marginTop:isSm?12:18,textWrap:'balance',maxWidth:isSm?'100%':440}}>{s.title}</h3>
+            <p style={{fontSize:bodySize,lineHeight:1.6,color:'var(--slate-3)',marginTop:isSm?14:20,maxWidth:isSm?'100%':440,textWrap:'pretty'}}>{s.body}</p>
+            {!isSm&&<div style={{marginTop:36,display:'flex',gap:12}}>
               <button onClick={()=>setActive(Math.max(0,active-1))} disabled={active===0} style={{padding:'12px 20px',borderRadius:999,background:'var(--line-2)',border:'1px solid var(--line)',color:active===0?'var(--slate-5)':'var(--ink)',fontFamily:'inherit',fontSize:14,fontWeight:500,cursor:active===0?'default':'pointer'}}>← Prev</button>
               <button onClick={()=>setActive(Math.min(2,active+1))} disabled={active===2} style={{padding:'12px 22px',borderRadius:999,background:s.accent,border:'none',color:active===0?'var(--ink)':'#fff',fontFamily:'inherit',fontSize:14,fontWeight:600,cursor:active===2?'default':'pointer',opacity:active===2?0.4:1}}>Next scene →</button>
-            </div>
+            </div>}
           </div>
-          <div style={{background:'#fff',border:'1px solid var(--line)',borderRadius:'var(--radius)',overflow:'hidden',boxShadow:'0 2px 6px rgba(12,10,48,0.04)'}}>
-            <div style={{padding:'18px 22px',background:s.chartVariant==='with'?'var(--violet)':'var(--line-2)',borderBottom:s.chartVariant==='with'?'none':'1px solid var(--line)',transition:'background .55s ease'}}>
-              <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:18,letterSpacing:'-0.015em',color:s.chartVariant==='with'?'#fff':'var(--ink)',transition:'color .55s ease'}}>{s.chartVariant==='with'?'With Archera':'Without Archera'}</div>
+          <div>
+            <div style={{background:'#fff',border:'1px solid var(--line)',borderRadius:'var(--radius)',overflow:'hidden',boxShadow:'0 2px 6px rgba(12,10,48,0.04)'}}>
+              <div style={{padding:'14px 18px',background:s.chartVariant==='with'?'var(--violet)':'var(--line-2)',borderBottom:s.chartVariant==='with'?'none':'1px solid var(--line)',transition:'background .55s ease'}}>
+                <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:isSm?14:18,letterSpacing:'-0.015em',color:s.chartVariant==='with'?'#fff':'var(--ink)',transition:'color .55s ease'}}>{s.chartVariant==='with'?'With Archera':'Without Archera'}</div>
+              </div>
+              <CoverageChart variant={s.chartVariant} trap={s.trap} embedded compact={isSm}/>
             </div>
-            <CoverageChart variant={s.chartVariant} trap={s.trap} embedded/>
+            {isSm&&<div style={{marginTop:10,padding:'0 4px'}}>
+              <div style={{fontFamily:'var(--ff-d)',fontSize:10,fontWeight:700,color:s.accentText,letterSpacing:'0.16em',textTransform:'uppercase',marginBottom:4}}>{s.kicker}</div>
+              <div style={{fontFamily:'var(--ff-d)',fontSize:13,fontWeight:600,color:'var(--ink)',lineHeight:1.35,wordBreak:'break-word'}}>{s.title}</div>
+            </div>}
+            {isSm&&<div style={{marginTop:16,display:'flex',gap:10}}>
+              <button onClick={()=>setActive(Math.max(0,active-1))} disabled={active===0} style={{flex:1,padding:'12px 0',borderRadius:999,background:'var(--line-2)',border:'1px solid var(--line)',color:active===0?'var(--slate-5)':'var(--ink)',fontFamily:'inherit',fontSize:14,fontWeight:500,cursor:active===0?'default':'pointer'}}>← Prev</button>
+              <button onClick={()=>setActive(Math.min(2,active+1))} disabled={active===2} style={{flex:1,padding:'12px 0',borderRadius:999,background:s.accent,border:'none',color:active===0?'var(--ink)':'#fff',fontFamily:'inherit',fontSize:14,fontWeight:600,cursor:active===2?'default':'pointer',opacity:active===2?0.4:1}}>Next →</button>
+            </div>}
           </div>
         </div>
       </div>
@@ -617,8 +735,12 @@ function IllusAbsorb(){
 const ILLUS=[IllusAnalyze,IllusProtect,IllusExecute,IllusAbsorb];
 
 function DarkStage({children,padTop=120,padBottom=120}){
+  const{isSm,isMd}=useBreakpoint();
+  const pt=isSm?Math.min(padTop,60):isMd?Math.round(padTop*0.72):padTop;
+  const pb=isSm?Math.min(padBottom,68):isMd?Math.round(padBottom*0.72):padBottom;
+  const hPad=isSm?20:isMd?48:96;
   return(
-    <div style={{width:'100%',background:'linear-gradient(180deg,#0C0A30 0%,#1A1352 100%)',color:'#fff',padding:`${padTop}px 96px ${padBottom}px`,position:'relative',overflow:'hidden'}}>
+    <div style={{width:'100%',background:'linear-gradient(180deg,#0C0A30 0%,#1A1352 100%)',color:'#fff',padding:`${pt}px ${hPad}px ${pb}px`,position:'relative',overflow:'hidden'}}>
       <div style={{position:'absolute',inset:0,pointerEvents:'none',background:'radial-gradient(40% 40% at 90% 0%,rgba(113,1,255,0.32),transparent 70%),radial-gradient(40% 40% at 0% 100%,rgba(109,216,252,0.18),transparent 70%)'}}/>
       <div style={{position:'relative',maxWidth:1280,margin:'0 auto'}}>{children}</div>
     </div>
@@ -626,46 +748,68 @@ function DarkStage({children,padTop=120,padBottom=120}){
 }
 
 function HowVariantC(){
+  const{isSm,isMd}=useBreakpoint();
   const [active,setActive]=React.useState(0);
   const s=STEPS[active];
   const Illus=ILLUS[active];
   const accent=ACCENT_HEX[s.accent];
+  const h2Size=isSm?32:isMd?42:56;
+  const h3Size=isSm?24:isMd?30:40;
+  const bigNumSize=isSm?48:isMd?56:72;
+  const stageGrid=isSm?'1fr':isMd?'1fr 1.1fr':'1fr 1.3fr';
+  const stageGap=isSm?28:isMd?48:80;
+
+  const stepperEl=isSm?null:(
+    <div style={{marginTop:56,display:'grid',gridTemplateColumns:'repeat(4,minmax(0,1fr))',gap:0,position:'relative',columnGap:isMd?12:16}}>
+      <div style={{gridColumn:'1/-1',gridRow:1,height:2,background:'rgba(255,255,255,0.1)',alignSelf:'start',position:'relative',top:isMd?22:28}}/>
+      <div style={{gridColumn:'1/-1',gridRow:1,height:2,background:`linear-gradient(90deg,${accent},${accent}66)`,width:`${((active+1)/STEPS.length)*100}%`,alignSelf:'start',position:'relative',top:isMd?22:28,transition:'width .45s cubic-bezier(.4,0,.2,1)'}}/>
+      {STEPS.map((st,i)=>{
+        const a=ACCENT_HEX[st.accent];
+        const isActive=i===active,isPast=i<active;
+        const circleSize=isMd?44:56;
+        return(
+          <button key={st.n} onClick={()=>setActive(i)} style={{gridRow:1,background:'transparent',border:'none',color:'#fff',textAlign:'left',cursor:'pointer',padding:`0 ${isMd?8:12}px 0 0`,display:'flex',gap:isMd?10:14,alignItems:'flex-start',position:'relative',zIndex:1,minWidth:0}}>
+            <span style={{width:circleSize,height:circleSize,borderRadius:'50%',display:'grid',placeItems:'center',background:isActive?a:(isPast?'rgba(255,255,255,0.15)':'#15123F'),color:isActive?'#0C0A30':'#fff',border:isActive?`2px solid ${a}`:'2px solid rgba(255,255,255,0.15)',fontFamily:'var(--ff-d)',fontWeight:800,fontSize:isMd?15:18,transition:'all .3s',flex:'0 0 auto'}}>{st.n}</span>
+            <span style={{display:'flex',flexDirection:'column',gap:4,minWidth:0,flex:1,paddingTop:4}}>
+              <span style={{fontFamily:'var(--ff-d)',fontSize:isMd?9:10,letterSpacing:'0.2em',fontWeight:700,color:isActive?a:'rgba(255,255,255,0.4)'}}>{st.kicker}</span>
+              <span style={{fontFamily:'var(--ff-d)',fontSize:isMd?12:14,fontWeight:600,color:isActive?'#fff':'rgba(255,255,255,0.55)',textWrap:'balance',lineHeight:1.3,wordBreak:'break-word'}}>{st.title}</span>
+            </span>
+          </button>
+        );
+      })}
+    </div>
+  );
+
   return(
     <DarkStage padTop={100} padBottom={110}>
       <div style={{textAlign:'left',maxWidth:820,margin:0,position:'relative'}}>
-        <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:13,letterSpacing:'0.16em',textTransform:'uppercase',color:'var(--sky)'}}>How insured commitments work</span>
-        <h2 style={{fontSize:56,letterSpacing:'-0.025em',lineHeight:1.05,marginTop:18,color:'#fff',textWrap:'balance'}}>Short-term commitments.<br/>Guaranteed savings.</h2>
-        <p style={{marginTop:22,fontSize:18,lineHeight:1.55,maxWidth:600,color:'rgba(255,255,255,0.65)',textWrap:'pretty'}}>Archera sits between your cloud usage and your commitments — insuring the downside, so the flexibility of 30-day and 1-year terms actually pays off.</p>
+        <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:isSm?11:13,letterSpacing:'0.16em',textTransform:'uppercase',color:'var(--sky)'}}>How insured commitments work</span>
+        <h2 style={{fontSize:h2Size,letterSpacing:'-0.025em',lineHeight:1.05,marginTop:isSm?14:18,color:'#fff',textWrap:'balance'}}>Short-term commitments.<br/>Guaranteed savings.</h2>
+        <p style={{marginTop:isSm?14:22,fontSize:isSm?15:18,lineHeight:1.55,maxWidth:600,color:'rgba(255,255,255,0.65)',textWrap:'pretty'}}>Archera sits between your cloud usage and your commitments — insuring the downside, so the flexibility of 30-day and 1-year terms actually pays off.</p>
       </div>
-      <div style={{marginTop:56,display:'grid',gridTemplateColumns:'repeat(4,minmax(0,1fr))',gap:0,position:'relative',columnGap:16}}>
-        <div style={{gridColumn:'1/-1',gridRow:1,height:2,background:'rgba(255,255,255,0.1)',alignSelf:'start',position:'relative',top:28}}/>
-        <div style={{gridColumn:'1/-1',gridRow:1,height:2,background:`linear-gradient(90deg,${accent},${accent}66)`,width:`${((active+1)/STEPS.length)*100}%`,alignSelf:'start',position:'relative',top:28,transition:'width .45s cubic-bezier(.4,0,.2,1)'}}/>
-        {STEPS.map((st,i)=>{
-          const a=ACCENT_HEX[st.accent];
-          const isActive=i===active,isPast=i<active;
-          return(
-            <button key={st.n} onClick={()=>setActive(i)} style={{gridRow:1,background:'transparent',border:'none',color:'#fff',textAlign:'left',cursor:'pointer',padding:'0 12px 0 0',display:'flex',gap:14,alignItems:'flex-start',position:'relative',zIndex:1,minWidth:0}}>
-              <span style={{width:56,height:56,borderRadius:'50%',display:'grid',placeItems:'center',background:isActive?a:(isPast?'rgba(255,255,255,0.15)':'#15123F'),color:isActive?'#0C0A30':'#fff',border:isActive?`2px solid ${a}`:'2px solid rgba(255,255,255,0.15)',fontFamily:'var(--ff-d)',fontWeight:800,fontSize:18,transition:'all .3s',flex:'0 0 auto'}}>{st.n}</span>
-              <span style={{display:'flex',flexDirection:'column',gap:4,minWidth:0,flex:1,paddingTop:4}}>
-                <span style={{fontFamily:'var(--ff-d)',fontSize:10,letterSpacing:'0.2em',fontWeight:700,color:isActive?a:'rgba(255,255,255,0.4)'}}>{st.kicker}</span>
-                <span style={{fontFamily:'var(--ff-d)',fontSize:14,fontWeight:600,color:isActive?'#fff':'rgba(255,255,255,0.55)',textWrap:'balance',lineHeight:1.3,wordBreak:'break-word'}}>{st.title}</span>
-              </span>
-            </button>
-          );
-        })}
-      </div>
-      <div key={active} style={{marginTop:72,display:'grid',gridTemplateColumns:'1fr 1.3fr',gap:80,alignItems:'center',animation:'fadeStage .5s ease'}}>
+      {stepperEl}
+      <div key={active} style={{marginTop:isSm?24:72,display:'grid',gridTemplateColumns:stageGrid,gap:stageGap,alignItems:'center',animation:'fadeStage .5s ease'}}>
         <div>
-          <div style={{fontFamily:'var(--ff-d)',fontSize:72,fontWeight:800,color:accent,lineHeight:1,letterSpacing:'-0.04em',opacity:0.9}}>{s.n}</div>
-          <h3 style={{fontSize:40,lineHeight:1.1,color:'#fff',marginTop:20,textWrap:'balance',maxWidth:440}}>{s.title}</h3>
-          <p style={{fontSize:17.5,lineHeight:1.6,color:'rgba(255,255,255,0.7)',marginTop:22,maxWidth:440,textWrap:'pretty'}}>{s.body}</p>
-          <div style={{marginTop:40,display:'flex',gap:12}}>
+          <div style={{fontFamily:'var(--ff-d)',fontSize:bigNumSize,fontWeight:800,color:accent,lineHeight:1,letterSpacing:'-0.04em',opacity:0.9}}>{s.n}</div>
+          <h3 style={{fontSize:h3Size,lineHeight:1.1,color:'#fff',marginTop:isSm?12:20,textWrap:'balance',maxWidth:440}}>{s.title}</h3>
+          <p style={{fontSize:isSm?15:17.5,lineHeight:1.6,color:'rgba(255,255,255,0.7)',marginTop:isSm?14:22,maxWidth:440,textWrap:'pretty'}}>{s.body}</p>
+          {!isSm&&<div style={{marginTop:40,display:'flex',gap:12}}>
             <button onClick={()=>setActive(Math.max(0,active-1))} disabled={active===0} style={{padding:'12px 20px',borderRadius:999,background:'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.15)',color:active===0?'rgba(255,255,255,0.3)':'#fff',fontFamily:'inherit',fontSize:14,fontWeight:500,cursor:active===0?'default':'pointer'}}>← Prev</button>
             <button onClick={()=>setActive(Math.min(STEPS.length-1,active+1))} disabled={active===STEPS.length-1} style={{padding:'12px 22px',borderRadius:999,background:accent,border:'none',color:'#0C0A30',fontFamily:'inherit',fontSize:14,fontWeight:600,cursor:active===STEPS.length-1?'default':'pointer',opacity:active===STEPS.length-1?0.4:1}}>Next step →</button>
+          </div>}
+        </div>
+        {!isSm&&<div><Illus animated/></div>}
+      </div>
+      {isSm&&(
+        <div style={{marginTop:24}}>
+          <Illus animated/>
+          <div style={{marginTop:8,fontFamily:'var(--ff-d)',fontSize:11,fontWeight:600,color:accent,letterSpacing:'0.12em',textTransform:'uppercase',opacity:0.8}}>{s.kicker} — {s.title}</div>
+          <div style={{marginTop:16,display:'flex',gap:10}}>
+            <button onClick={()=>setActive(Math.max(0,active-1))} disabled={active===0} style={{flex:1,padding:'12px 0',borderRadius:999,background:'rgba(255,255,255,0.08)',border:'1px solid rgba(255,255,255,0.15)',color:active===0?'rgba(255,255,255,0.3)':'#fff',fontFamily:'inherit',fontSize:14,fontWeight:500,cursor:active===0?'default':'pointer'}}>← Prev</button>
+            <button onClick={()=>setActive(Math.min(STEPS.length-1,active+1))} disabled={active===STEPS.length-1} style={{flex:1,padding:'12px 0',borderRadius:999,background:accent,border:'none',color:'#0C0A30',fontFamily:'inherit',fontSize:14,fontWeight:600,cursor:active===STEPS.length-1?'default':'pointer',opacity:active===STEPS.length-1?0.4:1}}>Next →</button>
           </div>
         </div>
-        <div><Illus animated/></div>
-      </div>
+      )}
       <style>{`@keyframes fadeStage{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}`}</style>
     </DarkStage>
   );
@@ -757,33 +901,35 @@ function CompanyMark({company,size=22,color='var(--slate-3)'}){
   return <img src={src} alt={company} style={{height:size,width:'auto',display:'inline-block',filter:isLight?'brightness(0) invert(1) opacity(0.85)':'grayscale(1) brightness(0) opacity(0.6)'}}/>;
 }
 
-function LogoBandAndCTA({theme='light'}){
+function LogoBandAndCTA({theme='light',sectionPad=80}){
+  const{isSm,isMd}=useBreakpoint();
   const isDark=theme==='dark';
   const logoUrls=Array.from({length:9},(_,i)=>`assets/customers/logo-0${i+1}.svg`);
   const bandBg=isDark?'rgba(255,255,255,0.03)':'var(--paper-warm)';
   const bandBorder=isDark?'rgba(255,255,255,0.08)':'var(--line)';
   const heading=isDark?'#fff':'var(--ink)';
   const linkColor=isDark?'#6DD8FC':'var(--violet)';
+  const negMargin=isSm?-20:isMd?-48:-sectionPad;
   return(
-    <div style={{marginTop:96,paddingTop:48,borderTop:`1px solid ${bandBorder}`}}>
-      <div style={{display:'grid',gridTemplateColumns:'1.1fr auto',gap:40,alignItems:'end',marginBottom:40}}>
+    <div style={{marginTop:isSm?48:96,paddingTop:isSm?28:48,borderTop:`1px solid ${bandBorder}`}}>
+      <div style={{display:isSm?'flex':'grid',flexDirection:'column',gap:isSm?16:40,gridTemplateColumns:isSm?undefined:'1.1fr auto',alignItems:'end',marginBottom:isSm?24:40}}>
         <div>
-          <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:13,letterSpacing:'0.14em',textTransform:'uppercase',color:isDark?'#FFD080':'var(--violet)',marginBottom:14}}>More customer stories</div>
-          <h3 style={{color:heading,fontSize:32,lineHeight:1.15,maxWidth:700,textWrap:'pretty'}}>See how other teams are succeeding in the cloud with Archera.</h3>
+          <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:isSm?11:13,letterSpacing:'0.14em',textTransform:'uppercase',color:isDark?'#FFD080':'var(--violet)',marginBottom:isSm?10:14}}>More customer stories</div>
+          <h3 style={{color:heading,fontSize:isSm?22:isMd?26:32,lineHeight:1.15,maxWidth:700,textWrap:'pretty'}}>See how other teams are succeeding in the cloud with Archera.</h3>
         </div>
-        <a href="#" style={{display:'inline-flex',alignItems:'center',gap:12,fontFamily:'var(--ff-d)',fontWeight:700,fontSize:16,color:linkColor,textDecoration:'none',padding:'14px 22px',borderRadius:999,border:`1.5px solid ${linkColor}`,background:'transparent',whiteSpace:'nowrap'}}>
+        <a href="#" style={{display:'inline-flex',alignItems:'center',gap:12,fontFamily:'var(--ff-d)',fontWeight:700,fontSize:isSm?14:16,color:linkColor,textDecoration:'none',padding:isSm?'12px 18px':'14px 22px',borderRadius:999,border:`1.5px solid ${linkColor}`,background:'transparent',whiteSpace:'nowrap',alignSelf:'flex-start'}}>
           Discover their stories
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke={linkColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke={linkColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
         </a>
       </div>
-      <div style={{position:'relative',marginLeft:-80,marginRight:-80,background:bandBg,borderTop:`1px solid ${bandBorder}`,borderBottom:`1px solid ${bandBorder}`,padding:'32px 0 36px',overflow:'hidden'}}>
-        <div style={{fontFamily:'var(--ff-d)',fontWeight:600,fontSize:13,letterSpacing:'0.16em',textTransform:'uppercase',color:isDark?'rgba(255,255,255,0.55)':'var(--slate-4)',marginBottom:24,textAlign:'center'}}>Trusted by cloud teams at scale</div>
+      <div style={{position:'relative',marginLeft:negMargin,marginRight:negMargin,background:bandBg,borderTop:`1px solid ${bandBorder}`,borderBottom:`1px solid ${bandBorder}`,padding:isSm?'24px 0 28px':'32px 0 36px',overflow:'hidden'}}>
+        <div style={{fontFamily:'var(--ff-d)',fontWeight:600,fontSize:isSm?11:13,letterSpacing:'0.16em',textTransform:'uppercase',color:isDark?'rgba(255,255,255,0.55)':'var(--slate-4)',marginBottom:isSm?16:24,textAlign:'center'}}>Trusted by cloud teams at scale</div>
         <div style={{display:'flex',width:'max-content',animation:'logoMarquee 40s linear infinite'}}>
           {[0,1].map(loop=>(
-            <div key={loop} style={{display:'flex',alignItems:'center',gap:72,paddingRight:72,flexShrink:0}} aria-hidden={loop===1?'true':undefined}>
+            <div key={loop} style={{display:'flex',alignItems:'center',gap:isSm?40:72,paddingRight:isSm?40:72,flexShrink:0}} aria-hidden={loop===1?'true':undefined}>
               {logoUrls.map((u,i)=>(
-                <div key={i} style={{height:48,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
-                  <img src={u} alt="" style={{maxHeight:44,width:'auto',opacity:isDark?0.75:0.85,filter:isDark?'grayscale(1) brightness(0) invert(1) opacity(0.8)':'grayscale(1) brightness(0) opacity(0.65)'}}/>
+                <div key={i} style={{height:isSm?36:48,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
+                  <img src={u} alt="" style={{maxHeight:isSm?32:44,width:'auto',opacity:isDark?0.75:0.85,filter:isDark?'grayscale(1) brightness(0) invert(1) opacity(0.8)':'grayscale(1) brightness(0) opacity(0.65)'}}/>
                 </div>
               ))}
             </div>
@@ -796,19 +942,21 @@ function LogoBandAndCTA({theme='light'}){
 }
 
 function TSectionHeader({theme='light',kickerColor,title,subtitle}){
+  const{isSm,isMd}=useBreakpoint();
   const isDark=theme==='dark';
   return(
-    <div style={{marginBottom:72}}>
-      <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:13,letterSpacing:'0.14em',textTransform:'uppercase',color:kickerColor||(isDark?'var(--amber)':'var(--violet)'),marginBottom:20}}>Customer stories</div>
-      <div style={{display:'grid',gridTemplateColumns:'1fr auto',gap:48,alignItems:'end'}}>
-        <h2 style={{fontSize:52,lineHeight:1.05,letterSpacing:'-0.025em',color:isDark?'#fff':'var(--ink)',maxWidth:780,textWrap:'balance',margin:0,fontFamily:'var(--ff-d)',fontWeight:700}}>{title}</h2>
-        {subtitle&&<p style={{color:isDark?'rgba(255,255,255,0.68)':'var(--slate-3)',fontSize:17,lineHeight:1.5,maxWidth:420,margin:0,paddingBottom:8}}>{subtitle}</p>}
+    <div style={{marginBottom:isSm?40:72}}>
+      <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:isSm?11:13,letterSpacing:'0.14em',textTransform:'uppercase',color:kickerColor||(isDark?'var(--amber)':'var(--violet)'),marginBottom:isSm?14:20}}>Customer stories</div>
+      <div style={{display:isSm?'block':'grid',gridTemplateColumns:'1fr auto',gap:48,alignItems:'end'}}>
+        <h2 style={{fontSize:isSm?32:isMd?40:52,lineHeight:1.05,letterSpacing:'-0.025em',color:isDark?'#fff':'var(--ink)',maxWidth:780,textWrap:'balance',margin:0,fontFamily:'var(--ff-d)',fontWeight:700}}>{title}</h2>
+        {subtitle&&<p style={{color:isDark?'rgba(255,255,255,0.68)':'var(--slate-3)',fontSize:isSm?15:17,lineHeight:1.5,maxWidth:420,margin:isSm?'16px 0 0':0,paddingBottom:8}}>{subtitle}</p>}
       </div>
     </div>
   );
 }
 
 function TestimonialsVariantD(){
+  const{isSm,isMd}=useBreakpoint();
   const isDark=true;
   const [idx,setIdx]=React.useState(0);
   const t=TESTIMONIALS[idx];
@@ -820,49 +968,51 @@ function TestimonialsVariantD(){
   const card=CARDS[t.id];
   const BG={platform9:'#7101FF',floyo:'#6DD8FC',hex:'#F89090'};
   const bg=BG[t.id];
+  const secPad=isSm?20:isMd?48:80;
+  const secPadV=isSm?64:isMd?80:110;
   return(
-    <section style={{background:'var(--ink)',padding:'110px 80px 100px',fontFamily:'var(--ff-b)',color:'#fff',position:'relative',overflow:'hidden'}}>
+    <section style={{background:'var(--ink)',padding:`${secPadV}px ${secPad}px ${secPadV}px`,fontFamily:'var(--ff-b)',color:'#fff',position:'relative',overflow:'hidden'}}>
       <TSectionHeader theme="dark" title={<>Real teams.<br/>Real flexibility.<br/>Real savings.</>} subtitle="Engineers, FinOps leads, and founders using Archera to reclaim room in their cloud spend without the lock-in."/>
-      <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:32}}>
-        <div style={{display:'flex',alignItems:'center',gap:8}}>
+      <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:isSm?20:32,flexWrap:'wrap',gap:12}}>
+        <div style={{display:'flex',alignItems:'center',gap:isSm?4:8,flexWrap:'wrap'}}>
           {TESTIMONIALS.map((tm,i)=>(
-            <button key={tm.id} onClick={()=>setIdx(i)} style={{padding:'12px 22px',borderRadius:999,background:i===idx?'#fff':'transparent',color:i===idx?'var(--ink)':'rgba(255,255,255,0.75)',border:'none',cursor:i===idx?'default':'pointer',fontFamily:'var(--ff-d)',fontWeight:600,fontSize:15,transition:'background .2s,color .2s'}}>{tm.company}</button>
+            <button key={tm.id} onClick={()=>setIdx(i)} style={{padding:isSm?'9px 14px':'12px 22px',borderRadius:999,background:i===idx?'#fff':'transparent',color:i===idx?'var(--ink)':'rgba(255,255,255,0.75)',border:'none',cursor:i===idx?'default':'pointer',fontFamily:'var(--ff-d)',fontWeight:600,fontSize:isSm?13:15,transition:'background .2s,color .2s'}}>{tm.company}</button>
           ))}
         </div>
-        <div style={{display:'flex',alignItems:'center',gap:14}}>
+        {!isSm&&<div style={{display:'flex',alignItems:'center',gap:14}}>
           <div style={{position:'relative',width:80,height:2,background:'rgba(255,255,255,0.18)',borderRadius:999,overflow:'hidden'}}>
             <div style={{position:'absolute',inset:0,width:`${((idx+1)/TESTIMONIALS.length)*100}%`,background:'#fff',transition:'width .4s cubic-bezier(.2,.7,.3,1)'}}/>
           </div>
           <div style={{fontFamily:'var(--ff-d)',fontSize:14,fontWeight:600,color:'rgba(255,255,255,0.8)'}}>{idx+1} <span style={{color:'rgba(255,255,255,0.35)'}}>/ {TESTIMONIALS.length}</span></div>
-        </div>
+        </div>}
       </div>
-      <div style={{display:'grid',gridTemplateColumns:'1fr 2fr',gap:16}}>
-        <div key={t.id+'-cs'} style={{position:'relative',background:`linear-gradient(200deg,${bg}1A 0%,${bg}4D 55%,${bg}99 100%),#FFFFFF`,borderRadius:'var(--radius-lg)',padding:'40px 40px 36px',display:'flex',flexDirection:'column',minHeight:480,overflow:'hidden',animation:'tcPanel .5s ease both'}}>
+      <div style={{display:'grid',gridTemplateColumns:isSm?'1fr':isMd?'1fr 1.5fr':'1fr 2fr',gap:isSm?12:16}}>
+        {!isSm&&<div key={t.id+'-cs'} style={{position:'relative',background:`linear-gradient(200deg,${bg}1A 0%,${bg}4D 55%,${bg}99 100%),#FFFFFF`,borderRadius:'var(--radius-lg)',padding:isMd?'28px 28px 24px':'40px 40px 36px',display:'flex',flexDirection:'column',minHeight:isMd?380:480,overflow:'hidden',animation:'tcPanel .5s ease both'}}>
           <div style={{fontFamily:'var(--ff-d)',fontWeight:600,fontSize:13,letterSpacing:'0.14em',textTransform:'uppercase',color:'var(--slate-4)'}}>Case study · {card.tag}</div>
-          <h3 style={{marginTop:24,fontFamily:'var(--ff-d)',fontWeight:600,fontSize:36,lineHeight:1.1,letterSpacing:'-0.02em',color:'var(--ink)',textWrap:'balance'}}>{card.headline}</h3>
-          <p style={{marginTop:20,fontSize:15,lineHeight:1.55,color:'var(--slate-3)',textWrap:'pretty'}}>{card.blurb}</p>
+          <h3 style={{marginTop:20,fontFamily:'var(--ff-d)',fontWeight:600,fontSize:isMd?26:36,lineHeight:1.1,letterSpacing:'-0.02em',color:'var(--ink)',textWrap:'balance'}}>{card.headline}</h3>
+          <p style={{marginTop:16,fontSize:isMd?14:15,lineHeight:1.55,color:'var(--slate-3)',textWrap:'pretty'}}>{card.blurb}</p>
           <a href="#" style={{marginTop:'auto',display:'inline-flex',alignItems:'center',gap:12,fontFamily:'var(--ff-d)',fontWeight:600,fontSize:15,color:'var(--ink)',textDecoration:'none',alignSelf:'flex-start'}}>Read more <span style={{width:30,height:30,borderRadius:'50%',background:'var(--ink)',color:'#fff',display:'grid',placeItems:'center'}}><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/></svg></span></a>
-        </div>
-        <div key={t.id+'-hero'} style={{position:'relative',background:`linear-gradient(135deg,var(--ink) 0%,var(--ink) 55%,${bg} 180%)`,color:'#fff',borderRadius:'var(--radius-lg)',padding:'40px 48px 44px',display:'flex',flexDirection:'column',minHeight:480,overflow:'hidden',animation:'tcPanel .5s .05s ease both',border:'1px solid rgba(255,255,255,0.18)'}}>
+        </div>}
+        <div key={t.id+'-hero'} style={{position:'relative',background:`linear-gradient(135deg,var(--ink) 0%,var(--ink) 55%,${bg} 180%)`,color:'#fff',borderRadius:'var(--radius-lg)',padding:isSm?'28px 24px 28px':isMd?'28px 32px 32px':'40px 48px 44px',display:'flex',flexDirection:'column',minHeight:isSm?'auto':isMd?380:480,overflow:'hidden',animation:'tcPanel .5s .05s ease both',border:'1px solid rgba(255,255,255,0.18)'}}>
           <div style={{position:'absolute',width:520,height:520,borderRadius:'50%',bottom:-200,right:-140,background:`radial-gradient(circle,${bg}66,transparent 65%)`,pointerEvents:'none'}}/>
           <div style={{position:'relative',display:'flex',alignItems:'center',justifyContent:'space-between',gap:20}}>
             <div style={{display:'flex',alignItems:'center',gap:14}}>
-              <img src={t.person.photo} alt="" style={{width:52,height:52,borderRadius:'50%',objectFit:'cover',background:t.accent,flexShrink:0}}/>
+              <img src={t.person.photo} alt="" style={{width:isSm?40:52,height:isSm?40:52,borderRadius:'50%',objectFit:'cover',background:t.accent,flexShrink:0}}/>
               <div>
-                <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:16,color:'#fff'}}>{t.person.name}</div>
-                <div style={{fontSize:13,color:'rgba(255,255,255,0.6)',marginTop:2}}>{t.person.role}</div>
+                <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:isSm?14:16,color:'#fff'}}>{t.person.name}</div>
+                <div style={{fontSize:isSm?12:13,color:'rgba(255,255,255,0.6)',marginTop:2}}>{t.person.role}</div>
               </div>
             </div>
-            <CompanyMark company={t.company} size={28} color="#fff"/>
+            <CompanyMark company={t.company} size={isSm?20:28} color="#fff"/>
           </div>
-          <blockquote style={{position:'relative',margin:'36px 0 0 0',fontFamily:'var(--ff-d)',fontWeight:500,fontSize:28,lineHeight:1.3,letterSpacing:'-0.018em',color:'#fff',textWrap:'pretty',maxWidth:720}}>"{t.quote}"</blockquote>
-          <div style={{position:'relative',marginTop:'auto',paddingTop:32,borderTop:'1px solid rgba(255,255,255,0.12)',display:'flex',alignItems:'flex-end',gap:24}}>
-            <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:88,lineHeight:0.95,letterSpacing:'-0.03em',color:'var(--amber)'}}>{card.stat}</div>
-            <div style={{paddingBottom:10,fontSize:14,color:'var(--amber)',lineHeight:1.4,maxWidth:320,opacity:0.9}}>{card.statLabel}</div>
+          <blockquote style={{position:'relative',margin:`${isSm?24:36}px 0 0 0`,fontFamily:'var(--ff-d)',fontWeight:500,fontSize:isSm?18:isMd?22:28,lineHeight:1.3,letterSpacing:'-0.018em',color:'#fff',textWrap:'pretty',maxWidth:720}}>"{t.quote}"</blockquote>
+          <div style={{position:'relative',marginTop:'auto',paddingTop:isSm?20:32,marginTop:isSm?24:undefined,borderTop:'1px solid rgba(255,255,255,0.12)',display:'flex',alignItems:'flex-end',gap:isSm?12:24}}>
+            <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:isSm?36:isMd?64:88,lineHeight:0.95,letterSpacing:'-0.03em',color:'var(--amber)'}}>{card.stat}</div>
+            <div style={{paddingBottom:isSm?4:10,fontSize:isSm?12:14,color:'var(--amber)',lineHeight:1.4,maxWidth:320,opacity:0.9}}>{card.statLabel}</div>
           </div>
         </div>
       </div>
-      <LogoBandAndCTA theme="dark"/>
+      <LogoBandAndCTA theme="dark" sectionPad={secPad}/>
       <style>{`@keyframes tcPanel{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}`}</style>
     </section>
   );
