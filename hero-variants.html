@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Archera — Hero Variants v5</title>
+<style>
+  @font-face{font-family:"TT Hoves";src:url("fonts/TT_Hoves_Regular.otf") format("opentype");font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:"TT Hoves";src:url("fonts/TypeType_-_TT_Hoves_Medium.otf") format("opentype");font-weight:500;font-style:normal;font-display:swap}
+  @font-face{font-family:"TT Hoves";src:url("fonts/TT_Hoves_DemiBold.otf") format("opentype");font-weight:600;font-style:normal;font-display:swap}
+  @font-face{font-family:"TT Hoves";src:url("fonts/TT_Hoves_Bold.otf") format("opentype");font-weight:700;font-style:normal;font-display:swap}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#0C0A30; --ink-2:#15123F; --navy:#464867;
+    --violet:#7101FF; --violet-2:#8B01E8; --violet-soft:#F6F0FF;
+    --sky:#6DD8FC; --peach:#F89090; --mint-2:#20A795;
+    --amber:#FFD080; --periwinkle:#A2B1FB;
+    --slate-4:#686870;
+    --ff-d:"TT Hoves",system-ui,sans-serif;
+    --ff-b:"TT Hoves",system-ui,sans-serif;
+  }
+  html,body{margin:0;background:#EDECEA;font-family:var(--ff-b);color:#fff}
+  .page-wrap{padding:24px 24px 80px;display:flex;flex-direction:column;gap:24px}
+  .variant-shell{border-radius:28px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(12,10,48,0.2),0 2px 0 rgba(12,10,48,0.04);position:relative;height:900px}
+  .variant-tag{position:absolute;top:28px;left:28px;z-index:100;display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 8px;background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);border-radius:999px;font-family:var(--ff-d);font-size:13px;font-weight:600;color:#fff;box-shadow:0 4px 14px -6px rgba(12,10,48,0.08)}
+  .variant-tag .dot{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.25);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
+
+  .hero-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:999px;
+    font-family:var(--ff-d);font-weight:600;font-size:15px;border:1px solid transparent;cursor:pointer;
+    transition:all .2s;letter-spacing:-0.005em;white-space:nowrap;text-decoration:none}
+  .hero-btn-p{background:var(--violet);color:#fff}
+  .hero-btn-p:hover{background:var(--violet-2);box-shadow:0 12px 32px -8px rgba(113,1,255,0.6)}
+  .hero-btn-o{background:transparent;color:#fff;border-color:rgba(255,255,255,0.25)}
+  .hero-btn-o:hover{border-color:#fff;background:rgba(255,255,255,0.05)}
+  .btn-arrow{width:18px;height:18px;border-radius:50%;background:currentColor;
+    display:inline-grid;place-items:center;position:relative}
+  .btn-arrow::after{content:"";width:6px;height:6px;border-right:2px solid var(--ink);border-top:2px solid var(--ink);
+    transform:rotate(45deg);margin-left:-2px}
+  .hero-btn-p .btn-arrow{background:#fff}
+  .hero-btn-p .btn-arrow::after{border-color:var(--violet)}
+
+  /* Swoosh drift animations — subtle */
+  @keyframes swoosh-drift-a { 0%,100%{transform:translate(0,0)} 50%{transform:translate(12px,-6px)} }
+  @keyframes swoosh-drift-b { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-10px,8px)} }
+  @keyframes swoosh-drift-c { 0%,100%{transform:translate(0,0)} 50%{transform:translate(6px,10px)} }
+  .drift-a { animation: swoosh-drift-a 10s ease-in-out infinite }
+  .drift-b { animation: swoosh-drift-b 12s ease-in-out infinite }
+  .drift-c { animation: swoosh-drift-c 14s ease-in-out infinite }
+
+  @keyframes countUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+
+/* ================ FLAT SWOOSH (SVG, gradient, can curve) ================
+   Design:
+   - Flat stroke, solid color gradient (no blur).
+   - Can be straight OR curved via a cubic bezier path.
+   - Gradient transitions from one brand color to another, fading at the tail.
+   - Head end has a circle cap in the head color (signature: circle + swoosh trail).
+   Params:
+     colorA = head color (fully opaque)
+     colorB = tail color (fades to transparent)
+     width  = stroke width in px
+     length = total length of the curve
+     curve  = 0 = straight, positive = arcs up, negative = arcs down
+     angle  = overall rotation
+*/
+function Swoosh({colorA='#7101FF', colorB='#6DD8FC', width=70, length=320, curve=60, angle=-25, style={}, driftClass='drift-a', opacity=1}){
+  // Unique gradient id per instance
+  const gid = React.useMemo(()=>'sw-'+Math.random().toString(36).slice(2,9),[]);
+  // The path: from (0, 0) to (length, 0), with a quadratic curve control point at (length/2, -curve).
+  // Positive curve => bows upward; negative => bows downward.
+  const h = Math.max(width*2, Math.abs(curve)*2 + width*1.5);
+  const midY = h/2;
+  const headX = width/2 + 4;
+  const tailX = length - width/2 - 4;
+  const ctrlY = midY - curve;
+  const d = `M ${headX} ${midY} Q ${(headX+tailX)/2} ${ctrlY}, ${tailX} ${midY}`;
+  return (
+    <div style={{
+      position:'absolute',
+      transform: `rotate(${angle}deg)`,
+      transformOrigin:'left center',
+      opacity,
+      ...style
+    }}>
+      <div className={driftClass} style={{
+        width: length,
+        height: h,
+        pointerEvents:'none',
+      }}>
+        <svg width={length} height={h} viewBox={`0 0 ${length} ${h}`} style={{overflow:'visible',display:'block'}}>
+        <defs>
+          <linearGradient id={gid} x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor={colorA} stopOpacity="1"/>
+            <stop offset="55%" stopColor={colorB} stopOpacity="0.7"/>
+            <stop offset="100%" stopColor={colorB} stopOpacity="0"/>
+          </linearGradient>
+        </defs>
+        {/* Swoosh trail (flat stroke, fading) */}
+        <path d={d} stroke={`url(#${gid})`} strokeWidth={width} strokeLinecap="round" fill="none"/>
+        {/* Head circle */}
+        <circle cx={headX} cy={midY} r={width/2} fill={colorA}/>
+      </svg>
+      </div>
+    </div>
+  )
+}
+
+/* ================ GIANT ARC (fig 1 — big gradient circle bleeding off top) ================
+   An enormous circle, positioned mostly off-canvas, with a conic/linear gradient ring.
+   Renders as a filled circle with a radial-mask "cutout" creating a thick band at its edge.
+   Easiest implementation: a huge circle div with a linear gradient background,
+   with a slightly smaller dark circle overlaid to create a ring-arc effect.
+*/
+function GiantArc({size=2400, cx='50%', cy='-85%', thickness=140,
+  gradient='linear-gradient(90deg, #7101FF 0%, #8B01E8 35%, #C257E0 65%, #F89090 100%)',
+  bg='#0C0A30', opacity=1, style={}}){
+  const inner = size - thickness*2;
+  return (
+    <div style={{position:'absolute',left:cx,top:cy,width:size,height:size,borderRadius:'50%',
+      transform:'translate(-50%,0)',background:gradient,opacity,pointerEvents:'none',...style}}>
+      <div style={{position:'absolute',left:'50%',top:'50%',width:inner,height:inner,borderRadius:'50%',
+        transform:'translate(-50%,-50%)',background:bg}}/>
+    </div>
+  );
+}
+
+/* ================ NESTED ARC (fig 2 — concentric arc with ball at origin) ================
+   Pairs a swoosh-like arc with a solid ball sitting at one end as the origin.
+   Uses SVG so the arc can curve smoothly.
+*/
+function NestedArc({cx=0, cy=0, radius=600, thickness=80, startAngle=200, endAngle=330,
+  ballColor='#F89090', ballSize=160, ballAnchor='start',
+  gradFrom='rgba(248,144,144,0)', gradTo='#9AA8D8',
+  style={}, opacity=1}){
+  // Render an SVG larger than the arc extents; anchor ball at the arc endpoint.
+  const gid = React.useMemo(()=>'na-'+Math.random().toString(36).slice(2,9),[]);
+  const pad = thickness/2 + ballSize/2 + 20;
+  const w = (radius + pad)*2;
+  const h = (radius + pad)*2;
+  const centerX = w/2;
+  const centerY = h/2;
+  const toRad = a => (a*Math.PI)/180;
+  const ax = centerX + radius*Math.cos(toRad(startAngle));
+  const ay = centerY + radius*Math.sin(toRad(startAngle));
+  const bx = centerX + radius*Math.cos(toRad(endAngle));
+  const by = centerY + radius*Math.sin(toRad(endAngle));
+  const largeArc = Math.abs(endAngle-startAngle) > 180 ? 1 : 0;
+  const sweep = endAngle > startAngle ? 1 : 0;
+  const d = `M ${ax} ${ay} A ${radius} ${radius} 0 ${largeArc} ${sweep} ${bx} ${by}`;
+  const ballX = ballAnchor==='start' ? ax : bx;
+  const ballY = ballAnchor==='start' ? ay : by;
+  return (
+    <div style={{position:'absolute',left:cx,top:cy,width:w,height:h,pointerEvents:'none',opacity,
+      transform:'translate(-50%,-50%)',...style}}>
+      <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} style={{overflow:'visible',display:'block'}}>
+        <defs>
+          <linearGradient id={gid} x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor={gradFrom} stopOpacity={gradFrom.includes('rgba')?1:0}/>
+            <stop offset="35%" stopColor={gradTo} stopOpacity="0.4"/>
+            <stop offset="100%" stopColor={gradTo} stopOpacity="1"/>
+          </linearGradient>
+        </defs>
+        <path d={d} stroke={`url(#${gid})`} strokeWidth={thickness} strokeLinecap="round" fill="none"/>
+        <circle cx={ballX} cy={ballY} r={ballSize/2} fill={ballColor}/>
+      </svg>
+    </div>
+  );
+}
+
+/* ============ Hero stats (shared) ============ */
+function TestimonialPill({align='left'}){
+  const centered = align==='center';
+  return (
+    <div style={{display:'flex',justifyContent: centered?'center':'flex-start',marginTop:24}}>
+      <div style={{display:'inline-flex',alignItems:'center',gap:12,padding:'8px 20px 8px 18px',borderRadius:999,
+        background:'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.14)',fontSize:13,color:'rgba(255,255,255,0.78)',fontFamily:'var(--ff-b)',cursor:'pointer'}}>
+        <span>Learn how Archera customers are succeeding in the cloud:</span>
+        <span style={{color:'var(--sky)',fontWeight:600,display:'inline-flex',alignItems:'center',gap:6}}>
+          Discover their stories
+          <span style={{display:'inline-block',transform:'translateY(-1px)'}}>→</span>
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function HeroStatsRow({variant='horizontal'}){
+  const stats = [
+    {n:'$4B',   sub:'/yr',   eyebrow:'UNDER MANAGEMENT', l:'in cloud commitments across AWS, Azure & Google Cloud'},
+    {n:'$0',    sub:'',      eyebrow:'PLATFORM FEE',      l:'flat pricing, forever — we never take a cut of your savings'},
+    {n:'SOC 2', sub:'II',    eyebrow:'CERTIFIED',         l:'& ISO 27001:2022 — independently audited'},
+    {n:'30',    sub:'-day',  eyebrow:'MINIMUM TERM',      l:'minimum commitment — no multi-year lock-in required'},
+    {n:'20–30', sub:'%',     eyebrow:'COST REDUCTION',    l:'typical cloud cost reduction for Archera customers'},
+  ];
+  if(variant==='vertical'){
+    return (
+      <div style={{display:'flex',flexDirection:'column',gap:32}}>
+        {stats.map((s,i)=>(
+          <div key={i} style={{animation:`countUp 0.8s ease-out ${0.15*i+0.4}s both`,
+            paddingLeft:20,borderLeft:'2px solid rgba(255,255,255,0.12)'}}>
+            <div style={{fontFamily:'var(--ff-d)',fontSize:10,fontWeight:700,letterSpacing:'0.18em',
+              color:'var(--amber)',marginBottom:8}}>{s.eyebrow}</div>
+            <div style={{display:'flex',alignItems:'baseline',gap:3,whiteSpace:'nowrap'}}>
+              <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:46,letterSpacing:'-0.035em',color:'#fff',lineHeight:0.95}}>{s.n}</span>
+              {s.sub && <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:18,color:'var(--sky)',letterSpacing:'-0.015em'}}>{s.sub}</span>}
+            </div>
+            <div style={{fontSize:12.5,color:'rgba(255,255,255,0.6)',marginTop:10,fontFamily:'var(--ff-b)',lineHeight:1.45,maxWidth:260}}>{s.l}</div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  return (
+    <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:0,
+      borderTop:'1px solid rgba(255,255,255,0.14)',paddingTop:32}}>
+      {stats.map((s,i)=>(
+        <div key={i} style={{
+          paddingRight:22,
+          borderRight: i<4?'1px solid rgba(255,255,255,0.1)':'none',
+          paddingLeft: i>0?22:0, minWidth:0,
+          animation:`countUp 0.8s ease-out ${0.12*i+0.4}s both`
+        }}>
+          <div style={{fontFamily:'var(--ff-d)',fontSize:9.5,fontWeight:700,letterSpacing:'0.16em',
+            color:'var(--amber)',marginBottom:12}}>{s.eyebrow}</div>
+          <div style={{display:'flex',alignItems:'baseline',gap:3,whiteSpace:'nowrap'}}>
+            <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:44,letterSpacing:'-0.03em',color:'#fff',lineHeight:0.95}}>{s.n}</span>
+            {s.sub && <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:18,color:'var(--sky)',letterSpacing:'-0.015em'}}>{s.sub}</span>}
+          </div>
+          <div style={{fontSize:12.5,color:'rgba(255,255,255,0.6)',marginTop:12,fontFamily:'var(--ff-b)',lineHeight:1.45,maxWidth:200}}>{s.l}</div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+/* ========== Hero copy — three versions ==========
+   A: Commitments without the lock-in.  (lock-in in sky)
+   B: Stop overspending. Start saving.    (strike-through red + mint green)
+   C: Like insurance for your cloud spend. (insurance in sky)
+*/
+function HeroCopy({align='left', size='xl', copy='a'}){
+  const h1Size = size==='xl'?96: size==='lg'?82:74;
+  const centered = align==='center';
+
+  const Pill = null;
+
+  let H, P;
+  if (copy==='c'){
+    H = <h1 style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:h1Size,letterSpacing:'-0.045em',lineHeight:0.98,margin:0,color:'#fff'}}>
+      Like <span style={{color:'var(--sky)'}}>insurance</span><br/>for your cloud spend.
+    </h1>;
+    P = <p style={{fontSize:20,color:'rgba(255,255,255,0.72)',marginTop:28,maxWidth: centered?580:520,lineHeight:1.55,
+      marginLeft: centered?'auto':0,marginRight: centered?'auto':0,textAlign: centered?'center':'left'}}>
+      Archera offers a new way to reduce unpredictable cloud costs.
+      {' '}<b style={{color:'#fff',fontWeight:600}}>Confidently buy commitments</b>, and we'll cover whatever goes unused.
+      We call it <b style={{color:'#fff',fontWeight:600}}>insured commitments</b>.
+    </p>;
+  } else if (copy==='b'){
+    H = <h1 style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:h1Size,letterSpacing:'-0.045em',lineHeight:0.98,margin:0,color:'#fff'}}>
+      Stop <span style={{color:'var(--peach)',textDecoration:'line-through',textDecorationThickness:'4px',textDecorationColor:'var(--peach)'}}>overspending.</span><br/>
+      Start <span style={{color:'var(--mint-2)'}}>saving.</span>
+    </h1>;
+    P = <p style={{fontSize:20,color:'rgba(255,255,255,0.72)',marginTop:28,maxWidth: centered?600:540,lineHeight:1.55,
+      marginLeft: centered?'auto':0,marginRight: centered?'auto':0,textAlign: centered?'center':'left'}}>
+      Cloud commitments can save you up to 72% — if you use them. Archera insures the downside so you can
+      {' '}<b style={{color:'#fff',fontWeight:600}}>commit aggressively, without the risk</b>.
+    </p>;
+  } else {
+    H = <h1 style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:Math.round(h1Size*0.80),letterSpacing:'-0.045em',lineHeight:1,margin:0,color:'#fff',whiteSpace:'nowrap'}}>
+      Commit aggressively,<br/>without the <span style={{color:'var(--sky)'}}>risk.</span>
+    </h1>;
+    P = <p style={{fontSize:20,color:'rgba(255,255,255,0.72)',marginTop:28,maxWidth: centered?580:520,lineHeight:1.55,
+      marginLeft: centered?'auto':0,marginRight: centered?'auto':0,textAlign: centered?'center':'left'}}>
+      With <b style={{color:'var(--sky)',fontWeight:600}}>Insured Commitments</b>, you lock in the savings of long-term cloud commitments
+      without the downside — if you don't use it, we cover it.
+    </p>;
+  }
+
+  return (
+    <>
+      {H}
+      {P}
+      <div style={{display:'flex',gap:12,marginTop:36,flexWrap:'wrap',justifyContent: centered?'center':'flex-start'}}>
+        <a className="hero-btn hero-btn-p" style={{padding:'16px 28px',fontSize:16}}>Schedule your demo <span className="btn-arrow"/></a>
+        <a className="hero-btn hero-btn-o" style={{padding:'16px 28px',fontSize:16}}>Start now — it's free</a>
+      </div>
+    </>
+  )
+}
+
+function Nav(){
+  return (
+    <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',position:'relative',zIndex:10}}>
+      <img src="assets/brand/archera-horizontal.svg" alt="Archera" style={{height:30,filter:'brightness(0) invert(1)'}}/>
+      <div style={{display:'flex',gap:26,fontSize:14,color:'rgba(255,255,255,0.75)',fontFamily:'var(--ff-d)',fontWeight:500}}>
+        <span>Products</span><span>Solutions</span><span>Pricing</span><span>Partners</span><span>Company</span>
+      </div>
+      <div style={{display:'flex',gap:10}}>
+        <a className="hero-btn hero-btn-o" style={{padding:'10px 18px',fontSize:14}}>Login</a>
+        <a className="hero-btn hero-btn-p" style={{padding:'10px 18px',fontSize:14}}>Start free <span className="btn-arrow"/></a>
+      </div>
+    </div>
+  )
+}
+
+/* ========== Variant A — Giant Arc across top ========== */
+function VariantA(){
+  return (
+    <div style={{position:'relative',width:'100%',height:'100%',overflow:'hidden',color:'#fff',
+      background:'linear-gradient(90deg, #6B4CFF 0%, #8B3DEF 22%, #A542DD 45%, #C258C6 70%, #DC7AA8 88%, #E89A9A 100%)'}}>
+      {/* Fig-1 recreation: huge dark circle sits below the hero; only its upper arc shows,
+          leaving a curved gradient wedge across the top. Circle center left-of-center so the
+          wedge is wider on the right (matching fig 1 where peach corner is larger). */}
+      <div style={{position:'absolute',
+        left: 200, top: 100,
+        width: 3200, height: 3200, borderRadius:'50%',
+        background:'#0C0A30',
+        transform:'translate(-50%, 0)', zIndex:1}}/>
+      {/* (replaced below) */}
+
+      {/* Nav */}
+      <div style={{position:'absolute',top:32,left:80,right:80,zIndex:10}}>
+        <Nav/>
+      </div>
+
+      {/* Content */}
+      <div style={{position:'absolute',top:152,left:80,right:80,bottom:56,display:'flex',flexDirection:'column',zIndex:5}}>
+        <div style={{flex:1,display:'grid',gridTemplateColumns:'1.8fr 1fr',gap:40,alignItems:'center'}}>
+          <div><HeroCopy size="xl" copy="a"/></div>
+          <div/>
+        </div>
+        <div style={{marginTop:'auto'}}>
+          <HeroStatsRow/>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* ========== Variant B — Fig 1 mirrored: circle from RIGHT, gradient wedge LEFT ========== */
+function VariantB(){
+  // Similar structure to C but in a cool palette: light blue → periwinkle → purple-blue → light navy.
+  return (
+    <div style={{position:'relative',width:'100%',height:'100%',overflow:'hidden',color:'#fff',
+      background:'linear-gradient(105deg, #5032AC 0%, #7148D8 18%, #8E6FE6 35%, #9B8AEB 52%, #B5A8EF 68%, #D8A8D0 85%, #E89FB4 100%)'}}>
+      {/* Mid-navy circle from the bottom, enormous */}
+      <div style={{position:'absolute',
+        left:'50%', top: 100,
+        width: 4200, height: 4200, borderRadius:'50%',
+        background:'#1A1E4D',
+        transform:'translate(-50%, 0)', zIndex:1}}/>
+
+      {/* Nav sits on the gradient band */}
+      <div style={{position:'absolute',top:32,left:80,right:80,zIndex:10}}><Nav/></div>
+
+      {/* Copy is centered, sits over the top of the dark circle */}
+      <div style={{position:'absolute',top:220,left:0,right:0,zIndex:5,textAlign:'center',
+        padding:'0 40px'}}>
+        <HeroCopy align="center" size="xl" copy="b"/>
+      </div>
+
+      {/* Stats along the bottom */}
+      <div style={{position:'absolute',bottom:56,left:80,right:80,zIndex:5}}>
+        <HeroStatsRow/>
+      </div>
+    </div>
+  )
+}
+
+/* ========== Variant C — Fig 1 sunrise: circle from BOTTOM, gradient wedge on TOP ========== */
+function VariantC(){
+  return (
+    <div style={{position:'relative',width:'100%',height:'100%',overflow:'hidden',color:'#fff',
+      // Vertical gradient: peach at top blending into violet on the right
+      background:'linear-gradient(105deg, #E89A9A 0%, #D766B5 20%, #C258C6 40%, #A542DD 60%, #8B3DEF 80%, #6B4CFF 100%)'}}>
+      {/* Dark circle from the bottom, enormous, only its upper arc shows */}
+      <div style={{position:'absolute',
+        left:'50%', top: 100,
+        width: 4200, height: 4200, borderRadius:'50%',
+        background:'#0C0A30',
+        transform:'translate(-50%, 0)', zIndex:1}}/>
+
+      {/* Nav sits on the gradient band */}
+      <div style={{position:'absolute',top:32,left:80,right:80,zIndex:10}}><Nav/></div>
+
+      {/* Copy is centered, sits over the top of the dark circle */}
+      <div style={{position:'absolute',top:220,left:0,right:0,zIndex:5,textAlign:'center',
+        padding:'0 40px'}}>
+        <HeroCopy align="center" size="xl" copy="c"/>
+      </div>
+
+      {/* Stats along the bottom */}
+      <div style={{position:'absolute',bottom:56,left:80,right:80,zIndex:5}}>
+        <HeroStatsRow/>
+      </div>
+    </div>
+  )
+}
+
+function App(){
+  const variants = [
+    {id:'A', label:'Arc from bottom-left — copy on dark', el:<VariantA/>},
+    {id:'B', label:'Arc from bottom-right — copy right, gradient left', el:<VariantB/>},
+    {id:'C', label:'Arc from below center — copy centered, wide top band', el:<VariantC/>},
+  ];
+  return (
+    <div className="page-wrap">
+      {variants.map(v=>(
+        <div key={v.id} className="variant-shell">
+          <div className="variant-tag"><span className="dot">{v.id}</span>{v.label}</div>
+          <div style={{width:'100%',height:'100%'}}>{v.el}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

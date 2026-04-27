@@ -1,0 +1,1244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>De-risk section — variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0C0A30;
+    --ink-2: #1F202C;
+    --violet: #7101FF;
+    --violet-2: #8B01E8;
+    --violet-soft: #F6F0FF;
+    --peach: #F89090;
+    --peach-soft: #FDE7E7;
+    --sky: #6DD8FC;
+    --sky-soft: #EAF9FE;
+    --mint: #38D9BF;
+    --mint-2: #20A795;
+    --amber: #FFD080;
+    --amber-soft: #FFF6E5;
+    --navy: #464867;
+    --navy-muted: #5F659F;
+    --periwinkle: #A2B1FB;
+    --crimson: #AD284B;
+    --slate-3: #444444;
+    --slate-4: #686870;
+    --slate-5: #9D9DA2;
+    --line: #E2E2E5;
+    --line-2: #F1F5F9;
+    --paper: #F6F5F4;
+    --paper-warm: #FDFCFB;
+    --bg: #FFFFFF;
+
+    /* CSP brand colors */
+    --aws:   #FF9900;
+    --azure: #007FFF;
+    --gcp:   #34A853;
+
+    --ff-display: "Manrope", "TT Hoves", system-ui, sans-serif;
+    --ff-body: "Lexend", system-ui, sans-serif;
+
+    --radius-sm: 10px;
+    --radius: 16px;
+    --radius-lg: 24px;
+    --radius-xl: 36px;
+
+    --shadow-xs: 0 1px 2px rgba(12,10,48,0.05);
+    --shadow-sm: 0 4px 14px -6px rgba(12,10,48,0.08);
+    --shadow-md: 0 12px 32px -12px rgba(12,10,48,0.18);
+    --shadow-lg: 0 32px 80px -24px rgba(12,10,48,0.28);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: var(--ff-body);
+    color: var(--ink);
+    background: #EDECEA;
+    font-size: 17px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page-wrap {
+    padding: 24px 24px 64px;
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  .variant-shell {
+    border-radius: 28px; overflow: hidden;
+    box-shadow: 0 40px 80px -40px rgba(12,10,48,0.2), 0 2px 0 rgba(12,10,48,0.04);
+    background: #fff;
+    position: relative;
+  }
+  .variant-tag {
+    position: absolute; top: 28px; left: 28px;
+    z-index: 10;
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 14px 8px 8px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(12,10,48,0.08);
+    border-radius: 999px;
+    font-family: var(--ff-display); font-size: 13px; font-weight: 600;
+    color: var(--ink);
+    box-shadow: var(--shadow-sm);
+  }
+  .variant-tag .dot {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--ink); color: #fff;
+    display: grid; place-items: center; font-size: 12px; font-weight: 700;
+  }
+  .vB .variant-tag {
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.18);
+    color: #fff;
+  }
+  .vB .variant-tag .dot { background: var(--amber); color: var(--ink); }
+  h1, h2, h3, h4 {
+    font-family: var(--ff-display); font-weight: 700;
+    letter-spacing: -0.02em; margin: 0; color: var(--ink); line-height: 1.05;
+  }
+  h2 { font-size: clamp(32px, 3.6vw, 48px); letter-spacing: -0.025em; }
+  h3 { font-size: 22px; }
+  p { margin: 0; }
+  a { color: inherit; text-decoration: none; }
+
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+
+  .compare-kicker {
+    font-family: var(--ff-display); font-weight: 700; font-size: 13px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--violet);
+    display: inline-block; margin-bottom: 20px;
+  }
+  .pill {
+    font-family: var(--ff-display); font-size: 12px; font-weight: 600;
+    padding: 6px 10px; border-radius: 999px;
+    background: var(--paper); color: var(--slate-3);
+    white-space: nowrap;
+  }
+  .pill-active { background: var(--mint-2); color: #fff; }
+  .pill-beta { background: var(--amber); color: var(--ink); }
+
+  .link-arrow {
+    font-family: var(--ff-display); font-weight: 600;
+    font-size: 14px; display: inline-flex; gap: 6px; align-items: center;
+    color: var(--slate-3);
+  }
+  .card.aws  .link-arrow { color: var(--aws); }
+  .card.azure .link-arrow { color: var(--azure); }
+  .card.gcp  .link-arrow { color: var(--gcp); }
+
+  /* Section wrapper shared */
+  .providers-section {
+    padding: 120px 0;
+    position: relative;
+  }
+
+  /* ============================================================
+     VARIANT A — Product cards with before/after mini-viz
+     ============================================================ */
+  .vA { background: var(--paper); }
+  .vA .provider-head {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end;
+    margin-bottom: 56px;
+  }
+  .vA .provider-head p { color: var(--slate-3); font-size: 17px; max-width: 480px; }
+
+  .vA .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .vA .card {
+    background: #fff; border-radius: var(--radius-lg);
+    border: 1px solid var(--line);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .vA .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+
+  /* Viz top section — tinted per cloud */
+  .vA .viz {
+    position: relative;
+    padding: 22px 22px 18px;
+    background: linear-gradient(175deg, rgba(255,153,0,0.1) 0%, rgba(255,153,0,0.04) 60%, #fff 100%);
+    border-bottom: 1px solid rgba(255,153,0,0.18);
+  }
+  .vA .card.azure .viz {
+    background: linear-gradient(175deg, rgba(0,127,255,0.09) 0%, rgba(0,127,255,0.03) 60%, #fff 100%);
+    border-bottom-color: rgba(0,127,255,0.15);
+  }
+  .vA .card.gcp .viz {
+    background: linear-gradient(175deg, rgba(52,168,83,0.09) 0%, rgba(52,168,83,0.03) 60%, #fff 100%);
+    border-bottom-color: rgba(52,168,83,0.15);
+  }
+
+  .vA .viz-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .vA .viz-logo { flex: 1; min-width: 0; display: flex; align-items: center; }
+  .vA .viz-logo img { max-height: 28px; max-width: 160px; width: auto; height: auto; display: block; }
+  .vA .card.aws   .viz-logo img { max-height: 32px; }
+  .vA .card.azure .viz-logo img { max-height: 22px; max-width: 130px; }
+  .vA .card.gcp   .viz-logo img { max-height: 19px; max-width: 148px; }
+
+  /* "Monthly cloud spend" label above the mini-ba */
+  .vA .mini-ba-label {
+    font-family: var(--ff-display); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.13em; text-transform: uppercase;
+    color: var(--slate-5); margin-bottom: 8px;
+  }
+
+  /* Before / After mini-comparison */
+  .vA .mini-ba {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  }
+  .vA .mini-ba-panel {
+    border-radius: 10px; padding: 12px 14px 10px;
+    position: relative;
+  }
+
+  /* Before: light grey panel, dark text */
+  .vA .mini-ba-panel.before {
+    background: var(--line-2);
+    border: 1px solid var(--line);
+  }
+  /* After: solid CSP brand color, white text */
+  .vA .card.aws   .mini-ba-panel.after { background: var(--aws);   border: none; }
+  .vA .card.azure .mini-ba-panel.after { background: var(--azure); border: none; }
+  .vA .card.gcp   .mini-ba-panel.after { background: var(--gcp);   border: none; }
+
+  .vA .mini-ba-tag {
+    font-family: var(--ff-display); font-size: 9px; font-weight: 800;
+    letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .vA .mini-ba-panel.before .mini-ba-tag { color: var(--slate-4); }
+  .vA .mini-ba-panel.after  .mini-ba-tag { color: rgba(255,255,255,0.75); }
+
+  /* Val: before = dark strikethrough; after = bold white */
+  .vA .mini-ba-val {
+    font-family: var(--ff-display); font-weight: 800;
+    font-size: 22px; letter-spacing: -0.03em; line-height: 1;
+  }
+  .vA .mini-ba-panel.before .mini-ba-val {
+    color: var(--slate-3); text-decoration: line-through; font-size: 18px; font-weight: 700;
+  }
+  .vA .mini-ba-panel.after .mini-ba-val { color: #fff; }
+
+  .vA .mini-ba-unit { font-size: 11px; margin-top: 3px; font-family: var(--ff-display); }
+  .vA .mini-ba-panel.before .mini-ba-unit { color: var(--slate-4); }
+  .vA .mini-ba-panel.after  .mini-ba-unit { color: rgba(255,255,255,0.75); }
+
+  /* Reduction bar */
+  .vA .mini-ba-bar {
+    height: 4px; border-radius: 999px; margin-top: 10px; overflow: hidden;
+    background: rgba(255,255,255,0.1);
+  }
+  .vA .mini-ba-fill { height: 100%; border-radius: 999px; }
+  .vA .mini-ba-panel.before .mini-ba-fill { width: 100%; background: var(--line); }
+  .vA .mini-ba-panel.after  .mini-ba-fill { background: rgba(255,255,255,0.4); }
+
+  /* Savings badge — inline in viz-head */
+  .vA .viz-savings {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-family: var(--ff-display); font-weight: 800;
+    font-size: 12px; letter-spacing: 0.04em;
+    background: var(--violet); color: #fff;
+    white-space: nowrap;
+  }
+  .vA .viz-savings::before {
+    content: "↑"; font-size: 14px; font-weight: 900;
+  }
+
+  .vA .body { padding: 24px 28px; display: flex; flex-direction: column; gap: 18px; flex: 1; }
+  .vA .body h3 { font-size: 21px; letter-spacing: -0.02em; }
+  .vA .body p.lede { color: var(--slate-3); font-size: 15px; line-height: 1.5; }
+
+  .vA .commits {
+    border-top: 1px dashed var(--line);
+    padding-top: 16px;
+    display: grid; gap: 10px;
+  }
+  .vA .commits .label {
+    font-family: var(--ff-display);
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--slate-5); margin-bottom: 2px;
+  }
+  .vA .commits ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .vA .commits li {
+    display: grid; grid-template-columns: 14px 1fr; gap: 10px;
+    font-size: 14px; color: var(--slate-3); line-height: 1.4;
+  }
+  .vA .commits li::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    margin-top: 8px; margin-left: 4px;
+  }
+  .vA .card.aws   .commits li::before { background: var(--aws); }
+  .vA .card.azure .commits li::before { background: var(--azure); }
+  .vA .card.gcp   .commits li::before { background: var(--gcp); }
+  .vA .commits li b { color: var(--ink); font-weight: 600; }
+
+  .vA .foot {
+    padding: 18px 28px 26px;
+    margin-top: auto;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  /* ============================================================
+     VARIANT B — Tabbed showcase (dark)
+     ============================================================ */
+  .vB { background: var(--ink); color: #fff; position: relative; overflow: hidden; }
+  .vB::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(900px 500px at 10% 10%, rgba(113,1,255,0.35), transparent 60%),
+      radial-gradient(700px 500px at 95% 90%, rgba(109,216,252,0.18), transparent 60%);
+    pointer-events: none;
+  }
+  .vB .container { position: relative; }
+  .vB .provider-head {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end;
+    margin-bottom: 56px;
+  }
+  .vB .compare-kicker { color: var(--amber); }
+  .vB h2 { color: #fff; }
+  .vB .provider-head p { color: rgba(255,255,255,0.7); font-size: 17px; max-width: 480px; }
+
+  .vB .shell {
+    display: grid; grid-template-columns: 380px 1fr; gap: 24px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 28px;
+    padding: 24px;
+    backdrop-filter: blur(4px);
+  }
+
+  .vB .tabs { display: flex; flex-direction: column; gap: 10px; }
+  .vB .tab {
+    display: grid; grid-template-columns: 44px 1fr auto; gap: 16px; align-items: center;
+    padding: 18px 20px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.04);
+    border-radius: 18px;
+    cursor: pointer; text-align: left; color: #fff; font-family: inherit;
+    transition: background .15s, border-color .15s;
+  }
+  .vB .tab:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
+  .vB .tab[aria-selected="true"] {
+    background: rgba(255,255,255,1); color: var(--ink);
+    border-color: transparent;
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,0.5);
+  }
+  /* CSP brand color left accent on selected tab */
+  .vB .tab[aria-selected="true"][data-cloud="aws"]   { border-left: 4px solid var(--aws); }
+  .vB .tab[aria-selected="true"][data-cloud="azure"] { border-left: 4px solid var(--azure); }
+  .vB .tab[aria-selected="true"][data-cloud="gcp"]   { border-left: 4px solid var(--gcp); }
+
+  .vB .tab .logo {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: rgba(255,255,255,0.08);
+    display: grid; place-items: center;
+    transition: background .15s; flex-shrink: 0; overflow: hidden;
+  }
+  .vB .tab[aria-selected="true"] .logo { background: var(--paper); }
+  .vB .tab .logo img { max-width: 28px; max-height: 26px; width: auto; height: auto; object-fit: contain; }
+  .vB .tab[data-cloud="aws"]   .logo img { max-height: 22px; }
+  .vB .tab[data-cloud="azure"] .logo img { max-width: 32px; max-height: 28px; }
+  .vB .tab[data-cloud="gcp"]  .logo img { max-width: 36px; max-height: 24px; }
+
+  /* All inactive tabs: invert logo to white */
+  .vB .tab[aria-selected="false"] .logo img {
+    filter: brightness(0) invert(1) opacity(0.85);
+  }
+
+  .vB .tab .title {
+    font-family: var(--ff-display); font-weight: 700; font-size: 16px; letter-spacing: -0.01em;
+  }
+  .vB .tab .sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 2px; }
+  .vB .tab[aria-selected="true"] .sub { color: var(--slate-4); }
+  .vB .tab .pill { font-size: 10px; padding: 4px 8px; background: rgba(255,255,255,0.1); color: #fff; }
+  /* CSP brand color pill on selected tab */
+  .vB .tab[aria-selected="true"][data-cloud="aws"]   .pill { background: var(--aws); color: #fff; }
+  .vB .tab[aria-selected="true"][data-cloud="azure"] .pill { background: var(--azure); color: #fff; }
+  .vB .tab[aria-selected="true"][data-cloud="gcp"]   .pill { background: var(--gcp); color: #fff; }
+  .vB .tab[aria-selected="true"] .pill.beta { background: var(--gcp); color: #fff; }
+
+  .vB .panel {
+    background: #fff; color: var(--ink);
+    border-radius: 18px;
+    padding: 32px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+    min-height: 380px;
+  }
+  .vB .panel-info h3 { font-size: 26px; letter-spacing: -0.02em; margin-bottom: 14px; }
+  .vB .panel-info p.lede { color: var(--slate-3); font-size: 15px; line-height: 1.55; margin-bottom: 24px; }
+  .vB .panel-info .commit-block { border-top: 1px solid var(--line); padding-top: 20px; }
+  .vB .panel-info .commit-block .label {
+    font-family: var(--ff-display); font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--slate-5); margin-bottom: 12px;
+  }
+  .vB .panel-info ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; margin-bottom: 24px; }
+  .vB .panel-info li {
+    display: grid; grid-template-columns: 14px 1fr; gap: 10px;
+    font-size: 14px; color: var(--slate-3); line-height: 1.45;
+  }
+  .vB .panel-info li::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--violet); margin-top: 8px; margin-left: 4px;
+  }
+  .vB .panel-info li b { color: var(--ink); font-weight: 600; }
+
+  .vB .viz-stack { display: flex; flex-direction: column; gap: 8px; justify-content: center; }
+  .vB .viz-card {
+    background: var(--ink); border-radius: 14px; padding: 18px 20px;
+    color: #fff; position: relative;
+  }
+  .vB .viz-card .tag {
+    position: absolute; top: -10px; left: 18px;
+    padding: 6px 10px; border-radius: 6px;
+    font-family: var(--ff-display); font-weight: 700; font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink);
+  }
+  .vB .viz-card.before .tag { background: var(--peach); }
+  .vB .viz-card.after  .tag { background: var(--mint); }
+  .vB .viz-card .val {
+    font-family: var(--ff-display); font-weight: 700;
+    font-size: 22px; letter-spacing: -0.01em; margin: 6px 0 12px;
+  }
+  .vB .viz-card .sub { font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+  .vB .viz-bars { display: flex; align-items: flex-end; gap: 6px; height: 52px; }
+  .vB .viz-bars .b { flex: 1; border-radius: 4px; }
+  .vB .viz-card.before .b { background: var(--peach); opacity: 0.9; }
+  .vB .viz-card.before .b:nth-child(even) { background: var(--amber); }
+  /* After bars: CSP brand color via panel[data-cloud] */
+  #vB-panel[data-cloud="aws"]   .viz-card.after .b { background: var(--aws); }
+  #vB-panel[data-cloud="azure"] .viz-card.after .b { background: var(--azure); }
+  #vB-panel[data-cloud="gcp"]  .viz-card.after .b { background: var(--gcp); }
+  /* Fallback (initial AWS state) */
+  .vB .viz-card.after .b { background: var(--aws); }
+  .vB .viz-card.after .b:nth-child(even) { opacity: 0.8; }
+
+  /* Savings bridge badge */
+  .vB .savings-bridge {
+    display: flex; justify-content: center; align-items: center;
+    position: relative; z-index: 2; margin: -2px 0;
+  }
+  .vB .savings-pct {
+    background: var(--violet); color: #fff;
+    font-family: var(--ff-display); font-size: 12px; font-weight: 800;
+    padding: 5px 14px; border-radius: 999px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    letter-spacing: 0.02em;
+  }
+
+  .vB .arrow-link {
+    color: var(--violet); font-family: var(--ff-display); font-weight: 600;
+    font-size: 14px; display: inline-flex; gap: 6px; align-items: center;
+  }
+
+  /* ============================================================
+     VARIANT C — Savings Spotlight (metric-first cards)
+     ============================================================ */
+  .vC { background: var(--paper); }
+  .vC .provider-head {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end;
+    margin-bottom: 56px;
+  }
+  .vC .provider-head p { color: var(--slate-3); font-size: 17px; max-width: 480px; }
+
+  .vC .vc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .vC .vc-card {
+    background: #fff; border-radius: var(--radius-xl); overflow: hidden;
+    border: 1px solid var(--line);
+    display: flex; flex-direction: column;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .vC .vc-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+
+  /* Top gradient panel — dark base with CSP color glow */
+  .vC .vc-top {
+    position: relative; padding: 28px 28px 26px; overflow: hidden;
+    min-height: 260px; display: flex; flex-direction: column;
+  }
+  .vC .vc-card.vc-aws   .vc-top { background: linear-gradient(145deg, #1A0B00 0%, #2C1700 100%); }
+  .vC .vc-card.vc-azure .vc-top { background: linear-gradient(145deg, #00071A 0%, #001133 100%); }
+  .vC .vc-card.vc-gcp   .vc-top { background: linear-gradient(145deg, #001208 0%, #001E0D 100%); }
+
+  /* Per-cloud orb glow */
+  .vC .vc-top::before {
+    content: ""; position: absolute;
+    width: 320px; height: 320px; border-radius: 50%;
+    top: -100px; right: -80px; pointer-events: none;
+  }
+  .vC .vc-card.vc-aws   .vc-top::before { background: radial-gradient(circle, rgba(255,153,0,0.6),  transparent 65%); }
+  .vC .vc-card.vc-azure .vc-top::before { background: radial-gradient(circle, rgba(0,127,255,0.55), transparent 65%); }
+  .vC .vc-card.vc-gcp   .vc-top::before { background: radial-gradient(circle, rgba(52,168,83,0.55), transparent 65%); }
+
+  /* Logo row */
+  .vC .vc-logo-row {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: auto; position: relative;
+  }
+  .vC .vc-logo-row img { max-height: 28px; max-width: 180px; width: auto; height: auto; display: block; }
+  .vC .vc-card.vc-aws   .vc-logo-row img { max-height: 30px; }
+  .vC .vc-card.vc-azure .vc-logo-row img { max-height: 22px; max-width: 140px; }
+  .vC .vc-card.vc-gcp   .vc-logo-row img { max-height: 20px; max-width: 160px; }
+
+  /* Big % hero number in CSP brand color */
+  .vC .vc-pct {
+    font-family: var(--ff-display); font-weight: 800;
+    font-size: 80px; line-height: 0.9; letter-spacing: -0.04em;
+    margin-top: 18px; position: relative;
+  }
+  .vC .vc-pct-unit { font-size: 52px; }
+  .vC .vc-card.vc-aws   .vc-pct { color: var(--aws); }
+  .vC .vc-card.vc-azure .vc-pct { color: var(--azure); }
+  .vC .vc-card.vc-gcp   .vc-pct { color: var(--gcp); }
+
+  .vC .vc-pct-label {
+    font-family: var(--ff-display); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.45); margin-top: 8px; margin-bottom: 18px;
+  }
+
+  /* Before → After */
+  .vC .vc-ba { display: flex; align-items: baseline; gap: 8px; font-family: var(--ff-display); font-weight: 700; position: relative; }
+  .vC .vc-before { font-size: 15px; color: rgba(255,255,255,0.3); text-decoration: line-through; }
+  .vC .vc-arrow  { color: rgba(255,255,255,0.3); font-size: 13px; font-weight: 400; }
+  .vC .vc-after  { font-size: 24px; color: #fff; }
+  .vC .vc-mo     { font-size: 12px; color: rgba(255,255,255,0.35); font-weight: 500; }
+
+  /* Reduction bar in CSP brand color */
+  .vC .vc-bar-wrap { height: 4px; background: rgba(255,255,255,0.1); border-radius: 999px; margin-top: 16px; overflow: hidden; }
+  .vC .vc-bar-fill { height: 100%; border-radius: 999px; }
+  .vC .vc-card.vc-aws   .vc-bar-fill { background: var(--aws); }
+  .vC .vc-card.vc-azure .vc-bar-fill { background: var(--azure); }
+  .vC .vc-card.vc-gcp   .vc-bar-fill { background: var(--gcp); }
+
+  /* Bottom content */
+  .vC .vc-body { padding: 28px; display: flex; flex-direction: column; gap: 18px; flex: 1; }
+  .vC .vc-body h3 { font-size: 21px; letter-spacing: -0.02em; }
+  .vC .vc-commits .label {
+    font-family: var(--ff-display); font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--slate-5); margin-bottom: 10px;
+  }
+  .vC .vc-commits ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .vC .vc-commits li {
+    display: grid; grid-template-columns: 14px 1fr; gap: 10px;
+    font-size: 14px; color: var(--slate-3); line-height: 1.4;
+  }
+  .vC .vc-commits li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; margin-top: 8px; margin-left: 4px; }
+  .vC .vc-card.vc-aws   .vc-commits li::before { background: var(--aws); }
+  .vC .vc-card.vc-azure .vc-commits li::before { background: var(--azure); }
+  .vC .vc-card.vc-gcp   .vc-commits li::before { background: var(--gcp); }
+  .vC .vc-commits li b { color: var(--ink); font-weight: 600; }
+  .vC .vc-foot {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 16px; border-top: 1px dashed var(--line); margin-top: auto;
+  }
+  .vC .vc-term { font-family: var(--ff-display); font-size: 12px; color: var(--slate-5); }
+  .vC .vc-card.vc-aws   .link-arrow { color: var(--aws); }
+  .vC .vc-card.vc-azure .link-arrow { color: var(--azure); }
+  .vC .vc-card.vc-gcp   .link-arrow { color: var(--gcp); }
+
+  /* ============================================================
+     VARIANT D — Tabbed showcase (light)
+     Same structure as B; light paper background + adapted tab styling
+     ============================================================ */
+  .vD { background: var(--paper); }
+  .vD .provider-head {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end;
+    margin-bottom: 56px;
+  }
+  .vD .provider-head p { color: var(--slate-3); font-size: 17px; max-width: 480px; }
+
+  .vD .shell {
+    display: grid; grid-template-columns: 380px 1fr; gap: 24px;
+    background: var(--paper-warm);
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    padding: 24px;
+  }
+
+  .vD .tabs { display: flex; flex-direction: column; gap: 10px; }
+  .vD .tab {
+    display: grid; grid-template-columns: 44px 1fr auto;
+    grid-template-rows: 3px auto;
+    column-gap: 16px; row-gap: 12px;
+    align-items: center;
+    padding: 16px 20px 18px;
+    border: 1px solid var(--line);
+    background: #fff;
+    border-radius: 18px;
+    cursor: pointer; text-align: left; color: var(--ink); font-family: inherit;
+    transition: background .15s, border-color .15s, box-shadow .15s;
+  }
+  /* Stripe — spans all columns as the first grid row, in flow */
+  .vD .tab::before {
+    content: "";
+    grid-column: 1 / -1; grid-row: 1;
+    height: 3px; border-radius: 999px;
+    background: transparent;
+    transition: background .15s;
+  }
+  .vD .tab:hover { background: var(--paper); border-color: var(--line); }
+  .vD .tab[aria-selected="true"] {
+    background: #fff; color: var(--ink);
+    border-color: transparent;
+    box-shadow: 0 8px 28px -8px rgba(12,10,48,0.16);
+  }
+  .vD .tab[aria-selected="true"][data-cloud="aws"]::before   { background: var(--aws); }
+  .vD .tab[aria-selected="true"][data-cloud="azure"]::before { background: var(--azure); }
+  .vD .tab[aria-selected="true"][data-cloud="gcp"]::before   { background: var(--gcp); }
+
+  .vD .tab .logo {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: var(--line-2);
+    display: grid; place-items: center;
+    transition: background .15s; flex-shrink: 0; overflow: hidden;
+  }
+  .vD .tab[aria-selected="true"] .logo { background: var(--paper); }
+  .vD .tab .logo img { max-width: 28px; max-height: 26px; width: auto; height: auto; object-fit: contain; }
+  .vD .tab[data-cloud="aws"]   .logo img { max-height: 22px; }
+  .vD .tab[data-cloud="azure"] .logo img { max-width: 32px; max-height: 28px; }
+  .vD .tab[data-cloud="gcp"]   .logo img { max-width: 36px; max-height: 24px; }
+
+  .vD .tab .title {
+    font-family: var(--ff-display); font-weight: 700; font-size: 16px; letter-spacing: -0.01em;
+  }
+  .vD .tab .sub { font-size: 12px; color: var(--slate-4); margin-top: 2px; }
+  .vD .tab .pill { font-size: 10px; padding: 4px 8px; }
+  .vD .tab[aria-selected="true"][data-cloud="gcp"] .pill.beta { background: var(--gcp); color: #fff; }
+
+  /* Panel — identical visual to vB (white card, dark ink viz cards) */
+  .vD .panel {
+    background: #fff; color: var(--ink);
+    border-radius: 18px; padding: 32px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+    min-height: 380px;
+    border: 1px solid var(--line);
+  }
+  .vD .panel-info h3 { font-size: 26px; letter-spacing: -0.02em; margin-bottom: 14px; }
+  .vD .panel-info p.lede { color: var(--slate-3); font-size: 15px; line-height: 1.55; margin-bottom: 24px; }
+  .vD .panel-info .commit-block { border-top: 1px solid var(--line); padding-top: 20px; }
+  .vD .panel-info .commit-block .label {
+    font-family: var(--ff-display); font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--slate-5); margin-bottom: 12px;
+  }
+  .vD .panel-info ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; margin-bottom: 24px; }
+  .vD .panel-info li {
+    display: grid; grid-template-columns: 14px 1fr; gap: 10px;
+    font-size: 14px; color: var(--slate-3); line-height: 1.45;
+  }
+  .vD .panel-info li::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--violet); margin-top: 8px; margin-left: 4px;
+  }
+  .vD .panel-info li b { color: var(--ink); font-weight: 600; }
+
+  .vD .viz-stack { display: flex; flex-direction: column; gap: 8px; justify-content: center; }
+  .vD .viz-card {
+    background: var(--ink); border-radius: 14px; padding: 18px 20px;
+    color: #fff; position: relative;
+  }
+  .vD .viz-card .tag {
+    position: absolute; top: -10px; left: 18px;
+    padding: 6px 10px; border-radius: 6px;
+    font-family: var(--ff-display); font-weight: 700; font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink);
+  }
+  .vD .viz-card.before .tag { background: var(--peach); }
+  .vD .viz-card.after  .tag { background: var(--mint); }
+  .vD .viz-card .val {
+    font-family: var(--ff-display); font-weight: 700;
+    font-size: 22px; letter-spacing: -0.01em; margin: 6px 0 12px;
+  }
+  .vD .viz-card .sub { font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+  .vD .viz-bars { display: flex; align-items: flex-end; gap: 6px; height: 52px; }
+  .vD .viz-bars .b { flex: 1; border-radius: 4px; }
+  .vD .viz-card.before .b { background: var(--peach); opacity: 0.9; }
+  .vD .viz-card.before .b:nth-child(even) { background: var(--amber); }
+  #vD-panel[data-cloud="aws"]   .viz-card.after .b { background: var(--aws); }
+  #vD-panel[data-cloud="azure"] .viz-card.after .b { background: var(--azure); }
+  #vD-panel[data-cloud="gcp"]   .viz-card.after .b { background: var(--gcp); }
+  .vD .viz-card.after .b { background: var(--aws); }
+  .vD .viz-card.after .b:nth-child(even) { opacity: 0.8; }
+
+  .vD .savings-bridge {
+    display: flex; justify-content: center; align-items: center;
+    position: relative; z-index: 2; margin: -2px 0;
+  }
+  .vD .savings-pct {
+    background: var(--violet); color: #fff;
+    font-family: var(--ff-display); font-size: 12px; font-weight: 800;
+    padding: 5px 14px; border-radius: 999px;
+    box-shadow: 0 4px 14px rgba(12,10,48,0.12);
+    letter-spacing: 0.02em;
+  }
+  .vD .arrow-link {
+    color: var(--violet); font-family: var(--ff-display); font-weight: 600;
+    font-size: 14px; display: inline-flex; gap: 6px; align-items: center;
+  }
+
+  /* Responsive */
+  @media (max-width: 960px) {
+    .vA .grid, .vC .vc-grid { grid-template-columns: 1fr; }
+    .vB .shell, .vD .shell { grid-template-columns: 1fr; }
+    .vB .panel, .vD .panel { grid-template-columns: 1fr; }
+    .vA .provider-head, .vB .provider-head, .vC .provider-head, .vD .provider-head { grid-template-columns: 1fr; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+<!-- ============================================================
+     VARIANT A — Product cards
+     ============================================================ -->
+<div class="variant-shell">
+  <section class="providers-section vA">
+    <div class="variant-tag"><span class="dot">A</span> Product cards · before/after spend</div>
+    <div class="container">
+      <div class="provider-head">
+        <div>
+          <span class="compare-kicker">Multicloud coverage</span>
+          <h2 style="margin-top:16px">De-risk commitments across every cloud.</h2>
+        </div>
+        <p>One platform, one workflow, one compliance posture — whether you're running on AWS, Azure, Google Cloud or all three.</p>
+      </div>
+
+      <div class="grid">
+
+        <!-- AWS -->
+        <article class="card aws">
+          <div class="viz">
+            <div class="viz-head">
+              <div class="viz-logo"><img src="assets/cloud/aws.svg" alt="AWS"/></div>
+              <div class="viz-savings">58% savings</div>
+            </div>
+            <div class="mini-ba-label">Monthly cloud spend</div>
+            <div class="mini-ba" aria-hidden="true">
+              <div class="mini-ba-panel before">
+                <div class="mini-ba-tag">Before</div>
+                <div class="mini-ba-val">$30k</div>
+                <div class="mini-ba-unit">per month</div>
+                <div class="mini-ba-bar"><div class="mini-ba-fill"></div></div>
+              </div>
+              <div class="mini-ba-panel after">
+                <div class="mini-ba-tag">With Archera</div>
+                <div class="mini-ba-val">$12.7k</div>
+                <div class="mini-ba-unit">per month</div>
+                <div class="mini-ba-bar"><div class="mini-ba-fill" style="width:42%"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="body">
+            <h3>Amazon Web Services</h3>
+            <p class="lede">Automate Savings Plans and Reserved Instances, maximize your PPA, and prevent shortfall — all without lock-in.</p>
+            <div class="commits">
+              <div class="label">Commitments managed</div>
+              <ul>
+                <li><span><b>GRIs</b> — EC2, RDS, ElastiCache, DynamoDB</span></li>
+                <li><span><b>GSPs</b> — EC2, Lambda, Fargate, ECS/EKS</span></li>
+                <li><span><b>PPA insurance</b> — shortfall protection</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="foot">
+            <a href="#" class="link-arrow">Learn about AWS →</a>
+            <span style="font-family:var(--ff-display);font-size:12px;color:var(--slate-5)">30-day min · up to 3 yrs</span>
+          </div>
+        </article>
+
+        <!-- Azure -->
+        <article class="card azure">
+          <div class="viz">
+            <div class="viz-head">
+              <div class="viz-logo"><img src="assets/cloud/azure.svg" alt="Azure"/></div>
+              <div class="viz-savings">56% savings</div>
+            </div>
+            <div class="mini-ba-label">Monthly cloud spend</div>
+            <div class="mini-ba" aria-hidden="true">
+              <div class="mini-ba-panel before">
+                <div class="mini-ba-tag">Before</div>
+                <div class="mini-ba-val">$42k</div>
+                <div class="mini-ba-unit">per month</div>
+                <div class="mini-ba-bar"><div class="mini-ba-fill"></div></div>
+              </div>
+              <div class="mini-ba-panel after">
+                <div class="mini-ba-tag">With Archera</div>
+                <div class="mini-ba-val">$18.4k</div>
+                <div class="mini-ba-unit">per month</div>
+                <div class="mini-ba-bar"><div class="mini-ba-fill" style="width:44%"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="body">
+            <h3>Microsoft Azure</h3>
+            <p class="lede">Increase reservation and savings plan coverage and accelerate your Microsoft MACC commitments.</p>
+            <div class="commits">
+              <div class="label">Commitments managed</div>
+              <ul>
+                <li><span><b>Reserved Instances</b> — VM, SQL DB, Cosmos DB</span></li>
+                <li><span><b>Savings Plans</b> — VM families &amp; App Service</span></li>
+                <li><span><b>MACC</b> — acceleration toward target</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="foot">
+            <a href="#" class="link-arrow">Learn about Azure →</a>
+            <span style="font-family:var(--ff-display);font-size:12px;color:var(--slate-5)">30-day min · flex term</span>
+          </div>
+        </article>
+
+        <!-- GCP -->
+        <article class="card gcp">
+          <div class="viz">
+            <div class="viz-head">
+              <div class="viz-logo"><img src="assets/cloud/gcp.svg" alt="Google Cloud"/></div>
+              <div style="display:flex;align-items:center;gap:6px">
+                <div class="pill pill-beta">Beta</div>
+                <div class="viz-savings">53% savings</div>
+              </div>
+            </div>
+            <div class="mini-ba-label">Monthly cloud spend</div>
+            <div class="mini-ba" aria-hidden="true">
+              <div class="mini-ba-panel before">
+                <div class="mini-ba-tag">Before</div>
+                <div class="mini-ba-val">$24k</div>
+                <div class="mini-ba-unit">per month</div>
+                <div class="mini-ba-bar"><div class="mini-ba-fill"></div></div>
+              </div>
+              <div class="mini-ba-panel after">
+                <div class="mini-ba-tag">With Archera</div>
+                <div class="mini-ba-val">$11.2k</div>
+                <div class="mini-ba-unit">per month</div>
+                <div class="mini-ba-bar"><div class="mini-ba-fill" style="width:47%"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="body">
+            <h3>Google Cloud</h3>
+            <p class="lede">Accepting beta customers, with complete support for Committed Use Discounts launching soon.</p>
+            <div class="commits">
+              <div class="label">Commitments managed</div>
+              <ul>
+                <li><span><b>Spend-based CUDs</b> — $/hr across compute</span></li>
+                <li><span><b>Resource-based CUDs</b> — Compute Engine, Cloud SQL</span></li>
+                <li><span><b>MCPO</b> — portfolio-level optimization</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="foot">
+            <a href="#" class="link-arrow">Learn about Google Cloud →</a>
+            <span style="font-family:var(--ff-display);font-size:12px;color:var(--slate-5)">30-day min · flex term</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     VARIANT B — Tabbed showcase (dark)
+     ============================================================ -->
+<div class="variant-shell vB">
+  <section class="providers-section vB">
+    <div class="variant-tag"><span class="dot">B</span> Tabbed showcase · one canvas, cycle clouds</div>
+    <div class="container">
+      <div class="provider-head">
+        <div>
+          <span class="compare-kicker">Multicloud coverage</span>
+          <h2 style="margin-top:16px">De-risk commitments across every cloud.</h2>
+        </div>
+        <p>One platform, one workflow, one compliance posture — whether you're running on AWS, Azure, Google Cloud or all three.</p>
+      </div>
+
+      <div class="shell">
+        <div class="tabs" role="tablist">
+          <button class="tab" role="tab" aria-selected="true" data-cloud="aws">
+            <div class="logo"><img src="assets/cloud/aws.svg" alt=""/></div>
+            <div>
+              <div class="title">Amazon Web Services</div>
+              <div class="sub">GRIs · GSPs · PPA insurance</div>
+            </div>
+          </button>
+          <button class="tab" role="tab" aria-selected="false" data-cloud="azure">
+            <div class="logo"><img src="assets/cloud/azure-logo-img.svg" alt=""/></div>
+            <div>
+              <div class="title">Microsoft Azure</div>
+              <div class="sub">Reservations · SPs · MACC</div>
+            </div>
+          </button>
+          <button class="tab" role="tab" aria-selected="false" data-cloud="gcp">
+            <div class="logo"><img src="assets/cloud/gcp-logo-img.svg" alt=""/></div>
+            <div>
+              <div class="title">Google Cloud</div>
+              <div class="sub">CUDs · MCPO</div>
+            </div>
+            <span class="pill beta">Beta</span>
+          </button>
+        </div>
+
+        <div class="panel" id="vB-panel" data-cloud="aws">
+          <div class="panel-info">
+            <h3 id="vB-title">Amazon Web Services</h3>
+            <p class="lede" id="vB-lede">Automate Savings Plans and Reserved Instances, maximize your PPA, and prevent shortfall — all without lock-in.</p>
+            <div class="commit-block">
+              <div class="label">Commitments managed</div>
+              <ul id="vB-commits">
+                <li><span><b>GRIs</b> — EC2, RDS, ElastiCache, DynamoDB</span></li>
+                <li><span><b>GSPs</b> — EC2, Lambda, Fargate, ECS/EKS</span></li>
+                <li><span><b>PPA insurance</b> — shortfall protection</span></li>
+              </ul>
+              <a href="#" class="arrow-link" id="vB-link">Learn about AWS →</a>
+            </div>
+          </div>
+
+          <div class="viz-stack">
+            <div class="viz-card before">
+              <span class="tag">Before</span>
+              <div class="sub">Monthly cloud spend</div>
+              <div class="val" id="vB-before-val">$30k<span style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500">/mo</span></div>
+              <div class="viz-bars">
+                <div class="b" style="height:38%"></div>
+                <div class="b" style="height:56%"></div>
+                <div class="b" style="height:42%"></div>
+                <div class="b" style="height:72%"></div>
+                <div class="b" style="height:60%"></div>
+              </div>
+            </div>
+            <div class="savings-bridge">
+              <span class="savings-pct" id="vB-savings-pct">↓ 58% savings</span>
+            </div>
+            <div class="viz-card after">
+              <span class="tag">After</span>
+              <div class="sub">With insured commitments</div>
+              <div class="val" id="vB-after-val">$12.7k<span style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500">/mo</span></div>
+              <div class="viz-bars">
+                <div class="b" style="height:64%"></div>
+                <div class="b" style="height:80%"></div>
+                <div class="b" style="height:72%"></div>
+                <div class="b" style="height:92%"></div>
+                <div class="b" style="height:84%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     VARIANT C — Savings Spotlight (metric-first cards)
+     ============================================================ -->
+<div class="variant-shell">
+  <section class="providers-section vC">
+    <div class="variant-tag"><span class="dot">C</span> Savings spotlight · metric-first cards</div>
+    <div class="container">
+      <div class="provider-head">
+        <div>
+          <span class="compare-kicker">Multicloud coverage</span>
+          <h2 style="margin-top:16px">De-risk commitments across every cloud.</h2>
+        </div>
+        <p>One platform, one workflow, one compliance posture — whether you're running on AWS, Azure, Google Cloud or all three.</p>
+      </div>
+
+      <div class="vc-grid">
+
+        <!-- AWS -->
+        <article class="vc-card vc-aws">
+          <div class="vc-top">
+            <div class="vc-logo-row">
+              <img src="assets/cloud/aws-dark.svg" alt="AWS"/>
+            </div>
+            <div class="vc-pct">58<span class="vc-pct-unit">%</span></div>
+            <div class="vc-pct-label">cost savings</div>
+            <div class="vc-ba">
+              <span class="vc-before">$30k</span>
+              <span class="vc-arrow">→</span>
+              <span class="vc-after">$12.7k</span>
+              <span class="vc-mo">/mo</span>
+            </div>
+            <div class="vc-bar-wrap"><div class="vc-bar-fill" style="width:42%"></div></div>
+          </div>
+          <div class="vc-body">
+            <h3>Amazon Web Services</h3>
+            <div class="vc-commits">
+              <div class="label">Commitments managed</div>
+              <ul>
+                <li><span><b>GRIs</b> — EC2, RDS, ElastiCache, DynamoDB</span></li>
+                <li><span><b>GSPs</b> — EC2, Lambda, Fargate, ECS/EKS</span></li>
+                <li><span><b>PPA insurance</b> — shortfall protection</span></li>
+              </ul>
+            </div>
+            <div class="vc-foot">
+              <a href="#" class="link-arrow">Learn about AWS →</a>
+              <span class="vc-term">30-day min · up to 3 yrs</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Azure -->
+        <article class="vc-card vc-azure">
+          <div class="vc-top">
+            <div class="vc-logo-row">
+              <img src="assets/cloud/azure-dark.svg" alt="Azure"/>
+            </div>
+            <div class="vc-pct">56<span class="vc-pct-unit">%</span></div>
+            <div class="vc-pct-label">cost savings</div>
+            <div class="vc-ba">
+              <span class="vc-before">$42k</span>
+              <span class="vc-arrow">→</span>
+              <span class="vc-after">$18.4k</span>
+              <span class="vc-mo">/mo</span>
+            </div>
+            <div class="vc-bar-wrap"><div class="vc-bar-fill" style="width:44%"></div></div>
+          </div>
+          <div class="vc-body">
+            <h3>Microsoft Azure</h3>
+            <div class="vc-commits">
+              <div class="label">Commitments managed</div>
+              <ul>
+                <li><span><b>Reserved Instances</b> — VM, SQL DB, Cosmos DB</span></li>
+                <li><span><b>Savings Plans</b> — VM families &amp; App Service</span></li>
+                <li><span><b>MACC</b> — acceleration toward target</span></li>
+              </ul>
+            </div>
+            <div class="vc-foot">
+              <a href="#" class="link-arrow">Learn about Azure →</a>
+              <span class="vc-term">30-day min · flex term</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- GCP -->
+        <article class="vc-card vc-gcp">
+          <div class="vc-top">
+            <div class="vc-logo-row">
+              <img src="assets/cloud/gcp-dark.svg" alt="Google Cloud"/>
+              <span class="pill pill-beta">Beta</span>
+            </div>
+            <div class="vc-pct">53<span class="vc-pct-unit">%</span></div>
+            <div class="vc-pct-label">cost savings</div>
+            <div class="vc-ba">
+              <span class="vc-before">$24k</span>
+              <span class="vc-arrow">→</span>
+              <span class="vc-after">$11.2k</span>
+              <span class="vc-mo">/mo</span>
+            </div>
+            <div class="vc-bar-wrap"><div class="vc-bar-fill" style="width:47%"></div></div>
+          </div>
+          <div class="vc-body">
+            <h3>Google Cloud</h3>
+            <div class="vc-commits">
+              <div class="label">Commitments managed</div>
+              <ul>
+                <li><span><b>Spend-based CUDs</b> — $/hr across compute</span></li>
+                <li><span><b>Resource-based CUDs</b> — Compute Engine, Cloud SQL</span></li>
+                <li><span><b>MCPO</b> — portfolio-level optimization</span></li>
+              </ul>
+            </div>
+            <div class="vc-foot">
+              <a href="#" class="link-arrow">Learn about Google Cloud →</a>
+              <span class="vc-term">30-day min · flex term</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     VARIANT D — Tabbed showcase (light)
+     ============================================================ -->
+<div class="variant-shell">
+  <section class="providers-section vD">
+    <div class="variant-tag"><span class="dot">D</span> Tabbed showcase · light</div>
+    <div class="container">
+      <div class="provider-head">
+        <div>
+          <span class="compare-kicker">Multicloud coverage</span>
+          <h2 style="margin-top:16px">De-risk commitments across every cloud.</h2>
+        </div>
+        <p>One platform, one workflow, one compliance posture — whether you're running on AWS, Azure, Google Cloud or all three.</p>
+      </div>
+
+      <div class="shell">
+        <div class="tabs" role="tablist">
+          <button class="tab" role="tab" aria-selected="true" data-cloud="aws">
+            <div class="logo"><img src="assets/cloud/aws.svg" alt=""/></div>
+            <div>
+              <div class="title">Amazon Web Services</div>
+              <div class="sub">GRIs · GSPs · PPA insurance</div>
+            </div>
+          </button>
+          <button class="tab" role="tab" aria-selected="false" data-cloud="azure">
+            <div class="logo"><img src="assets/cloud/azure-logo-img.svg" alt=""/></div>
+            <div>
+              <div class="title">Microsoft Azure</div>
+              <div class="sub">Reservations · SPs · MACC</div>
+            </div>
+          </button>
+          <button class="tab" role="tab" aria-selected="false" data-cloud="gcp">
+            <div class="logo"><img src="assets/cloud/gcp-logo-img.svg" alt=""/></div>
+            <div>
+              <div class="title">Google Cloud</div>
+              <div class="sub">CUDs · MCPO</div>
+            </div>
+            <span class="pill pill-beta beta">Beta</span>
+          </button>
+        </div>
+
+        <div class="panel" id="vD-panel" data-cloud="aws">
+          <div class="panel-info">
+            <h3 id="vD-title">Amazon Web Services</h3>
+            <p class="lede" id="vD-lede">Automate Savings Plans and Reserved Instances, maximize your PPA, and prevent shortfall — all without lock-in.</p>
+            <div class="commit-block">
+              <div class="label">Commitments managed</div>
+              <ul id="vD-commits">
+                <li><span><b>GRIs</b> — EC2, RDS, ElastiCache, DynamoDB</span></li>
+                <li><span><b>GSPs</b> — EC2, Lambda, Fargate, ECS/EKS</span></li>
+                <li><span><b>PPA insurance</b> — shortfall protection</span></li>
+              </ul>
+              <a href="#" class="arrow-link" id="vD-link">Learn about AWS →</a>
+            </div>
+          </div>
+
+          <div class="viz-stack">
+            <div class="viz-card before">
+              <span class="tag">Before</span>
+              <div class="sub">Monthly cloud spend</div>
+              <div class="val" id="vD-before-val">$30k<span style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500">/mo</span></div>
+              <div class="viz-bars">
+                <div class="b" style="height:38%"></div>
+                <div class="b" style="height:56%"></div>
+                <div class="b" style="height:42%"></div>
+                <div class="b" style="height:72%"></div>
+                <div class="b" style="height:60%"></div>
+              </div>
+            </div>
+            <div class="savings-bridge">
+              <span class="savings-pct" id="vD-savings-pct">↓ 58% savings</span>
+            </div>
+            <div class="viz-card after">
+              <span class="tag">After</span>
+              <div class="sub">With insured commitments</div>
+              <div class="val" id="vD-after-val">$12.7k<span style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500">/mo</span></div>
+              <div class="viz-bars">
+                <div class="b" style="height:64%"></div>
+                <div class="b" style="height:80%"></div>
+                <div class="b" style="height:72%"></div>
+                <div class="b" style="height:92%"></div>
+                <div class="b" style="height:84%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+</div><!-- /.page-wrap -->
+<div style="height:80px"></div>
+
+<script>
+  const vBData = {
+    aws: {
+      title: "Amazon Web Services",
+      lede: "Automate Savings Plans and Reserved Instances, maximize your PPA, and prevent shortfall — all without lock-in.",
+      beforeVal: '$30k<span style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500">/mo</span>',
+      afterVal:  '$12.7k<span style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500">/mo</span>',
+      savings: "↓ 58% savings",
+      linkText: "Learn about AWS →",
+      commits: [
+        ["GRIs", "EC2, RDS, ElastiCache, DynamoDB"],
+        ["GSPs", "EC2, Lambda, Fargate, ECS/EKS"],
+        ["PPA insurance", "shortfall protection"],
+      ],
+    },
+    azure: {
+      title: "Microsoft Azure",
+      lede: "Increase reservation and savings plan coverage and accelerate your Microsoft MACC commitments.",
+      beforeVal: '$42k<span style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500">/mo</span>',
+      afterVal:  '$18.4k<span style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500">/mo</span>',
+      savings: "↓ 56% savings",
+      linkText: "Learn about Azure →",
+      commits: [
+        ["Reserved Instances", "VM, SQL DB, Cosmos DB"],
+        ["Savings Plans", "VM families & App Service"],
+        ["MACC", "acceleration toward target"],
+      ],
+    },
+    gcp: {
+      title: "Google Cloud",
+      lede: "Accepting beta customers, with complete support for Committed Use Discounts launching soon.",
+      beforeVal: '$24k<span style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500">/mo</span>',
+      afterVal:  '$11.2k<span style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500">/mo</span>',
+      savings: "↓ 53% savings",
+      linkText: "Learn about Google Cloud →",
+      commits: [
+        ["Spend-based CUDs", "$/hr across compute"],
+        ["Resource-based CUDs", "Compute Engine, Cloud SQL"],
+        ["MCPO", "portfolio-level optimization"],
+      ],
+    },
+  };
+
+  const tabs = document.querySelectorAll(".vB .tab");
+  const panel = document.getElementById("vB-panel");
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.setAttribute("aria-selected", "false"));
+      tab.setAttribute("aria-selected", "true");
+      const k = tab.dataset.cloud;
+      const d = vBData[k];
+      panel.dataset.cloud = k;
+      document.getElementById("vB-title").textContent = d.title;
+      document.getElementById("vB-lede").textContent = d.lede;
+      document.getElementById("vB-before-val").innerHTML = d.beforeVal;
+      document.getElementById("vB-after-val").innerHTML = d.afterVal;
+      document.getElementById("vB-savings-pct").textContent = d.savings;
+      document.getElementById("vB-link").innerHTML = d.linkText;
+      document.getElementById("vB-commits").innerHTML = d.commits
+        .map(([b, rest]) => `<li><span><b>${b}</b> — ${rest}</span></li>`)
+        .join("");
+    });
+  });
+</script>
+
+<script>
+  const vDTabs = document.querySelectorAll(".vD .tab");
+  const vDPanel = document.getElementById("vD-panel");
+
+  vDTabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      vDTabs.forEach(t => t.setAttribute("aria-selected", "false"));
+      tab.setAttribute("aria-selected", "true");
+      const k = tab.dataset.cloud;
+      const d = vBData[k];
+      vDPanel.dataset.cloud = k;
+      document.getElementById("vD-title").textContent = d.title;
+      document.getElementById("vD-lede").textContent = d.lede;
+      document.getElementById("vD-before-val").innerHTML = d.beforeVal;
+      document.getElementById("vD-after-val").innerHTML = d.afterVal;
+      document.getElementById("vD-savings-pct").textContent = d.savings;
+      document.getElementById("vD-link").innerHTML = d.linkText;
+      document.getElementById("vD-commits").innerHTML = d.commits
+        .map(([b, rest]) => `<li><span><b>${b}</b> — ${rest}</span></li>`)
+        .join("");
+    });
+  });
+</script>
+
+</body>
+</html>

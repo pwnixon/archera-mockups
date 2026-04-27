@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Archera — Footer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0C0A30;
+    --ink-2: #1F202C;
+    --violet: #7101FF;
+    --violet-soft: #F6F0FF;
+    --peach: #F89090;
+    --sky: #6DD8FC;
+    --mint: #38D9BF;
+    --amber: #FFD080;
+    --navy: #464867;
+    --navy-muted: #5F659F;
+    --periwinkle: #A2B1FB;
+    --slate-1: #090A1D;
+    --slate-2: #1F202C;
+    --slate-3: #444444;
+    --slate-4: #686870;
+    --slate-5: #9D9DA2;
+    --line: #E2E2E5;
+    --paper: #F6F5F4;
+    --paper-warm: #FDFCFB;
+    --bg: #FFFFFF;
+    --ff-display: "Manrope", "TT Hoves", system-ui, sans-serif;
+    --ff-body: "Lexend", system-ui, sans-serif;
+    --radius-xs: 6px;
+    --radius-sm: 10px;
+    --radius: 16px;
+    --radius-lg: 24px;
+    --radius-xl: 32px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--ff-body);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--paper);
+  }
+
+  a { text-decoration: none; transition: color .15s; }
+
+  /* ── Preview spacer ── */
+  .preview-spacer {
+    height: 80px;
+    background: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .preview-spacer span {
+    font-family: var(--ff-display);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--slate-5);
+  }
+
+  /* ── Shared container ── */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* ══════════════════════════════
+     FOOTER
+  ══════════════════════════════ */
+  .site-footer {
+    background: var(--slate-1);
+    color: rgba(255,255,255,0.75);
+    padding: 72px 0 36px;
+    font-size: 14px;
+    font-family: var(--ff-body);
+  }
+
+  /* ── Top grid: brand + nav cols ── */
+  .foot-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 64px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* Brand column */
+  .foot-brand {}
+  .foot-brand .foot-logo {
+    display: block;
+    margin-bottom: 20px;
+  }
+  .foot-brand .foot-logo img {
+    height: 28px;
+    width: auto;
+    display: block;
+    filter: brightness(0) invert(1);
+  }
+  .foot-brand p {
+    max-width: 300px;
+    color: rgba(255,255,255,0.50);
+    line-height: 1.7;
+  }
+  .foot-soc {
+    margin-top: 28px;
+    display: flex;
+    gap: 10px;
+  }
+  .foot-soc a {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(255,255,255,0.07);
+    display: grid; place-items: center;
+    transition: background .15s;
+  }
+  .foot-soc a:hover { background: rgba(255,255,255,0.14); }
+  .foot-soc img { width: 22px; height: 22px; filter: brightness(0) invert(1); opacity: 0.7; }
+  .foot-soc a:hover img { opacity: 1; }
+
+  /* Nav columns */
+  .foot-col {}
+  .foot-col h4 {
+    font-family: var(--ff-display);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.40);
+    margin-bottom: 20px;
+  }
+  .foot-col ul {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 13px;
+  }
+  .foot-col a {
+    color: rgba(255,255,255,0.65);
+    font-size: 14px;
+  }
+  .foot-col a:hover { color: #fff; }
+
+  /* ── Certifications band ── */
+  .foot-cert {
+    padding: 36px 0 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .foot-cert-label {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.20em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.30);
+    padding-top: 4px;
+    flex-shrink: 0;
+    min-width: 88px;
+  }
+
+  /* AWS group: badges + competency list */
+  .foot-aws-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .foot-aws-group img,
+  .foot-compliance img {
+    height: 64px;
+    width: auto;
+    display: block;
+  }
+
+  /* Divider between AWS group and compliance badges */
+  .foot-cert-divider {
+    width: 1px;
+    align-self: stretch;
+    background: rgba(255,255,255,0.08);
+    flex-shrink: 0;
+  }
+
+  /* Compliance badge row */
+  .foot-compliance {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  /* ── Legal bar ── */
+  .foot-legal {
+    padding-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    color: rgba(255,255,255,0.35);
+    font-size: 12px;
+  }
+  .foot-legal-links {
+    display: flex;
+    gap: 0;
+  }
+  .foot-legal a {
+    color: rgba(255,255,255,0.45);
+    margin-left: 24px;
+    transition: color .15s;
+  }
+  .foot-legal a:hover { color: #fff; }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .foot-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .foot-brand { grid-column: 1 / -1; }
+    .foot-cert { gap: 32px; }
+    .foot-cert-divider { display: none; }
+  }
+  @media (max-width: 600px) {
+    .foot-top { grid-template-columns: 1fr; }
+    .foot-cert { flex-direction: column; gap: 24px; }
+    .foot-aws-group { flex-direction: column; gap: 16px; }
+    .foot-compliance { gap: 16px; }
+    .foot-legal { flex-direction: column; align-items: flex-start; }
+    .foot-legal-links a:first-child { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Preview context spacer -->
+<div class="preview-spacer">
+  <span>Page footer — design system prototype</span>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SITE FOOTER
+═══════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="container">
+
+    <!-- Top: brand + nav -->
+    <div class="foot-top">
+
+      <!-- Brand column -->
+      <div class="foot-brand">
+        <a href="#" class="foot-logo" aria-label="Archera">
+          <img src="assets/brand/archera-horizontal.svg" alt="Archera"/>
+        </a>
+        <p>Insured cloud commitments for AWS, Azure and Google Cloud. Save without the lock-in.</p>
+        <div class="foot-soc">
+          <a href="#" aria-label="LinkedIn">
+            <img src="assets/social/linkedin.svg" alt=""/>
+          </a>
+          <a href="#" aria-label="YouTube">
+            <img src="assets/social/youtube.svg" alt=""/>
+          </a>
+        </div>
+      </div>
+
+      <!-- Platform column -->
+      <div class="foot-col">
+        <h4>Archera platform</h4>
+        <ul>
+          <li><a href="#">Login</a></li>
+          <li><a href="#">Support</a></li>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Pricing</a></li>
+        </ul>
+      </div>
+
+      <!-- Company column -->
+      <div class="foot-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Archera</a></li>
+          <li><a href="#">Customers</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+
+    </div><!-- /foot-top -->
+
+    <!-- Certifications band -->
+    <div class="foot-cert">
+
+      <span class="foot-cert-label">Certifications &amp; Partners</span>
+
+      <!-- AWS badges group -->
+      <div class="foot-aws-group">
+
+        <!-- AWS Qualified Software -->
+        <img src="assets/trust/aws-qualified.svg" alt="AWS Qualified Software"/>
+
+        <!-- AWS Partner -->
+        <img src="assets/trust/aws-partner.svg" alt="AWS Partner"/>
+
+      </div>
+
+      <!-- Divider -->
+      <div class="foot-cert-divider"></div>
+
+      <!-- Compliance badges — drop files into assets/trust/ to activate placeholders -->
+      <div class="foot-compliance">
+        <img src="assets/trust/aicpa-soc.png" alt="AICPA SOC"/>
+        <img src="assets/trust/soc2-drata.png" alt="SOC 2 — Drata"/>
+        <img src="assets/trust/soc2-prescient.png" alt="SOC 2 Type II"/>
+        <img src="assets/trust/iso-27001.png" alt="ISO/IEC 27001:2022"/>
+        <img src="assets/trust/soc2-type2.png" alt="SOC 2 Type II"/>
+      </div>
+
+    </div><!-- /foot-cert -->
+
+    <!-- Legal bar -->
+    <div class="foot-legal">
+      <span>© 2026 Archera, Inc. All rights reserved.</span>
+      <div class="foot-legal-links">
+        <a href="#">Terms of Service</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+
+  </div><!-- /container -->
+</footer>
+
+</body>
+</html>

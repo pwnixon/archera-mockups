@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Cloud Practitioner — Variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0C0A30;
+    --violet: #7101FF;
+    --violet-2: #8B01E8;
+    --violet-soft: #F6F0FF;
+    --sky: #6DD8FC;
+    --peach: #F89090;
+    --mint-2: #20A795;
+    --amber: #FFD080;
+    --periwinkle: #A2B1FB;
+    --slate-3: #444444;
+    --slate-4: #686870;
+    --slate-5: #9D9DA2;
+    --line: #E2E2E5;
+    --line-2: #F1F5F9;
+    --paper: #F6F5F4;
+    --paper-warm: #FDFCFB;
+    --ff-d: "Manrope", system-ui, sans-serif;
+    --ff-b: "Lexend", system-ui, sans-serif;
+    --shadow-sm: 0 4px 14px -6px rgba(12,10,48,0.08);
+    --shadow-md: 0 12px 32px -12px rgba(12,10,48,0.18);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; background: #EDECEA; font-family: var(--ff-b);
+    color: var(--ink); -webkit-font-smoothing: antialiased; }
+  h1,h2,h3,h4 { font-family: var(--ff-d); font-weight: 700;
+    letter-spacing: -0.02em; margin: 0; line-height: 1.1; }
+  p { margin: 0; }
+  a { text-decoration: none; color: inherit; }
+
+  /* ── Page chrome ── */
+  .page-wrap {
+    padding: 24px 24px 80px;
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  .variant-shell {
+    border-radius: 28px; overflow: hidden;
+    box-shadow: 0 40px 80px -40px rgba(12,10,48,0.2), 0 2px 0 rgba(12,10,48,0.04);
+    position: relative;
+  }
+  .variant-tag {
+    position: absolute; top: 28px; left: 28px; z-index: 100;
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 14px 8px 8px;
+    background: rgba(255,255,255,0.92); backdrop-filter: blur(8px);
+    border: 1px solid rgba(12,10,48,0.08); border-radius: 999px;
+    font-family: var(--ff-d); font-size: 13px; font-weight: 600; color: var(--ink);
+    box-shadow: var(--shadow-sm);
+  }
+  .variant-tag .dot {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--ink); color: #fff;
+    display: grid; place-items: center; font-size: 12px; font-weight: 700;
+  }
+  .vB .variant-tag {
+    background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.18); color: #fff;
+  }
+  .vB .variant-tag .dot { background: var(--amber); color: var(--ink); }
+
+  /* ════════════════════════════════════════════════════
+     VARIANT A — "Peer-reviewed" editorial
+     Instead of a generic badge dump, lead with what
+     customers actually say. G2 stars + review snippets
+     sit alongside the credential badges — making the
+     community proof feel *earned*, not pasted on.
+  ════════════════════════════════════════════════════ */
+  .vA {
+    background: var(--paper-warm);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 80px 100px;
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 72px;
+    align-items: center;
+  }
+
+  /* Left: G2 score feature */
+  .vA-score-side { display: flex; flex-direction: column; gap: 28px; }
+  .vA-stars {
+    display: flex; align-items: center; gap: 6px;
+  }
+  .vA-star {
+    width: 28px; height: 28px;
+    background: #FF492C; /* G2 red */
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  }
+  .vA-score-num {
+    font-family: var(--ff-d); font-weight: 800; font-size: 52px;
+    letter-spacing: -0.04em; color: var(--ink); line-height: 1;
+  }
+  .vA-score-label {
+    font-family: var(--ff-d); font-size: 13px; font-weight: 600;
+    color: var(--slate-4); letter-spacing: 0.06em; text-transform: uppercase;
+    margin-top: -4px;
+  }
+  .vA-review-cards { display: flex; flex-direction: column; gap: 14px; }
+  .vA-review-card {
+    background: #fff; border: 1px solid var(--line);
+    border-radius: 14px; padding: 18px 20px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .vA-review-mini-stars { display: flex; gap: 3px; }
+  .vA-review-mini-star {
+    width: 12px; height: 12px;
+    background: #FF492C;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  }
+  .vA-review-text {
+    font-size: 14px; line-height: 1.5; color: var(--slate-3); font-style: italic;
+  }
+  .vA-review-who {
+    font-family: var(--ff-d); font-size: 12px; font-weight: 600;
+    color: var(--slate-5); letter-spacing: 0.04em;
+  }
+  .vA-g2-badges { display: flex; gap: 14px; align-items: center; margin-top: 6px; }
+  .vA-g2-badges img { height: 80px; width: auto; object-fit: contain; }
+
+  /* Vertical divider */
+  .vA-divider { background: var(--line); align-self: stretch; }
+
+  /* Right: credential grid */
+  .vA-creds-side { display: flex; flex-direction: column; gap: 32px; }
+  .vA-creds-head h3 { font-size: 28px; color: var(--ink); }
+  .vA-creds-head p {
+    margin-top: 10px; font-size: 15px; line-height: 1.55;
+    color: var(--slate-4); max-width: 360px;
+  }
+  .vA-badge-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  .vA-badge-slot {
+    background: #fff; border: 1px solid var(--line); border-radius: 14px;
+    padding: 18px 14px;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .vA-badge-slot:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .vA-badge-slot img { height: 56px; width: auto; object-fit: contain; }
+  .vA-badge-slot span {
+    font-family: var(--ff-d); font-size: 11px; font-weight: 600;
+    color: var(--slate-5); text-align: center; letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ════════════════════════════════════════════════════
+     VARIANT B — Dark + kinetic
+     Full ink background. Credentials become an energy
+     statement — the copy leads, badges are proof points
+     beneath a bold opener. FinOps/G2 lend authority;
+     the dark surface makes them feel premium, not clip-arty.
+  ════════════════════════════════════════════════════ */
+  .vB {
+    /* Layered: dark bottom fade · ink orb top-right · flipped colour gradient */
+    background:
+      linear-gradient(to top, rgba(12,10,48,0.90) 0%, rgba(12,10,48,0.36) 44%, transparent 66%),
+      radial-gradient(ellipse 800px 800px at 110% -20%, rgba(12,10,48,0.28) 0%, transparent 65%),
+      linear-gradient(148deg, #E89A9A 0%, #D766B5 18%, #C258C6 40%, #A542DD 65%, #6B4CFF 100%);
+    padding: 88px 100px;
+    position: relative; overflow: hidden;
+  }
+  .vB-inner { position: relative; }
+  .vB-top {
+    display: grid; grid-template-columns: 1fr auto; gap: 60px;
+    align-items: end; margin-bottom: 56px;
+  }
+  .vB-kicker {
+    font-family: var(--ff-d); font-weight: 700; font-size: 12px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--amber); margin-bottom: 18px;
+  }
+  .vB h2 {
+    font-size: clamp(36px, 3.6vw, 52px); color: #fff;
+    max-width: 620px; text-wrap: balance;
+    letter-spacing: -0.025em;
+  }
+  .vB h2 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--periwinkle), var(--sky));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .vB-sub {
+    margin-top: 18px; font-size: 16px; line-height: 1.6;
+    color: rgba(255,255,255,0.58); max-width: 460px; text-wrap: pretty;
+  }
+  /* Right: G2 score — no card, floats directly on gradient */
+  .vB-score-block {
+    text-align: center;
+    min-width: 180px;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 20px;
+    padding: 28px 32px;
+  }
+  .vB-score-num {
+    font-family: var(--ff-d); font-weight: 800; font-size: 56px;
+    letter-spacing: -0.04em; color: #fff; line-height: 1;
+  }
+  .vB-score-stars { display: flex; justify-content: center; gap: 4px; margin: 8px 0; }
+  .vB-score-star {
+    width: 16px; height: 16px; background: #FF492C;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  }
+  .vB-score-label {
+    font-family: var(--ff-d); font-size: 12px; font-weight: 600;
+    color: rgba(255,255,255,0.45); letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  /* Badge band — on a frosted card so natural-color logos read on dark */
+  .vB-badge-strip {
+    display: flex; align-items: center; gap: 0;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 20px;
+    padding: 28px 0;
+  }
+  .vB-badge-item {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; gap: 16px;
+    padding: 0 20px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+  .vB-badge-item:last-child { border-right: none; }
+  .vB-badge-item img {
+    height: 64px; width: auto; object-fit: contain;
+    opacity: 0.88;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .vB-badge-item:hover img { opacity: 1; transform: translateY(-2px); }
+  .vB-badge-label {
+    font-family: var(--ff-d); font-size: 11px; font-weight: 600;
+    color: rgba(255,255,255,0.5); letter-spacing: 0.08em;
+    text-transform: uppercase; text-align: center;
+  }
+
+  /* ════════════════════════════════════════════════════
+     VARIANT C — Three pillars
+     Segment credentials into meaningful categories so
+     visitors know *why* each one matters. No more flat
+     badge shelf — instead three vertical panels, each
+     with a short claim + supporting badges.
+     Clean white background, editorial hierarchy.
+  ════════════════════════════════════════════════════ */
+  .vC {
+    background: #fff;
+    border-top: 1px solid var(--line);
+    padding: 80px 100px;
+  }
+  .vC-head {
+    display: grid; grid-template-columns: 1fr auto; gap: 48px;
+    align-items: end; margin-bottom: 64px;
+  }
+  .vC-kicker {
+    font-family: var(--ff-d); font-weight: 700; font-size: 12px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--violet); margin-bottom: 16px;
+  }
+  .vC h2 { font-size: clamp(32px, 3.2vw, 46px); color: var(--ink); max-width: 640px; }
+  .vC-head-sub {
+    font-size: 16px; line-height: 1.55; color: var(--slate-4);
+    max-width: 320px; text-align: right; padding-bottom: 4px;
+  }
+  .vC-pillars {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    background: var(--line);
+    border-radius: 20px; overflow: hidden;
+  }
+  .vC-pillar {
+    background: var(--paper-warm);
+    padding: 40px 36px 44px;
+    display: flex; flex-direction: column; gap: 0;
+    transition: background 0.2s;
+  }
+  .vC-pillar:hover { background: #fff; }
+  .vC-pillar-num {
+    font-family: var(--ff-d); font-weight: 800; font-size: 13px;
+    color: var(--slate-5); letter-spacing: 0.08em; margin-bottom: 20px;
+  }
+  .vC-pillar-label {
+    font-family: var(--ff-d); font-weight: 700; font-size: 20px;
+    color: var(--ink); margin-bottom: 10px;
+  }
+  .vC-pillar-desc {
+    font-size: 14px; line-height: 1.6; color: var(--slate-4);
+    margin-bottom: 36px; flex: 1;
+  }
+  .vC-pillar-badges {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 14px;
+  }
+  .vC-pillar-badges img {
+    height: 64px; width: auto; object-fit: contain;
+    opacity: 0.9; transition: opacity 0.2s, transform 0.2s;
+  }
+  .vC-pillar-badges img:hover { opacity: 1; transform: scale(1.04); }
+  /* Accent bar at top of each pillar */
+  .vC-pillar::before {
+    content: ""; display: block;
+    height: 3px; border-radius: 999px;
+    margin-bottom: 28px;
+  }
+  .vC-pillar:nth-child(1)::before { background: #FF492C; } /* G2 red */
+  .vC-pillar:nth-child(2)::before { background: var(--violet); }
+  .vC-pillar:nth-child(3)::before { background: var(--mint-2); }
+
+  /* ════════════════════════════════════════════════════
+     VARIANT E — Peer-reviewed, pink-to-peach top fade
+     Identical layout to A. Background fades from a soft
+     pink at the very top through peach, fully white by ~20%.
+  ════════════════════════════════════════════════════ */
+  .vE {
+    background: linear-gradient(to bottom, #fdf3f3 0%, #fef8f4 38%, #ffffff 67%);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 80px 100px;
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 72px;
+    align-items: center;
+  }
+
+  /* ════════════════════════════════════════════════════
+     VARIANT D — Three pillars, dark surface
+     Same structure as C. Dark ink background with a
+     warm peach radial bloom from the lower-left.
+     Cards themselves stay light (paper-warm / white).
+  ════════════════════════════════════════════════════ */
+  .vD {
+    background:
+      radial-gradient(ellipse 900px 640px at 8% 130%, rgba(248,144,144,0.20) 0%, transparent 62%),
+      radial-gradient(ellipse 680px 500px at 96% -10%, rgba(162,177,251,0.11) 0%, transparent 58%),
+      linear-gradient(148deg, #100d28 0%, #1d0e3a 45%, #1a0c2e 100%);
+    padding: 80px 100px;
+    position: relative; overflow: hidden;
+  }
+  .vD .variant-tag {
+    background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.15); color: #fff;
+  }
+  .vD .variant-tag .dot { background: var(--peach); color: var(--ink); }
+  .vD-head {
+    display: grid; grid-template-columns: 1fr auto; gap: 48px;
+    align-items: end; margin-bottom: 64px;
+  }
+  .vD-kicker {
+    font-family: var(--ff-d); font-weight: 700; font-size: 12px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--peach); margin-bottom: 16px;
+  }
+  .vD h2 { font-size: clamp(32px, 3.2vw, 46px); color: #fff; max-width: 640px; }
+  .vD-head-sub {
+    font-size: 16px; line-height: 1.55; color: rgba(255,255,255,0.55);
+    max-width: 320px; text-align: right; padding-bottom: 4px;
+  }
+  .vD-pillars {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    background: rgba(255,255,255,0.85);
+    border-radius: 20px; overflow: hidden;
+  }
+  .vD-pillar {
+    background: var(--paper-warm);
+    padding: 40px 36px 44px;
+    display: flex; flex-direction: column; gap: 0;
+    transition: background 0.2s;
+  }
+  .vD-pillar:hover { background: #fff; }
+  .vD-pillar-num {
+    font-family: var(--ff-d); font-weight: 800; font-size: 13px;
+    color: var(--slate-5); letter-spacing: 0.08em; margin-bottom: 20px;
+  }
+  .vD-pillar-label {
+    font-family: var(--ff-d); font-weight: 700; font-size: 20px;
+    color: var(--ink); margin-bottom: 10px;
+  }
+  .vD-pillar-desc {
+    font-size: 14px; line-height: 1.6; color: var(--slate-4);
+    margin-bottom: 36px; flex: 1;
+  }
+  .vD-pillar-badges {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 14px;
+  }
+  .vD-pillar-badges img {
+    height: 64px; width: auto; object-fit: contain;
+    opacity: 0.9; transition: opacity 0.2s, transform 0.2s;
+  }
+  .vD-pillar-badges img:hover { opacity: 1; transform: scale(1.04); }
+  .vD-pillar::before {
+    content: ""; display: block;
+    height: 3px; border-radius: 999px; margin-bottom: 28px;
+  }
+  .vD-pillar:nth-child(1)::before { background: #FF492C; }
+  .vD-pillar:nth-child(2)::before { background: var(--violet); }
+  .vD-pillar:nth-child(3)::before { background: var(--mint-2); }
+
+  /* ── Logo size normalization ── */
+  /* Microsoft Solutions Partner logo renders much larger than badge logos */
+  img[alt="Microsoft Partner"] { max-height: 40px !important; }
+  /* FinOps FOCUS logo renders smaller — boost it */
+  img[alt="FinOps FOCUS"],
+  img[alt="FinOps Focus"] { height: 80px !important; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- ══════════════════════════════════════════════
+       VARIANT A — Peer-reviewed (G2 score + reviews)
+  ══════════════════════════════════════════════ -->
+  <div class="variant-shell">
+    <div class="variant-tag">
+      <span class="dot">A</span>
+      Peer-reviewed — G2 score + review snippets
+    </div>
+    <section class="vA">
+      <!-- Left: credentials in a badge grid -->
+      <div class="vA-creds-side">
+        <div class="vA-creds-head">
+          <h3>Loved by practitioners.<br/>Backed by the industry.</h3>
+          <p>Validated by the FinOps Foundation, recognized by GeekWire, and certified by Microsoft.</p>
+        </div>
+        <div class="vA-badge-grid">
+          <div class="vA-badge-slot">
+            <img src="assets/badges/finops-foundation.svg" alt="FinOps Foundation"/>
+            <span>FinOps Foundation</span>
+          </div>
+          <div class="vA-badge-slot">
+            <img src="assets/badges/finops-practitioners.svg" alt="FinOps Practitioners"/>
+            <span>Practitioners</span>
+          </div>
+          <div class="vA-badge-slot">
+            <img src="assets/badges/finops-focus.svg" alt="FinOps Focus"/>
+            <span>FinOps FOCUS</span>
+          </div>
+          <div class="vA-badge-slot">
+            <img src="assets/badges/microsoft-partner.png" alt="Microsoft Partner"/>
+            <span>Microsoft Partner</span>
+          </div>
+          <div class="vA-badge-slot">
+            <img src="assets/badges/geekwire-200.svg" alt="GeekWire 200"/>
+            <span>GeekWire 200</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vertical divider -->
+      <div class="vA-divider"></div>
+
+      <!-- Right: G2 score + mini review cards -->
+      <div class="vA-score-side">
+        <div>
+          <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:8px">
+            <div class="vA-score-num">4.7</div>
+            <div>
+              <div class="vA-stars">
+                <div class="vA-star"></div><div class="vA-star"></div>
+                <div class="vA-star"></div><div class="vA-star"></div><div class="vA-star"></div>
+              </div>
+              <div class="vA-score-label" style="margin-top:4px">out of 5 on G2</div>
+            </div>
+          </div>
+          <div class="vA-g2-badges">
+            <img src="assets/badges/g2-high-performer.svg" alt="G2 High Performer"/>
+            <img src="assets/badges/g2-users-love-us.svg" alt="G2 Users Love Us"/>
+            <img src="assets/badges/g2-score.svg" alt="G2 Score"/>
+          </div>
+        </div>
+        <div class="vA-review-cards">
+          <div class="vA-review-card">
+            <div class="vA-review-mini-stars">
+              <div class="vA-review-mini-star"></div><div class="vA-review-mini-star"></div>
+              <div class="vA-review-mini-star"></div><div class="vA-review-mini-star"></div>
+              <div class="vA-review-mini-star"></div>
+            </div>
+            <div class="vA-review-text">"We now have the visibility and automation needed to make smart, aggressive cloud management decisions — and we've significantly reduced our AWS bill as a result."</div>
+            <div class="vA-review-who">Esten Rye, DevOps Manager · Platform9 &nbsp;·&nbsp; <span style="color:#FF492C;font-weight:700">G2</span> verified review</div>
+          </div>
+          <div class="vA-review-card">
+            <div class="vA-review-mini-stars">
+              <div class="vA-review-mini-star"></div><div class="vA-review-mini-star"></div>
+              <div class="vA-review-mini-star"></div><div class="vA-review-mini-star"></div>
+              <div class="vA-review-mini-star"></div>
+            </div>
+            <div class="vA-review-text">"The one differentiator with Archera is transparency in pricing. One fee off the top — that's pretty much it."</div>
+            <div class="vA-review-who">Kim Leung, Engineering Lead · Hex &nbsp;·&nbsp; <span style="color:#FF492C;font-weight:700">G2</span> verified review</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       VARIANT B — Dark + kinetic
+  ══════════════════════════════════════════════ -->
+  <div class="variant-shell">
+    <section class="vB">
+      <div class="variant-tag">
+        <span class="dot">B</span>
+        Dark — bold claim · badge strip beneath
+      </div>
+      <div class="vB-inner">
+        <div class="vB-top">
+          <div>
+            <div class="vB-kicker">Trusted. Validated. Community-led.</div>
+            <h2>The cloud community<br/><em>already picked a side.</em></h2>
+            <p class="vB-sub">G2 reviewers, FinOps practitioners, and Microsoft all agree — insured commitments are the smarter path to cloud savings.</p>
+          </div>
+          <div class="vB-score-block">
+            <div class="vB-score-num">4.7</div>
+            <div class="vB-score-stars">
+              <div class="vB-score-star"></div><div class="vB-score-star"></div>
+              <div class="vB-score-star"></div><div class="vB-score-star"></div>
+              <div class="vB-score-star"></div>
+            </div>
+            <div class="vB-score-label">rated on G2</div>
+          </div>
+        </div>
+        <div class="vB-badge-strip">
+          <div class="vB-badge-item">
+            <img src="assets/badges/g2-high-performer.svg" alt="G2 High Performer"/>
+            <div class="vB-badge-label">G2 High Performer</div>
+          </div>
+          <div class="vB-badge-item">
+            <img src="assets/badges/g2-users-love-us.svg" alt="G2 Users Love Us"/>
+            <div class="vB-badge-label">Users Love Us</div>
+          </div>
+          <div class="vB-badge-item">
+            <img src="assets/badges/finops-foundation.svg" alt="FinOps Foundation"/>
+            <div class="vB-badge-label">FinOps Foundation</div>
+          </div>
+          <div class="vB-badge-item">
+            <img src="assets/badges/finops-practitioners.svg" alt="FinOps Practitioners"/>
+            <div class="vB-badge-label">FinOps Practitioners</div>
+          </div>
+          <div class="vB-badge-item">
+            <img src="assets/badges/finops-focus.svg" alt="FinOps FOCUS"/>
+            <div class="vB-badge-label">FinOps FOCUS</div>
+          </div>
+          <div class="vB-badge-item">
+            <img src="assets/badges/microsoft-partner.png" alt="Microsoft Partner"/>
+            <div class="vB-badge-label">Microsoft Partner</div>
+          </div>
+          <div class="vB-badge-item">
+            <img src="assets/badges/geekwire-200.svg" alt="GeekWire 200"/>
+            <div class="vB-badge-label">GeekWire 200</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       VARIANT C — Three pillars (categorized)
+  ══════════════════════════════════════════════ -->
+  <div class="variant-shell">
+    <div class="variant-tag">
+      <span class="dot">C</span>
+      Three pillars — categorized credentials
+    </div>
+    <section class="vC">
+      <div class="vC-head">
+        <div>
+          <div class="vC-kicker">Why teams trust Archera</div>
+          <h2>Rated by peers.<br/>Endorsed by the ecosystem.</h2>
+        </div>
+        <p class="vC-head-sub">Third-party validation from the communities that cloud practitioners actually trust.</p>
+      </div>
+      <div class="vC-pillars">
+        <!-- Pillar 1: G2 peer reviews -->
+        <div class="vC-pillar">
+          <div class="vC-pillar-num">01</div>
+          <div class="vC-pillar-label">Peer reviews</div>
+          <p class="vC-pillar-desc">Real engineers rating real ROI. Consistently ranked a high performer by the people doing the work, not the analysts.</p>
+          <div class="vC-pillar-badges">
+            <img src="assets/badges/g2-high-performer.svg" alt="G2 High Performer"/>
+            <img src="assets/badges/g2-users-love-us.svg" alt="G2 Users Love Us"/>
+            <img src="assets/badges/g2-score.svg" alt="G2 Score"/>
+          </div>
+        </div>
+        <!-- Pillar 2: FinOps community -->
+        <div class="vC-pillar">
+          <div class="vC-pillar-num">02</div>
+          <div class="vC-pillar-label">FinOps community</div>
+          <p class="vC-pillar-desc">Recognized by the FinOps Foundation as a trusted practitioner — aligned with the standards your team already follows.</p>
+          <div class="vC-pillar-badges">
+            <img src="assets/badges/finops-foundation.svg" alt="FinOps Foundation"/>
+            <img src="assets/badges/finops-practitioners.svg" alt="FinOps Practitioners"/>
+            <img src="assets/badges/finops-focus.svg" alt="FinOps FOCUS"/>
+          </div>
+        </div>
+        <!-- Pillar 3: Industry recognition -->
+        <div class="vC-pillar">
+          <div class="vC-pillar-num">03</div>
+          <div class="vC-pillar-label">Industry recognition</div>
+          <p class="vC-pillar-desc">A Microsoft certified partner and one of GeekWire's top 200 companies — the cloud establishment has taken notice.</p>
+          <div class="vC-pillar-badges">
+            <img src="assets/badges/microsoft-partner.png" alt="Microsoft Partner"/>
+            <img src="assets/badges/geekwire-200.svg" alt="GeekWire 200"/>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       VARIANT D — Three pillars, dark + peach
+  ══════════════════════════════════════════════ -->
+  <div class="variant-shell">
+    <section class="vD">
+      <div class="variant-tag">
+        <span class="dot">D</span>
+        Three pillars — dark surface + peach
+      </div>
+      <div class="vD-head">
+        <div>
+          <div class="vD-kicker">Why teams trust Archera</div>
+          <h2>Rated by peers.<br/>Endorsed by the ecosystem.</h2>
+        </div>
+        <p class="vD-head-sub">Third-party validation from the communities that cloud practitioners actually trust.</p>
+      </div>
+      <div class="vD-pillars">
+        <!-- Pillar 1: G2 peer reviews -->
+        <div class="vD-pillar">
+          <div class="vD-pillar-num">01</div>
+          <div class="vD-pillar-label">Peer reviews</div>
+          <p class="vD-pillar-desc">Real engineers rating real ROI. Consistently ranked a high performer by the people doing the work, not the analysts.</p>
+          <div class="vD-pillar-badges">
+            <img src="assets/badges/g2-high-performer.svg" alt="G2 High Performer"/>
+            <img src="assets/badges/g2-users-love-us.svg" alt="G2 Users Love Us"/>
+            <img src="assets/badges/g2-score.svg" alt="G2 Score"/>
+          </div>
+        </div>
+        <!-- Pillar 2: FinOps community -->
+        <div class="vD-pillar">
+          <div class="vD-pillar-num">02</div>
+          <div class="vD-pillar-label">FinOps community</div>
+          <p class="vD-pillar-desc">Recognized by the FinOps Foundation as a trusted practitioner — aligned with the standards your team already follows.</p>
+          <div class="vD-pillar-badges">
+            <img src="assets/badges/finops-foundation.svg" alt="FinOps Foundation"/>
+            <img src="assets/badges/finops-practitioners.svg" alt="FinOps Practitioners"/>
+            <img src="assets/badges/finops-focus.svg" alt="FinOps FOCUS"/>
+          </div>
+        </div>
+        <!-- Pillar 3: Industry recognition -->
+        <div class="vD-pillar">
+          <div class="vD-pillar-num">03</div>
+          <div class="vD-pillar-label">Industry recognition</div>
+          <p class="vD-pillar-desc">A Microsoft certified partner and one of GeekWire's top 200 companies — the cloud establishment has taken notice.</p>
+          <div class="vD-pillar-badges">
+            <img src="assets/badges/microsoft-partner.png" alt="Microsoft Partner"/>
+            <img src="assets/badges/geekwire-200.svg" alt="GeekWire 200"/>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       VARIANT E — Peer-reviewed, pink-to-peach fade
+  ══════════════════════════════════════════════ -->
+  <div class="variant-shell">
+    <div class="variant-tag">
+      <span class="dot">E</span>
+      Peer-reviewed — pink / peach top fade
+    </div>
+    <section class="vE">
+      <!-- Left: credentials in a badge grid -->
+      <div class="vA-creds-side">
+        <div class="vA-creds-head">
+          <h3>Loved by practitioners.<br/>Backed by the industry.</h3>
+          <p>Validated by the FinOps Foundation, recognized by GeekWire, and certified by Microsoft.</p>
+        </div>
+        <div class="vA-badge-grid">
+          <div class="vA-badge-slot">
+            <img src="assets/badges/finops-foundation.svg" alt="FinOps Foundation"/>
+            <span>FinOps Foundation</span>
+          </div>
+          <div class="vA-badge-slot">
+            <img src="assets/badges/finops-practitioners.svg" alt="FinOps Practitioners"/>
+            <span>Practitioners</span>
+          </div>
+          <div class="vA-badge-slot">
+            <img src="assets/badges/finops-focus.svg" alt="FinOps Focus"/>
+            <span>FinOps FOCUS</span>
+          </div>
+          <div class="vA-badge-slot">
+            <img src="assets/badges/microsoft-partner.png" alt="Microsoft Partner"/>
+            <span>Microsoft Partner</span>
+          </div>
+          <div class="vA-badge-slot">
+            <img src="assets/badges/geekwire-200.svg" alt="GeekWire 200"/>
+            <span>GeekWire 200</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vertical divider -->
+      <div class="vA-divider"></div>
+
+      <!-- Right: G2 score + mini review cards -->
+      <div class="vA-score-side">
+        <div>
+          <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:8px">
+            <div class="vA-score-num">4.7</div>
+            <div>
+              <div class="vA-stars">
+                <div class="vA-star"></div><div class="vA-star"></div>
+                <div class="vA-star"></div><div class="vA-star"></div><div class="vA-star"></div>
+              </div>
+              <div class="vA-score-label" style="margin-top:4px">out of 5 on G2</div>
+            </div>
+          </div>
+          <div class="vA-g2-badges">
+            <img src="assets/badges/g2-high-performer.svg" alt="G2 High Performer"/>
+            <img src="assets/badges/g2-users-love-us.svg" alt="G2 Users Love Us"/>
+            <img src="assets/badges/g2-score.svg" alt="G2 Score"/>
+          </div>
+        </div>
+        <div class="vA-review-cards">
+          <div class="vA-review-card">
+            <div class="vA-review-mini-stars">
+              <div class="vA-review-mini-star"></div><div class="vA-review-mini-star"></div>
+              <div class="vA-review-mini-star"></div><div class="vA-review-mini-star"></div>
+              <div class="vA-review-mini-star"></div>
+            </div>
+            <div class="vA-review-text">"We now have the visibility and automation needed to make smart, aggressive cloud management decisions — and we've significantly reduced our AWS bill as a result."</div>
+            <div class="vA-review-who">Esten Rye, DevOps Manager · Platform9 &nbsp;·&nbsp; <span style="color:#FF492C;font-weight:700">G2</span> verified review</div>
+          </div>
+          <div class="vA-review-card">
+            <div class="vA-review-mini-stars">
+              <div class="vA-review-mini-star"></div><div class="vA-review-mini-star"></div>
+              <div class="vA-review-mini-star"></div><div class="vA-review-mini-star"></div>
+              <div class="vA-review-mini-star"></div>
+            </div>
+            <div class="vA-review-text">"The one differentiator with Archera is transparency in pricing. One fee off the top — that's pretty much it."</div>
+            <div class="vA-review-who">Kim Leung, Engineering Lead · Hex &nbsp;·&nbsp; <span style="color:#FF492C;font-weight:700">G2</span> verified review</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</div>
+</body>
+</html>

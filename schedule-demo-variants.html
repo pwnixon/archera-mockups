@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Schedule Demo — Variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0C0A30;
+    --violet: #7101FF;
+    --violet-2: #8B01E8;
+    --violet-soft: #F6F0FF;
+    --peach: #F89090;
+    --sky: #6DD8FC;
+    --mint-2: #20A795;
+    --amber: #FFD080;
+    --periwinkle: #A2B1FB;
+    --slate-3: #444444;
+    --slate-4: #686870;
+    --slate-5: #9D9DA2;
+    --line: #E2E2E5;
+    --line-2: #F1F5F9;
+    --paper: #F6F5F4;
+    --ff-d: "Manrope", system-ui, sans-serif;
+    --ff-b: "Lexend", system-ui, sans-serif;
+    --shadow-sm: 0 4px 14px -6px rgba(12,10,48,0.08);
+    --shadow-md: 0 12px 32px -12px rgba(12,10,48,0.18);
+    /* Hero-C gradient — peach→violet diagonal */
+    --hero-c-grad: linear-gradient(105deg, #E89A9A 0%, #D766B5 20%, #C258C6 40%, #A542DD 60%, #8B3DEF 80%, #6B4CFF 100%);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; background: #EDECEA; font-family: var(--ff-b);
+    color: var(--ink); -webkit-font-smoothing: antialiased; }
+  h1,h2,h3 { font-family: var(--ff-d); font-weight: 700;
+    letter-spacing: -0.025em; margin: 0; line-height: 1.04; }
+  p { margin: 0; }
+  a { text-decoration: none; color: inherit; }
+
+  /* ── Page chrome (matches derisk-variants.html) ── */
+  .page-wrap {
+    padding: 24px 24px 80px;
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  .variant-shell {
+    border-radius: 28px; overflow: hidden;
+    box-shadow: 0 40px 80px -40px rgba(12,10,48,0.2), 0 2px 0 rgba(12,10,48,0.04);
+    position: relative;
+  }
+  .variant-tag {
+    position: absolute; top: 28px; left: 28px; z-index: 100;
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 14px 8px 8px;
+    background: rgba(255,255,255,0.92); backdrop-filter: blur(8px);
+    border: 1px solid rgba(12,10,48,0.08); border-radius: 999px;
+    font-family: var(--ff-d); font-size: 13px; font-weight: 600; color: var(--ink);
+    box-shadow: var(--shadow-sm);
+  }
+  .variant-tag .dot {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--ink); color: #fff;
+    display: grid; place-items: center; font-size: 12px; font-weight: 700;
+  }
+  /* Dark-surface variant tag overrides */
+  .vB .variant-tag, .vC-dark .variant-tag {
+    background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.18); color: #fff;
+  }
+  .vB .variant-tag .dot { background: var(--amber); color: var(--ink); }
+  .vC-dark .variant-tag .dot { background: var(--violet); color: #fff; }
+
+  /* ── Shared button tokens ── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--ff-d); font-weight: 700; font-size: 16px;
+    padding: 16px 30px; border-radius: 999px;
+    border: 2px solid transparent;
+    cursor: pointer; white-space: nowrap;
+    transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-violet   { background: var(--violet); color: #fff; border-color: var(--violet); }
+  .btn-violet:hover { background: var(--violet-2); border-color: var(--violet-2);
+    box-shadow: 0 10px 28px -8px rgba(113,1,255,0.55); }
+  .btn-outline-ink { background: transparent; color: var(--ink); border-color: rgba(12,10,48,0.28); }
+  .btn-outline-ink:hover { border-color: var(--ink); background: rgba(12,10,48,0.04); }
+  .btn-outline-white { background: transparent; color: #fff; border-color: rgba(255,255,255,0.35); }
+  .btn-outline-white:hover { border-color: #fff; background: rgba(255,255,255,0.07); }
+  .btn-white { background: #fff; color: var(--ink); border-color: #fff; }
+  .btn-white:hover { background: var(--line-2); }
+
+  /* ── Trust-signal row shared ── */
+  .trust-row {
+    display: flex; align-items: center; gap: 24px;
+    font-family: var(--ff-d); font-size: 13px; font-weight: 500;
+  }
+  .trust-row .item { display: inline-flex; align-items: center; gap: 6px; }
+  .trust-row .check { font-weight: 800; font-size: 12px; }
+
+  /* ════════════════════════════════════════════════════
+     VARIANT A — Light arc (hero-C light variation)
+     Same peach→violet gradient as hero variant C, but
+     a large white circle rises from below, leaving only
+     a colorful crescent at the top — clean, airy feel.
+  ════════════════════════════════════════════════════ */
+  .vA {
+    position: relative;
+    height: 640px;
+    overflow: hidden;
+    background: var(--hero-c-grad);
+  }
+  /* White circle wells up from below the gradient band */
+  .vA-arc {
+    position: absolute;
+    left: 50%; top: 88px;
+    width: 4200px; height: 4200px;
+    border-radius: 50%;
+    background: #fff;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .vA-inner {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center;
+    padding: 164px 80px 0;
+  }
+  .vA-kicker {
+    font-family: var(--ff-d); font-weight: 700; font-size: 12px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--violet); margin-bottom: 18px;
+  }
+  .vA h2 {
+    font-size: clamp(44px, 4.5vw, 64px);
+    color: var(--ink); max-width: 800px; text-wrap: balance;
+  }
+  .vA .body {
+    margin-top: 20px;
+    font-size: 18px; line-height: 1.58; color: var(--slate-3);
+    max-width: 500px; text-wrap: pretty;
+  }
+  .vA .ctas {
+    margin-top: 40px; display: flex; gap: 14px; align-items: center;
+  }
+  .vA .trust-row {
+    margin-top: 28px;
+    color: var(--slate-4);
+  }
+  .vA .trust-row .check { color: var(--violet); }
+
+  /* ════════════════════════════════════════════════════
+     VARIANT B — Deep dark with floating orbs
+     Ink background, glowing radial orbs in brand
+     colors. Centered content. Serious enterprise feel.
+  ════════════════════════════════════════════════════ */
+  .vB {
+    position: relative;
+    height: 640px;
+    overflow: hidden;
+    background: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .vB-orb {
+    position: absolute; border-radius: 50%; pointer-events: none;
+  }
+  .vB-orb1 { /* violet top-left */
+    width: 700px; height: 700px; top: -220px; left: -120px;
+    background: radial-gradient(circle, rgba(113,1,255,0.5) 0%, transparent 65%);
+  }
+  .vB-orb2 { /* sky bottom-right */
+    width: 480px; height: 480px; bottom: -140px; right: 60px;
+    background: radial-gradient(circle, rgba(109,216,252,0.28) 0%, transparent 65%);
+  }
+  .vB-orb3 { /* peach mid */
+    width: 240px; height: 240px; top: 36%; right: 16%;
+    background: radial-gradient(circle, rgba(248,144,144,0.25) 0%, transparent 65%);
+  }
+  /* Thin arc highlight ring — echo of hero-C shape */
+  .vB-ring {
+    position: absolute;
+    left: 50%; top: -340px;
+    width: 2200px; height: 2200px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.05);
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .vB-inner {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center;
+    padding: 0 80px; max-width: 960px;
+  }
+  .vB-kicker {
+    font-family: var(--ff-d); font-weight: 700; font-size: 12px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--amber); margin-bottom: 18px;
+  }
+  .vB h2 {
+    font-size: clamp(44px, 5vw, 68px);
+    color: #fff; max-width: 860px; text-wrap: balance;
+  }
+  .vB .body {
+    margin-top: 22px;
+    font-size: 18px; line-height: 1.6; color: rgba(255,255,255,0.65);
+    max-width: 520px; text-wrap: pretty;
+  }
+  .vB .ctas {
+    margin-top: 44px; display: flex; gap: 14px; align-items: center;
+  }
+  .vB .trust-row {
+    margin-top: 28px;
+    color: rgba(255,255,255,0.4);
+  }
+  .vB .trust-row .check { color: var(--periwinkle); }
+
+  /* ════════════════════════════════════════════════════
+     VARIANT C — Two-column split
+     Left: full hero-C gradient with headline + body
+     Right: white panel with stacked CTAs + trust checklist
+  ════════════════════════════════════════════════════ */
+  .vC {
+    display: grid;
+    grid-template-columns: 56% 44%;
+    height: 640px;
+    overflow: hidden;
+  }
+  /* Left column: hero-C gradient (gradient reversed for variety) */
+  .vC-left {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(148deg, #6B4CFF 0%, #A542DD 35%, #C258C6 60%, #D766B5 82%, #E89A9A 100%);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 72px 80px;
+  }
+  /* Subtle dark ink orb top-right for depth */
+  .vC-left::before {
+    content: ""; position: absolute;
+    top: -30%; right: -25%;
+    width: 800px; height: 800px; border-radius: 50%;
+    background: rgba(12,10,48,0.22);
+    pointer-events: none;
+  }
+  /* Bright highlight ring bottom-left */
+  .vC-left::after {
+    content: ""; position: absolute;
+    bottom: -60%; left: -20%;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: rgba(255,255,255,0.07);
+    pointer-events: none;
+  }
+  .vC-left-content { position: relative; z-index: 2; }
+  .vC-kicker {
+    font-family: var(--ff-d); font-weight: 700; font-size: 12px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(255,255,255,0.65); margin-bottom: 18px;
+  }
+  .vC h2 {
+    font-size: clamp(38px, 3.8vw, 56px);
+    color: #fff; max-width: 480px; text-wrap: balance;
+  }
+  .vC .body {
+    margin-top: 18px;
+    font-size: 17px; line-height: 1.58; color: rgba(255,255,255,0.72);
+    max-width: 400px; text-wrap: pretty;
+  }
+  /* Right column: white CTA panel */
+  .vC-right {
+    background: #fff;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 72px 68px 72px 60px;
+  }
+  .vC-right-eyebrow {
+    font-family: var(--ff-d); font-size: 22px; font-weight: 700;
+    letter-spacing: -0.015em; color: var(--ink);
+    margin-bottom: 28px; line-height: 1.2;
+  }
+  .vC-cta-stack {
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .vC-cta-stack .btn { justify-content: center; }
+  .vC-divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 22px 0;
+    font-family: var(--ff-d); font-size: 12px;
+    color: var(--slate-5); font-weight: 500;
+  }
+  .vC-divider::before, .vC-divider::after {
+    content: ""; flex: 1; height: 1px; background: var(--line);
+  }
+  .vC-checklist {
+    display: flex; flex-direction: column; gap: 16px;
+    margin-top: 4px;
+  }
+  .vC-check-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    font-family: var(--ff-d); font-size: 16px; color: var(--slate-3);
+    line-height: 1.4;
+  }
+  .vC-check-icon {
+    flex-shrink: 0;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--violet-soft); color: var(--violet);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; margin-top: 1px;
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- ══════════════════════════════════════════════
+       VARIANT A — Light arc (hero-C light)
+  ══════════════════════════════════════════════ -->
+  <div class="variant-shell vA">
+    <div class="variant-tag">
+      <span class="dot">A</span>
+      Light arc — hero-C light variation
+    </div>
+    <div class="vA-arc"></div>
+    <div class="vA-inner">
+      <div class="vA-kicker">One conversation changes everything</div>
+      <h2>Buy commitments<br/>without worry.</h2>
+      <p class="body">See exactly where insured commitments would save your team money — a 20-minute demo, or jump straight in for free.</p>
+      <div class="ctas">
+        <a href="#" class="btn btn-violet">Schedule your demo &nbsp;→</a>
+        <a href="#" class="btn btn-outline-ink">Start now — it's free</a>
+      </div>
+      <div class="trust-row">
+        <span class="item"><span class="check">✓</span> 20-min demo</span>
+        <span class="item"><span class="check">✓</span> No long-term contracts</span>
+        <span class="item"><span class="check">✓</span> $0 platform fee</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       VARIANT B — Deep dark with orbs
+  ══════════════════════════════════════════════ -->
+  <div class="variant-shell vB">
+    <div class="variant-tag">
+      <span class="dot">B</span>
+      Dark ink with orbs
+    </div>
+    <div class="vB-orb vB-orb1"></div>
+    <div class="vB-orb vB-orb2"></div>
+    <div class="vB-orb vB-orb3"></div>
+    <div class="vB-ring"></div>
+    <div class="vB-inner">
+      <div class="vB-kicker">Stop overpaying for commitments</div>
+      <h2>Buy commitments<br/>without worry.</h2>
+      <p class="body">In 20 minutes we'll map your AWS, Azure, and GCP footprint to commitments you can buy today — with zero lock-in risk.</p>
+      <div class="ctas">
+        <a href="#" class="btn btn-violet">Schedule your demo &nbsp;→</a>
+        <a href="#" class="btn btn-outline-white">Start now — it's free</a>
+      </div>
+      <div class="trust-row">
+        <span class="item"><span class="check">✓</span> 20-min demo</span>
+        <span class="item"><span class="check">✓</span> No long-term contracts</span>
+        <span class="item"><span class="check">✓</span> $0 platform fee</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       VARIANT C — Two-column split
+  ══════════════════════════════════════════════ -->
+  <div class="variant-shell vC">
+    <div class="variant-tag vC-dark">
+      <span class="dot">C</span>
+      Split — gradient left · CTA panel right
+    </div>
+    <div class="vC-left">
+      <div class="vC-left-content">
+        <div class="vC-kicker">For cloud teams at scale</div>
+        <h2>Buy commitments<br/>without worry.</h2>
+        <p class="body">Insured commitments let your team move fast on cloud costs without the downside of getting it wrong. See the savings in 20 minutes.</p>
+      </div>
+    </div>
+    <div class="vC-right">
+      <div class="vC-right-eyebrow">We are ready when you are to help you start saving.</div>
+      <div class="vC-checklist">
+        <div class="vC-check-item">
+          <div class="vC-check-icon">✓</div>
+          <span>20-minute demo — we map your real footprint live</span>
+        </div>
+        <div class="vC-check-item">
+          <div class="vC-check-icon">✓</div>
+          <span>$0 platform fee, forever</span>
+        </div>
+        <div class="vC-check-item">
+          <div class="vC-check-icon">✓</div>
+          <span>30-day minimum commitments, not multi-year lock-in</span>
+        </div>
+        <div class="vC-check-item">
+          <div class="vC-check-icon">✓</div>
+          <span>Shortfall protection if usage drops</span>
+        </div>
+      </div>
+      <div class="vC-divider">get started</div>
+      <div class="vC-cta-stack">
+        <a href="#" class="btn btn-violet">Schedule your demo &nbsp;→</a>
+      </div>
+      <div style="margin-top:12px">
+        <a href="#" class="btn btn-outline-ink" style="width:100%;justify-content:center">Start now — it's free</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
