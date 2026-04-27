@@ -86,7 +86,7 @@ p{margin:0;}
 .trust-row .check{font-weight:800;font-size:12px;}
 
 /* ── Derisk section shared ── */
-.providers-section{padding:120px 0;position:relative;}
+.providers-section{padding:80px 0;position:relative;}
 .providers-section .container{max-width:1240px;margin:0 auto;padding:0 32px;}
 .compare-kicker{font-family:var(--ff-display);font-weight:700;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--violet);display:inline-block;margin-bottom:20px;}
 .pill{font-family:var(--ff-display);font-size:12px;font-weight:600;padding:6px 10px;border-radius:999px;background:var(--paper);color:var(--slate-3);white-space:nowrap;}
@@ -95,7 +95,7 @@ p{margin:0;}
 
 /* ── Derisk Variant C ── */
 .vC{background:var(--paper);}
-.vC .provider-head{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:56px;}
+.vC .provider-head{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:36px;}
 .vC .provider-head p{color:var(--slate-3);font-size:17px;max-width:480px;}
 .vC h2{font-size:clamp(32px,3.6vw,48px);letter-spacing:-0.025em;}
 .vC .vc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
@@ -781,7 +781,7 @@ function HowVariantC(){
   );
 
   return(
-    <DarkStage padTop={72} padBottom={80}>
+    <DarkStage padTop={56} padBottom={64}>
       <div style={{textAlign:'left',maxWidth:820,margin:0,position:'relative'}}>
         <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:isSm?11:13,letterSpacing:'0.16em',textTransform:'uppercase',color:'var(--sky)'}}>How insured commitments work</span>
         <h2 style={{fontSize:h2Size,letterSpacing:'-0.025em',lineHeight:1.05,marginTop:isSm?14:18,color:'#fff',textWrap:'balance'}}>Short-term commitments.<br/>Guaranteed savings.</h2>
@@ -824,7 +824,7 @@ function DeRiskC(){
       <div class="provider-head">
         <div>
           <span class="compare-kicker">Multicloud coverage</span>
-          <h2 style="margin-top:16px">De-risk commitments across every cloud.</h2>
+          <h2>De-risk commitments across every cloud.</h2>
         </div>
         <p>One platform, one workflow, one compliance posture — whether you're running on AWS, Azure, Google Cloud or all three.</p>
       </div>
@@ -969,7 +969,7 @@ function TestimonialsVariantD(){
   const BG={platform9:'#7101FF',floyo:'#6DD8FC',hex:'#F89090'};
   const bg=BG[t.id];
   const secPad=isSm?20:isMd?48:80;
-  const secPadV=isSm?64:isMd?80:110;
+  const secPadV=isSm?56:isMd?72:88;
   return(
     <section style={{background:'var(--ink)',padding:`${secPadV}px ${secPad}px ${secPadV}px`,fontFamily:'var(--ff-b)',color:'#fff',position:'relative',overflow:'hidden'}}>
       <TSectionHeader theme="dark" title={<>Real teams.<br/>Real flexibility.<br/>Real savings.</>} subtitle="Engineers, FinOps leads, and founders using Archera to reclaim room in their cloud spend without the lock-in."/>
@@ -1168,5 +1168,6 @@ function HomePage1(){
 ReactDOM.createRoot(document.getElementById('site-nav')).render(<SiteNav/>);
 ReactDOM.createRoot(document.getElementById('root')).render(<HomePage1/>);
 </script>
+
 </body>
 </html>
