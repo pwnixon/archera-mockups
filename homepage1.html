@@ -109,22 +109,26 @@ p{margin:0;}
 .vC .vc-card.vc-aws .vc-top::before{background:radial-gradient(circle,rgba(255,153,0,0.6),transparent 65%);}
 .vC .vc-card.vc-azure .vc-top::before{background:radial-gradient(circle,rgba(0,127,255,0.55),transparent 65%);}
 .vC .vc-card.vc-gcp .vc-top::before{background:radial-gradient(circle,rgba(52,168,83,0.55),transparent 65%);}
-.vC .vc-logo-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:auto;position:relative;}
+.vC .vc-logo-row{display:flex;align-items:center;justify-content:space-between;position:relative;}
 .vC .vc-logo-row img{max-height:28px;max-width:180px;width:auto;height:auto;display:block;}
 .vC .vc-card.vc-aws .vc-logo-row img{max-height:30px;}
 .vC .vc-card.vc-azure .vc-logo-row img{max-height:22px;max-width:140px;}
 .vC .vc-card.vc-gcp .vc-logo-row img{max-height:20px;max-width:160px;}
-.vC .vc-pct{font-family:var(--ff-display);font-weight:800;font-size:80px;line-height:0.9;letter-spacing:-0.04em;margin-top:18px;position:relative;}
+.vC .vc-metric-row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:auto;padding-top:14px;}
+.vC .vc-pct{font-family:var(--ff-display);font-weight:800;font-size:80px;line-height:0.9;letter-spacing:-0.04em;position:relative;}
 .vC .vc-pct-unit{font-size:52px;}
 .vC .vc-card.vc-aws .vc-pct{color:var(--aws);}
 .vC .vc-card.vc-azure .vc-pct{color:var(--azure);}
 .vC .vc-card.vc-gcp .vc-pct{color:var(--gcp);}
-.vC .vc-pct-label{font-family:var(--ff-display);font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:8px;margin-bottom:18px;}
-.vC .vc-ba{display:flex;align-items:baseline;gap:8px;font-family:var(--ff-display);font-weight:700;position:relative;}
-.vC .vc-before{font-size:15px;color:rgba(255,255,255,0.3);text-decoration:line-through;}
-.vC .vc-arrow{color:rgba(255,255,255,0.3);font-size:13px;font-weight:400;}
-.vC .vc-after{font-size:24px;color:#fff;}
-.vC .vc-mo{font-size:12px;color:rgba(255,255,255,0.35);font-weight:500;}
+.vC .vc-pct-label{font-family:var(--ff-display);font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:8px;margin-bottom:0;}
+.vC .vc-ba{display:grid;grid-template-columns:auto auto;row-gap:5px;column-gap:10px;align-items:center;align-self:flex-end;}
+.vC .vc-ba-label{font-family:var(--ff-display);font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;line-height:1;white-space:nowrap;}
+.vC .vc-ba-label.vc-ba-before{color:var(--peach);}
+.vC .vc-ba-label.vc-ba-after{color:var(--mint);}
+.vC .vc-ba-amt{font-family:var(--ff-display);font-weight:700;font-size:15px;white-space:nowrap;text-align:right;}
+.vC .vc-ba-amt.vc-ba-before{color:rgba(255,255,255,0.35);text-decoration:line-through;}
+.vC .vc-ba-amt.vc-ba-after{color:#fff;}
+.vC .vc-mo{font-size:11px;color:rgba(255,255,255,0.35);font-weight:500;}
 .vC .vc-bar-wrap{height:4px;background:rgba(255,255,255,0.1);border-radius:999px;margin-top:16px;overflow:hidden;}
 .vC .vc-bar-fill{height:100%;border-radius:999px;}
 .vC .vc-card.vc-aws .vc-bar-fill{background:var(--aws);}
@@ -149,8 +153,9 @@ p{margin:0;}
 @media(min-width:640px) and (max-width:960px){
   .vC .vc-card{flex-direction:row;}
   .vC .vc-top{width:220px;flex-shrink:0;min-height:0;padding:24px 22px;}
-  .vC .vc-pct{font-size:62px;margin-top:14px;}
+  .vC .vc-pct{font-size:62px;}
   .vC .vc-pct-unit{font-size:40px;}
+  .vC .vc-metric-row{flex-direction:column;align-items:flex-start;gap:8px;}
   .vC .vc-body{flex:1;}
 }
 
@@ -832,9 +837,16 @@ function DeRiskC(){
         <article class="vc-card vc-aws">
           <div class="vc-top">
             <div class="vc-logo-row"><img src="assets/cloud/aws-dark.svg" alt="AWS"/></div>
-            <div class="vc-pct">58<span class="vc-pct-unit">%</span></div>
-            <div class="vc-pct-label">cost savings</div>
-            <div class="vc-ba"><span class="vc-before">$30k</span><span class="vc-arrow">→</span><span class="vc-after">$12.7k</span><span class="vc-mo">/mo</span></div>
+            <div class="vc-metric-row">
+              <div>
+                <div class="vc-pct">58<span class="vc-pct-unit">%</span></div>
+                <div class="vc-pct-label">monthly savings</div>
+              </div>
+              <div class="vc-ba">
+                <span class="vc-ba-label vc-ba-before">Before</span><span class="vc-ba-amt vc-ba-before">$30k<span class="vc-mo">/mo</span></span>
+                <span class="vc-ba-label vc-ba-after">After</span><span class="vc-ba-amt vc-ba-after">$12.7k<span class="vc-mo">/mo</span></span>
+              </div>
+            </div>
             <div class="vc-bar-wrap"><div class="vc-bar-fill" style="width:42%"></div></div>
           </div>
           <div class="vc-body">
@@ -849,9 +861,16 @@ function DeRiskC(){
         <article class="vc-card vc-azure">
           <div class="vc-top">
             <div class="vc-logo-row"><img src="assets/cloud/azure-dark.svg" alt="Azure"/></div>
-            <div class="vc-pct">56<span class="vc-pct-unit">%</span></div>
-            <div class="vc-pct-label">cost savings</div>
-            <div class="vc-ba"><span class="vc-before">$42k</span><span class="vc-arrow">→</span><span class="vc-after">$18.4k</span><span class="vc-mo">/mo</span></div>
+            <div class="vc-metric-row">
+              <div>
+                <div class="vc-pct">56<span class="vc-pct-unit">%</span></div>
+                <div class="vc-pct-label">monthly savings</div>
+              </div>
+              <div class="vc-ba">
+                <span class="vc-ba-label vc-ba-before">Before</span><span class="vc-ba-amt vc-ba-before">$42k<span class="vc-mo">/mo</span></span>
+                <span class="vc-ba-label vc-ba-after">After</span><span class="vc-ba-amt vc-ba-after">$18.4k<span class="vc-mo">/mo</span></span>
+              </div>
+            </div>
             <div class="vc-bar-wrap"><div class="vc-bar-fill" style="width:44%"></div></div>
           </div>
           <div class="vc-body">
@@ -866,9 +885,16 @@ function DeRiskC(){
         <article class="vc-card vc-gcp">
           <div class="vc-top">
             <div class="vc-logo-row"><img src="assets/cloud/gcp-dark.svg" alt="Google Cloud"/><span class="pill pill-beta">Beta</span></div>
-            <div class="vc-pct">53<span class="vc-pct-unit">%</span></div>
-            <div class="vc-pct-label">cost savings</div>
-            <div class="vc-ba"><span class="vc-before">$24k</span><span class="vc-arrow">→</span><span class="vc-after">$11.2k</span><span class="vc-mo">/mo</span></div>
+            <div class="vc-metric-row">
+              <div>
+                <div class="vc-pct">53<span class="vc-pct-unit">%</span></div>
+                <div class="vc-pct-label">monthly savings</div>
+              </div>
+              <div class="vc-ba">
+                <span class="vc-ba-label vc-ba-before">Before</span><span class="vc-ba-amt vc-ba-before">$24k<span class="vc-mo">/mo</span></span>
+                <span class="vc-ba-label vc-ba-after">After</span><span class="vc-ba-amt vc-ba-after">$11.2k<span class="vc-mo">/mo</span></span>
+              </div>
+            </div>
             <div class="vc-bar-wrap"><div class="vc-bar-fill" style="width:47%"></div></div>
           </div>
           <div class="vc-body">
@@ -911,19 +937,18 @@ function LogoBandAndCTA({theme='light',sectionPad=80}){
   const linkColor=isDark?'#6DD8FC':'var(--violet)';
   const negMargin=isSm?-20:isMd?-48:-sectionPad;
   return(
-    <div style={{marginTop:isSm?48:96,paddingTop:isSm?28:48,borderTop:`1px solid ${bandBorder}`}}>
-      <div style={{display:isSm?'flex':'grid',flexDirection:'column',gap:isSm?16:40,gridTemplateColumns:isSm?undefined:'1.1fr auto',alignItems:'end',marginBottom:isSm?24:40}}>
+    <div style={{marginTop:isSm?20:40,paddingTop:isSm?20:32,borderTop:`1px solid ${bandBorder}`}}>
+      <div style={{display:isSm?'flex':'grid',flexDirection:'column',gap:isSm?12:32,gridTemplateColumns:isSm?undefined:'1.1fr auto',alignItems:'center',marginBottom:isSm?16:28}}>
         <div>
           <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:isSm?11:13,letterSpacing:'0.14em',textTransform:'uppercase',color:isDark?'#FFD080':'var(--violet)',marginBottom:isSm?10:14}}>More customer stories</div>
           <h3 style={{color:heading,fontSize:isSm?22:isMd?26:32,lineHeight:1.15,maxWidth:700,textWrap:'pretty'}}>See how other teams are succeeding in the cloud with Archera.</h3>
         </div>
-        <a href="#" style={{display:'inline-flex',alignItems:'center',gap:12,fontFamily:'var(--ff-d)',fontWeight:700,fontSize:isSm?14:16,color:linkColor,textDecoration:'none',padding:isSm?'12px 18px':'14px 22px',borderRadius:999,border:`1.5px solid ${linkColor}`,background:'transparent',whiteSpace:'nowrap',alignSelf:'flex-start'}}>
+        <a href="#" style={{display:'inline-flex',alignItems:'center',gap:12,fontFamily:'var(--ff-d)',fontWeight:700,fontSize:isSm?14:16,color:linkColor,textDecoration:'none',padding:isSm?'12px 18px':'14px 22px',borderRadius:999,border:`1.5px solid ${linkColor}`,background:'transparent',whiteSpace:'nowrap'}}>
           Discover their stories
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke={linkColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
         </a>
       </div>
-      <div style={{position:'relative',marginLeft:negMargin,marginRight:negMargin,background:bandBg,borderTop:`1px solid ${bandBorder}`,borderBottom:`1px solid ${bandBorder}`,padding:isSm?'24px 0 28px':'32px 0 36px',overflow:'hidden'}}>
-        <div style={{fontFamily:'var(--ff-d)',fontWeight:600,fontSize:isSm?11:13,letterSpacing:'0.16em',textTransform:'uppercase',color:isDark?'rgba(255,255,255,0.55)':'var(--slate-4)',marginBottom:isSm?16:24,textAlign:'center'}}>Trusted by cloud teams at scale</div>
+      <div style={{position:'relative',marginLeft:negMargin,marginRight:negMargin,padding:isSm?'16px 0 0':'20px 0 0',overflow:'hidden'}}>
         <div style={{display:'flex',width:'max-content',animation:'logoMarquee 40s linear infinite'}}>
           {[0,1].map(loop=>(
             <div key={loop} style={{display:'flex',alignItems:'center',gap:isSm?40:72,paddingRight:isSm?40:72,flexShrink:0}} aria-hidden={loop===1?'true':undefined}>
@@ -986,18 +1011,8 @@ function TestimonialsVariantD(){
           <div style={{fontFamily:'var(--ff-d)',fontSize:14,fontWeight:600,color:'rgba(255,255,255,0.8)'}}>{idx+1} <span style={{color:'rgba(255,255,255,0.35)'}}>/ {TESTIMONIALS.length}</span></div>
         </div>}
       </div>
-      <div style={{display:'grid',gridTemplateColumns:isSm?'1fr':isMd?'1fr 1.5fr':'1fr 2fr',gap:isSm?12:16}}>
-        {!isSm&&<div key={t.id+'-cs'} style={{position:'relative',background:`linear-gradient(200deg,${bg}1A 0%,${bg}4D 55%,${bg}99 100%),#FFFFFF`,borderRadius:'var(--radius-lg)',padding:isMd?'28px 28px 24px':'40px 40px 36px',display:'flex',flexDirection:'column',minHeight:isMd?380:480,overflow:'hidden',animation:'tcPanel .5s ease both'}}>
-          <div style={{fontFamily:'var(--ff-d)',fontWeight:600,fontSize:13,letterSpacing:'0.14em',textTransform:'uppercase',color:'var(--slate-4)'}}>Case study · {card.tag}</div>
-          <div style={{flex:1,display:'flex',flexDirection:'column'}}>
-            <div style={{flex:1}}/>
-            <h3 style={{fontFamily:'var(--ff-d)',fontWeight:600,fontSize:isMd?26:36,lineHeight:1.1,letterSpacing:'-0.02em',color:'var(--ink)',textWrap:'balance'}}>{card.headline}</h3>
-            <p style={{marginTop:16,fontSize:isMd?14:15,lineHeight:1.55,color:'var(--slate-3)',textWrap:'pretty'}}>{card.blurb}</p>
-            <div style={{flex:2}}/>
-          </div>
-          <a href="#" style={{display:'inline-flex',alignItems:'center',gap:12,fontFamily:'var(--ff-d)',fontWeight:600,fontSize:15,color:'var(--ink)',textDecoration:'none',alignSelf:'flex-start'}}>Read more <span style={{width:30,height:30,borderRadius:'50%',background:'var(--ink)',color:'#fff',display:'grid',placeItems:'center'}}><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/></svg></span></a>
-        </div>}
-        <div key={t.id+'-hero'} style={{position:'relative',background:`linear-gradient(135deg,var(--ink) 0%,var(--ink) 55%,${bg} 180%)`,color:'#fff',borderRadius:'var(--radius-lg)',padding:isSm?'28px 24px 28px':isMd?'28px 32px 32px':'40px 48px 44px',display:'flex',flexDirection:'column',minHeight:isSm?'auto':isMd?380:480,overflow:'hidden',animation:'tcPanel .5s .05s ease both',border:'1px solid rgba(255,255,255,0.18)'}}>
+      <div style={{borderRadius:'var(--radius-lg)',overflow:'hidden',border:'1px solid rgba(255,255,255,0.18)',display:'grid',gridTemplateColumns:isSm?'1fr':isMd?'1.5fr 1fr':'2fr 1fr',gap:0}}>
+        <div key={t.id+'-hero'} style={{position:'relative',background:`linear-gradient(135deg,var(--ink) 0%,var(--ink) 55%,${bg} 180%)`,color:'#fff',padding:isSm?'28px 24px 28px':isMd?'28px 32px 32px':'40px 48px 44px',display:'flex',flexDirection:'column',minHeight:isSm?'auto':isMd?380:480,overflow:'hidden',animation:'tcPanel .5s .05s ease both'}}>
           <div style={{position:'absolute',width:520,height:520,borderRadius:'50%',bottom:-200,right:-140,background:`radial-gradient(circle,${bg}66,transparent 65%)`,pointerEvents:'none'}}/>
           <div style={{position:'relative',display:'flex',alignItems:'center',justifyContent:'space-between',gap:20}}>
             <div style={{display:'flex',alignItems:'center',gap:14}}>
@@ -1015,6 +1030,16 @@ function TestimonialsVariantD(){
             <div style={{paddingBottom:isSm?4:10,fontSize:isSm?12:14,color:'var(--amber)',lineHeight:1.4,maxWidth:320,opacity:0.9}}>{card.statLabel}</div>
           </div>
         </div>
+        {!isSm&&<div key={t.id+'-cs'} style={{position:'relative',background:`linear-gradient(200deg,${bg}1A 0%,${bg}4D 55%,${bg}99 100%),#FFFFFF`,padding:isMd?'28px 28px 24px':'40px 40px 36px',display:'flex',flexDirection:'column',minHeight:isMd?380:480,overflow:'hidden',animation:'tcPanel .5s ease both'}}>
+          <div style={{fontFamily:'var(--ff-d)',fontWeight:600,fontSize:13,letterSpacing:'0.14em',textTransform:'uppercase',color:'var(--slate-4)'}}>Case study · {card.tag}</div>
+          <div style={{flex:1,display:'flex',flexDirection:'column'}}>
+            <div style={{flex:1}}/>
+            <h3 style={{fontFamily:'var(--ff-d)',fontWeight:600,fontSize:isMd?26:36,lineHeight:1.1,letterSpacing:'-0.02em',color:'var(--ink)',textWrap:'balance'}}>{card.headline}</h3>
+            <p style={{marginTop:16,fontSize:isMd?14:15,lineHeight:1.55,color:'var(--slate-3)',textWrap:'pretty'}}>{card.blurb}</p>
+            <div style={{flex:2}}/>
+          </div>
+          <a href="#" style={{display:'inline-flex',alignItems:'center',gap:12,fontFamily:'var(--ff-d)',fontWeight:600,fontSize:15,color:'var(--ink)',textDecoration:'none',alignSelf:'flex-start'}}>Read more <span style={{width:30,height:30,borderRadius:'50%',background:'var(--ink)',color:'#fff',display:'grid',placeItems:'center'}}><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/></svg></span></a>
+        </div>}
       </div>
       <LogoBandAndCTA theme="dark" sectionPad={secPad}/>
       <style>{`@keyframes tcPanel{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}`}</style>

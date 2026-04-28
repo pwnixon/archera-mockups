@@ -1251,19 +1251,18 @@ function LogoBandAndCTA({theme='light'}){
   const linkColor=isDark?'#6DD8FC':'var(--violet)';
   const negMargin=isSm?-20:isMd?-40:-80;
   return(
-    <div style={{marginTop:isSm?48:96,paddingTop:isSm?32:48,borderTop:`1px solid ${bandBorder}`}}>
-      <div style={{display:'grid',gridTemplateColumns:isSm?'1fr':'1.1fr auto',gap:isSm?16:40,alignItems:'end',marginBottom:isSm?24:40}}>
+    <div style={{marginTop:isSm?20:40,paddingTop:isSm?20:32,borderTop:`1px solid ${bandBorder}`}}>
+      <div style={{display:'grid',gridTemplateColumns:isSm?'1fr':'1.1fr auto',gap:isSm?12:32,alignItems:'center',marginBottom:isSm?16:28}}>
         <div>
           <div style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:isSm?11:13,letterSpacing:'0.14em',textTransform:'uppercase',color:isDark?'#FFD080':'var(--violet)',marginBottom:isSm?10:14}}>More customer stories</div>
           <h3 style={{color:heading,fontSize:isSm?22:isMd?26:32,lineHeight:1.15,maxWidth:700,textWrap:'pretty'}}>See how other teams are succeeding in the cloud with Archera.</h3>
         </div>
-        <a href="#" style={{display:'inline-flex',alignItems:'center',gap:12,fontFamily:'var(--ff-d)',fontWeight:700,fontSize:isSm?14:16,color:linkColor,textDecoration:'none',padding:isSm?'12px 18px':'14px 22px',borderRadius:999,border:`1.5px solid ${linkColor}`,background:'transparent',whiteSpace:'nowrap',alignSelf:'flex-start'}}>
+        <a href="#" style={{display:'inline-flex',alignItems:'center',gap:12,fontFamily:'var(--ff-d)',fontWeight:700,fontSize:isSm?14:16,color:linkColor,textDecoration:'none',padding:isSm?'12px 18px':'14px 22px',borderRadius:999,border:`1.5px solid ${linkColor}`,background:'transparent',whiteSpace:'nowrap'}}>
           Discover their stories
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke={linkColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
         </a>
       </div>
-      <div style={{position:'relative',marginLeft:negMargin,marginRight:negMargin,background:bandBg,borderTop:`1px solid ${bandBorder}`,borderBottom:`1px solid ${bandBorder}`,padding:'32px 0 36px',overflow:'hidden'}}>
-        <div style={{fontFamily:'var(--ff-d)',fontWeight:600,fontSize:13,letterSpacing:'0.16em',textTransform:'uppercase',color:label,marginBottom:24,textAlign:'center'}}>Trusted by cloud teams at scale</div>
+      <div style={{position:'relative',marginLeft:negMargin,marginRight:negMargin,padding:'20px 0 0',overflow:'hidden'}}>
         <div style={{display:'flex',width:'max-content',animation:'logoMarquee 40s linear infinite'}}>
           {[0,1].map(loop=>(
             <div key={loop} style={{display:'flex',alignItems:'center',gap:72,paddingRight:72,flexShrink:0}} aria-hidden={loop===1?'true':undefined}>
