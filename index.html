@@ -5,9 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Archera — Homepage Mockups</title>
 <style>
-  body { font-family: system-ui, sans-serif; background: #0C0A30; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; gap: 24px; }
+  body { font-family: system-ui, sans-serif; background: #0C0A30; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; gap: 32px; padding: 40px 20px; box-sizing: border-box; }
   h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
-  .links { display: flex; gap: 16px; }
+  .links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+  .card { display: flex; flex-direction: column; align-items: center; gap: 10px; max-width: 220px; text-align: center; }
+  .card p { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.5; margin: 0; }
   a { display: inline-block; padding: 14px 28px; border-radius: 999px; background: #7101FF; color: #fff; text-decoration: none; font-weight: 600; font-size: 15px; transition: opacity .15s; }
   a:hover { opacity: 0.85; }
   a.b { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); }
@@ -16,9 +18,17 @@
 <body>
   <h1>Archera Homepage Mockups</h1>
   <div class="links">
-    <a href="homepage.html">Homepage</a>
-    <a href="homepage-alt1.html" class="b">Alt 1</a>
-    <a href="homepage-alt2.html" class="b">Alt 2</a>
+    <div class="card">
+      <a href="homepage.html">Homepage</a>
+    </div>
+    <div class="card">
+      <a href="homepage-alt1.html" class="b">Alt 1</a>
+      <p>Same as Homepage, with the problem-fix section replaced by a tab-navigable version.</p>
+    </div>
+    <div class="card">
+      <a href="homepage-alt2.html" class="b">Alt 2</a>
+      <p>Different patterns throughout, with the same scrollytelling problem-fix section as Homepage.</p>
+    </div>
   </div>
 </body>
 </html>
