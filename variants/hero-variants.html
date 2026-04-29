@@ -59,6 +59,12 @@
 
 <script type="text/babel">
 
+function useBreakpoint(){
+  const[w,setW]=React.useState(window.innerWidth);
+  React.useEffect(()=>{const h=()=>setW(window.innerWidth);window.addEventListener('resize',h);return()=>window.removeEventListener('resize',h);},[]);
+  return{isSm:w<640,isMd:w>=640&&w<1024,isLg:w>=1024};
+}
+
 /* ================ FLAT SWOOSH (SVG, gradient, can curve) ================
    Design:
    - Flat stroke, solid color gradient (no blur).
@@ -194,7 +200,7 @@ function TestimonialPill({align='left'}){
   );
 }
 
-function HeroStatsRow({variant='horizontal'}){
+function HeroStatsRow({variant='horizontal',compact=false}){
   const stats = [
     {n:'$4B',   sub:'/yr',   eyebrow:'UNDER MANAGEMENT', l:'in cloud commitments across AWS, Azure & Google Cloud'},
     {n:'$0',    sub:'',      eyebrow:'PLATFORM FEE',      l:'flat pricing, forever — we never take a cut of your savings'},
@@ -202,6 +208,9 @@ function HeroStatsRow({variant='horizontal'}){
     {n:'30',    sub:'-day',  eyebrow:'MINIMUM TERM',      l:'minimum commitment — no multi-year lock-in required'},
     {n:'20–30', sub:'%',     eyebrow:'COST REDUCTION',    l:'typical cloud cost reduction for Archera customers'},
   ];
+  const numSize=compact?28:44; const subSize=compact?12:18;
+  const labelSize=compact?8:9.5; const bodySize=compact?11:12.5;
+  const pad=compact?14:22; const pt=compact?20:32;
   if(variant==='vertical'){
     return (
       <div style={{display:'flex',flexDirection:'column',gap:32}}>
@@ -222,25 +231,47 @@ function HeroStatsRow({variant='horizontal'}){
   }
   return (
     <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:0,
-      borderTop:'1px solid rgba(255,255,255,0.14)',paddingTop:32}}>
+      borderTop:'1px solid rgba(255,255,255,0.14)',paddingTop:pt}}>
       {stats.map((s,i)=>(
-        <div key={i} style={{
-          paddingRight:22,
-          borderRight: i<4?'1px solid rgba(255,255,255,0.1)':'none',
-          paddingLeft: i>0?22:0, minWidth:0,
-          animation:`countUp 0.8s ease-out ${0.12*i+0.4}s both`
-        }}>
-          <div style={{fontFamily:'var(--ff-d)',fontSize:9.5,fontWeight:700,letterSpacing:'0.16em',
-            color:'var(--amber)',marginBottom:12}}>{s.eyebrow}</div>
+        <div key={i} style={{paddingRight:pad,borderRight:i<4?'1px solid rgba(255,255,255,0.1)':'none',
+          paddingLeft:i>0?pad:0,minWidth:0,animation:`countUp 0.8s ease-out ${0.12*i+0.4}s both`}}>
+          <div style={{fontFamily:'var(--ff-d)',fontSize:labelSize,fontWeight:700,letterSpacing:'0.16em',
+            color:'var(--amber)',marginBottom:compact?7:12}}>{s.eyebrow}</div>
           <div style={{display:'flex',alignItems:'baseline',gap:3,whiteSpace:'nowrap'}}>
-            <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:44,letterSpacing:'-0.03em',color:'#fff',lineHeight:0.95}}>{s.n}</span>
-            {s.sub && <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:18,color:'var(--sky)',letterSpacing:'-0.015em'}}>{s.sub}</span>}
+            <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:numSize,letterSpacing:'-0.03em',color:'#fff',lineHeight:0.95}}>{s.n}</span>
+            {s.sub && <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:subSize,color:'var(--sky)',letterSpacing:'-0.015em'}}>{s.sub}</span>}
           </div>
-          <div style={{fontSize:12.5,color:'rgba(255,255,255,0.6)',marginTop:12,fontFamily:'var(--ff-b)',lineHeight:1.45,maxWidth:200}}>{s.l}</div>
+          <div style={{fontSize:bodySize,color:'rgba(255,255,255,0.6)',marginTop:compact?7:12,fontFamily:'var(--ff-b)',lineHeight:1.45,maxWidth:200}}>{s.l}</div>
         </div>
       ))}
     </div>
   )
+}
+
+function HeroTrustStrip(){
+  const{isSm}=useBreakpoint();
+  const logoUrls=Array.from({length:9},(_,i)=>`../assets/customers/logo-0${i+1}.svg`);
+  return(
+    <div style={{borderTop:'1px solid rgba(255,255,255,0.14)',paddingTop:isSm?20:24}}>
+      <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:isSm?9:10,letterSpacing:'0.18em',textTransform:'uppercase',color:'rgba(255,255,255,0.45)',display:'block',marginBottom:isSm?14:16}}>Trusted by leading cloud teams</span>
+      <div style={{overflow:'hidden'}}>
+        <div style={{display:'flex',width:'max-content',animation:'logoMarquee 65s linear infinite'}}>
+          {[0,1].map(loop=>(
+            <div key={loop} style={{display:'flex',alignItems:'center',gap:isSm?36:56,paddingRight:isSm?36:56,flexShrink:0}} aria-hidden={loop===1?'true':undefined}>
+              {logoUrls.map((u,i)=>(
+                <img key={i} src={u} alt="" style={{height:isSm?28:36,width:'auto',filter:'grayscale(1) brightness(0) invert(1)',opacity:0.45,flexShrink:0}}/>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+      <a href="#" style={{display:'inline-flex',alignItems:'center',gap:6,fontFamily:'var(--ff-d)',fontWeight:600,fontSize:isSm?12:13,color:'rgba(255,255,255,0.68)',textDecoration:'none',marginTop:isSm?14:16}}>
+        Learn how Archera is helping customers succeed in the cloud
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" style={{flexShrink:0}}><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+      </a>
+      <style>{`@keyframes logoMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}`}</style>
+    </div>
+  );
 }
 
 /* ========== Hero copy — three versions ==========
@@ -340,7 +371,7 @@ function VariantA(){
           <div/>
         </div>
         <div style={{marginTop:'auto'}}>
-          <HeroStatsRow/>
+          <HeroTrustStrip/>
         </div>
       </div>
     </div>
@@ -349,29 +380,17 @@ function VariantA(){
 
 /* ========== Variant B — Fig 1 mirrored: circle from RIGHT, gradient wedge LEFT ========== */
 function VariantB(){
-  // Similar structure to C but in a cool palette: light blue → periwinkle → purple-blue → light navy.
   return (
     <div style={{position:'relative',width:'100%',height:'100%',overflow:'hidden',color:'#fff',
       background:'linear-gradient(105deg, #5032AC 0%, #7148D8 18%, #8E6FE6 35%, #9B8AEB 52%, #B5A8EF 68%, #D8A8D0 85%, #E89FB4 100%)'}}>
-      {/* Mid-navy circle from the bottom, enormous */}
-      <div style={{position:'absolute',
-        left:'50%', top: 100,
-        width: 4200, height: 4200, borderRadius:'50%',
-        background:'#1A1E4D',
-        transform:'translate(-50%, 0)', zIndex:1}}/>
-
-      {/* Nav sits on the gradient band */}
+      <div style={{position:'absolute',left:'50%',top:100,width:4200,height:4200,borderRadius:'50%',
+        background:'#1A1E4D',transform:'translate(-50%, 0)',zIndex:1}}/>
       <div style={{position:'absolute',top:32,left:80,right:80,zIndex:10}}><Nav/></div>
-
-      {/* Copy is centered, sits over the top of the dark circle */}
-      <div style={{position:'absolute',top:220,left:0,right:0,zIndex:5,textAlign:'center',
-        padding:'0 40px'}}>
+      <div style={{position:'absolute',top:220,left:0,right:0,zIndex:5,textAlign:'center',padding:'0 40px'}}>
         <HeroCopy align="center" size="xl" copy="b"/>
       </div>
-
-      {/* Stats along the bottom */}
       <div style={{position:'absolute',bottom:56,left:80,right:80,zIndex:5}}>
-        <HeroStatsRow/>
+        <HeroTrustStrip/>
       </div>
     </div>
   )
@@ -381,37 +400,111 @@ function VariantB(){
 function VariantC(){
   return (
     <div style={{position:'relative',width:'100%',height:'100%',overflow:'hidden',color:'#fff',
-      // Vertical gradient: peach at top blending into violet on the right
       background:'linear-gradient(105deg, #E89A9A 0%, #D766B5 20%, #C258C6 40%, #A542DD 60%, #8B3DEF 80%, #6B4CFF 100%)'}}>
-      {/* Dark circle from the bottom, enormous, only its upper arc shows */}
-      <div style={{position:'absolute',
-        left:'50%', top: 100,
-        width: 4200, height: 4200, borderRadius:'50%',
-        background:'#0C0A30',
-        transform:'translate(-50%, 0)', zIndex:1}}/>
-
-      {/* Nav sits on the gradient band */}
+      <div style={{position:'absolute',left:'50%',top:100,width:4200,height:4200,borderRadius:'50%',
+        background:'#0C0A30',transform:'translate(-50%, 0)',zIndex:1}}/>
       <div style={{position:'absolute',top:32,left:80,right:80,zIndex:10}}><Nav/></div>
-
-      {/* Copy is centered, sits over the top of the dark circle */}
-      <div style={{position:'absolute',top:220,left:0,right:0,zIndex:5,textAlign:'center',
-        padding:'0 40px'}}>
+      <div style={{position:'absolute',top:220,left:0,right:0,zIndex:5,textAlign:'center',padding:'0 40px'}}>
         <HeroCopy align="center" size="xl" copy="c"/>
       </div>
-
-      {/* Stats along the bottom */}
       <div style={{position:'absolute',bottom:56,left:80,right:80,zIndex:5}}>
-        <HeroStatsRow/>
+        <HeroTrustStrip/>
       </div>
     </div>
   )
 }
 
+/* ========== Variant D — Variant A with responsive metrics ========== */
+function VariantD(){
+  const{isSm,isMd,isLg}=useBreakpoint();
+  const h1Size=isSm?38:isMd?58:77;
+  const hPad=isSm?'0 20px':isMd?'0 40px':'0 80px';
+  const circleLeft=isLg?200:isMd?'32%':'50%';
+  const circleW=isLg?3200:isMd?3200:2400;
+  const circleTop=isSm?60:isMd?80:100;
+  const statsMini=[
+    {n:'$4B',sub:'/yr',eyebrow:'UNDER MGMT'},
+    {n:'$0',sub:'',eyebrow:'PLATFORM FEE'},
+    {n:'SOC 2',sub:'II',eyebrow:'CERTIFIED'},
+    {n:'30',sub:'-day',eyebrow:'MIN TERM'},
+    {n:'20–30',sub:'%',eyebrow:'COST REDUCTION'},
+  ];
+  return(
+    <div style={{position:'relative',width:'100%',height:'100%',overflow:'hidden',color:'#fff',
+      background:'linear-gradient(90deg,#6B4CFF 0%,#8B3DEF 22%,#A542DD 45%,#C258C6 70%,#DC7AA8 88%,#E89A9A 100%)',
+      display:'flex',flexDirection:'column'}}>
+      <div style={{position:'absolute',left:circleLeft,top:circleTop,width:circleW,height:circleW,borderRadius:'50%',
+        background:'#0C0A30',transform:'translate(-50%,0)',zIndex:1}}/>
+      {/* Nav */}
+      <div style={{position:'absolute',top:32,left:isSm?20:isMd?40:80,right:isSm?20:isMd?40:80,zIndex:10}}><Nav/></div>
+      {/* Content */}
+      <div style={{position:'relative',zIndex:5,padding:hPad,flex:1,display:'flex',flexDirection:'column',
+        ...(isMd?{justifyContent:'center',alignItems:'center',paddingTop:88,paddingBottom:160,textAlign:'center'}
+           :isSm?{paddingTop:96,paddingBottom:32,textAlign:'center'}
+               :{justifyContent:'center',paddingTop:72,paddingBottom:24})}}>
+        {isLg?(
+          <div style={{display:'grid',gridTemplateColumns:'1.8fr 1fr',gap:40,alignItems:'center'}}>
+            <div>
+              <h1 style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:h1Size,letterSpacing:'-0.045em',lineHeight:1,margin:0,color:'#fff'}}>
+                Like <span style={{color:'var(--sky)'}}>insurance</span><br/>for your cloud spend.
+              </h1>
+              <p style={{fontSize:20,color:'rgba(255,255,255,0.72)',marginTop:28,maxWidth:520,lineHeight:1.55,textWrap:'pretty'}}>
+                Archera offers a new way to reduce unpredictable cloud costs.{' '}
+                <b style={{color:'#fff',fontWeight:600}}>Confidently buy commitments</b>, and we'll cover whatever goes unused.
+                We call it <b style={{color:'#fff',fontWeight:600}}>insured commitments</b>.
+              </p>
+              <div style={{display:'flex',gap:12,marginTop:36,flexWrap:'wrap'}}>
+                <a className="hero-btn hero-btn-p" style={{padding:'16px 28px',fontSize:16}}>Schedule your demo <span className="btn-arrow"/></a>
+                <a className="hero-btn hero-btn-o" style={{padding:'16px 28px',fontSize:16}}>Start now — it's free</a>
+              </div>
+            </div>
+            <div/>
+          </div>
+        ):(
+          <>
+            <h1 style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:h1Size,letterSpacing:'-0.045em',lineHeight:1,margin:0,color:'#fff'}}>
+              Like <span style={{color:'var(--sky)'}}>insurance</span><br/>for your cloud spend.
+            </h1>
+            <p style={{fontSize:isSm?16:17,color:'rgba(255,255,255,0.72)',marginTop:isSm?16:28,maxWidth:isSm?'100%':520,lineHeight:1.55,textWrap:'pretty',margin:`${isSm?16:28}px auto 0`}}>
+              Archera offers a new way to reduce unpredictable cloud costs.{' '}
+              <b style={{color:'#fff',fontWeight:600}}>Confidently buy commitments</b>, and we'll cover whatever goes unused.
+              We call it <b style={{color:'#fff',fontWeight:600}}>insured commitments</b>.
+            </p>
+            <div style={{display:'flex',gap:12,marginTop:isSm?20:36,flexWrap:'wrap',justifyContent:'center'}}>
+              <a className="hero-btn hero-btn-p" style={{padding:'14px 24px',fontSize:15}}>Schedule your demo <span className="btn-arrow"/></a>
+              <a className="hero-btn hero-btn-o" style={{padding:'14px 24px',fontSize:15}}>Start now — it's free</a>
+            </div>
+          </>
+        )}
+        {isSm&&(
+          <div style={{marginTop:36,display:'grid',gridTemplateColumns:'1fr 1fr',gap:1,borderTop:'1px solid rgba(255,255,255,0.14)',paddingTop:24,textAlign:'left'}}>
+            {statsMini.map((s,i)=>(
+              <div key={i} style={{padding:'14px 12px',borderRight:i%2===0?'1px solid rgba(255,255,255,0.1)':'none',borderBottom:i<3?'1px solid rgba(255,255,255,0.1)':'none'}}>
+                <div style={{fontFamily:'var(--ff-d)',fontSize:8,fontWeight:700,letterSpacing:'0.16em',color:'var(--amber)',marginBottom:6}}>{s.eyebrow}</div>
+                <div style={{display:'flex',alignItems:'baseline',gap:2}}>
+                  <span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:28,letterSpacing:'-0.03em',color:'#fff',lineHeight:1}}>{s.n}</span>
+                  {s.sub&&<span style={{fontFamily:'var(--ff-d)',fontWeight:700,fontSize:13,color:'var(--sky)'}}>{s.sub}</span>}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      {!isSm&&(
+        isLg
+          ?<div style={{position:'relative',zIndex:5,padding:'0 80px 56px'}}><HeroStatsRow/></div>
+          :<div style={{position:'absolute',bottom:24,left:32,right:32,zIndex:5}}><HeroStatsRow compact={true}/></div>
+      )}
+    </div>
+  );
+}
+
 function App(){
   const variants = [
     {id:'A', label:'Arc from bottom-left — copy on dark', el:<VariantA/>},
-    {id:'B', label:'Arc from bottom-right — copy right, gradient left', el:<VariantB/>},
-    {id:'C', label:'Arc from below center — copy centered, wide top band', el:<VariantC/>},
+    {id:'B', label:'Arc centered — cool gradient', el:<VariantB/>},
+    {id:'C', label:'Arc centered — warm gradient', el:<VariantC/>},
+    {id:'D', label:'Variant A + responsive metrics', el:<VariantD/>},
   ];
   return (
     <div className="page-wrap">
